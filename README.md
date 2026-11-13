@@ -11,7 +11,7 @@
    - `.nojekyll`처럼 점으로 시작하는 파일이 안 보이면 없어도 동작합니다.
 5. 아래 **Commit changes** 클릭
 6. 저장소 **Settings → Pages** → Source: **Deploy from a branch** → Branch: **main** / **/(root)** → **Save**
-7. 1~2분 뒤 같은 화면 위쪽에 주소가 나타납니다: `https://<GitHub아이디>.github.io/kf-worklog/`
+7. 1~2분 뒤 같은 화면 위쪽에 주소가 나타납니다: `https://<GitHub아이디>.github.io/korea-food-mes-dashboard/`
 
 ## 로그인
 
