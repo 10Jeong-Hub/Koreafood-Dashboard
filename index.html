@@ -535,6 +535,37 @@ table.st tr.sub td{background:var(--hover);padding:12px 14px;text-align:left;bor
 :root[data-theme="dark"]:not([data-kf-theme="light"]) .lg-logo.logo-w,:root[data-kf-theme="dark"] .lg-logo.logo-w{display:block}
 @media (max-height:760px){.lg-card{gap:10px;padding:20px 20px 16px}.lg-keys button{height:50px}.lg-logo{height:28px}}
 
+
+/* ================= 2차 수정: 공정명 · 제품 여러 개 · BOM ================= */
+.cell .atag{font-style:normal;font-size:10.5px;font-weight:700;color:var(--blue);background:var(--blue-soft);border-radius:5px;padding:0 5px;margin-top:2px;line-height:1.6}
+.cell .ml{display:block;font-size:12.5px;line-height:1.3;font-weight:700}
+.cell .ml + .ml{margin-top:2px;padding-top:2px;border-top:1px dashed var(--line)}
+.cell .bomx{display:block;font-size:11px;color:var(--muted);font-weight:600;margin-top:2px}
+.cv small{display:block;font-size:11px;color:var(--muted);font-weight:600}
+.pk-list .pg{display:flex;flex-direction:column;gap:6px}
+.pk-list .pg + .pg{margin-top:6px}
+.pk-list .pl button.pg-h{flex-direction:row;align-items:center;gap:6px;min-height:42px;background:var(--hover);border-color:transparent}
+.pk-list .pl button.pg-h svg{width:16px;height:16px;color:var(--muted)}
+.pk-list .pl button.pg-h small{margin-left:auto}
+.pk-list .pl button.pg-h.on{background:var(--orange-soft)}
+.pk-list .pl button.chk{flex-direction:row;align-items:center;gap:10px}
+.pk-list .pl button.chk i{flex:none;width:24px;height:24px;border-radius:7px;border:2px solid var(--line);display:grid;place-items:center;background:var(--card)}
+.pk-list .pl button.chk i svg{width:16px;height:16px;color:#fff}
+.pk-list .pl button.chk.on i{background:var(--orange);border-color:var(--orange)}
+.pk-list .pl button.chk span{display:flex;flex-direction:column}
+.pk-list .pl button.chk.on{border-color:var(--orange);background:var(--orange-soft)}
+.bom-row{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;margin-bottom:8px}
+.bom-row .chips{flex:1 1 260px}
+.bom-row .bpct{width:130px;min-height:46px;flex:none}
+.bom-row .bpct:disabled{opacity:.4}
+.sheet .tp-sec small{font-weight:400;color:var(--muted);margin-left:4px}
+.part{display:flex;flex-direction:column;gap:4px;margin-top:8px;font-size:13px;color:var(--ink-2)}
+.part span{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.part .lnk{font-size:13px}
+.doc td.pl2{font-size:10.5px;line-height:1.25}
+.mrow .tx small{line-height:1.45}
+.mgrp small{font-weight:400;margin-left:6px}
+
 /* ---------- 반응형 ---------- */
 @media (max-width:1100px){
   .fields{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -629,6 +660,20 @@ table.st tr.sub td{background:var(--hover);padding:12px 14px;text-align:left;bor
 :root[data-theme="dark"]:not([data-kf-theme="light"]) .top .logo-w,:root[data-kf-theme="dark"] .top .logo-w{display:block}
 body{background:var(--bg)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ================= PC 정리 (901px 이상): 위쪽 칸 정렬 · 하단 바를 카드 안 둥근 막대로 (모바일은 그대로) ================= */
+@media (min-width:901px){
+  .day-head{align-items:start;row-gap:6px}
+  .day-head .fl{min-height:21px;display:flex;align-items:center;flex-wrap:wrap}
+  .day-head .fl small{font-weight:400;color:var(--muted);font-size:12px;margin-left:6px}
+  .day-head .day-tip{display:flex;align-items:center;padding-top:0}
+  .day-head .fh{margin-top:2px}
+  .day-head .chips{min-height:54px;align-items:center}
+  .bar{margin:20px 0 0;padding:14px 16px 14px 22px;border:1px solid var(--line);border-radius:16px;bottom:16px;box-shadow:0 10px 30px rgba(16,24,40,.10)}
+  .bar .res{align-items:center}
+  .bar .res.none .big{display:none}
+}
+@media (min-width:1261px){.wrap.full .card{padding:20px 22px 22px}}
 
 </style>
 </head>
@@ -751,20 +796,64 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   const PROCS = [
     { id: 'raw', label: '생막창', title: '생산일지(생막창)', sub: '(숙성돼지막창-회색/갈색/제일/안지랑/신풍/소덤소덤/성주/마시불/미진)', sauce: '생막창 양념소스' },
     { id: 'grill', label: '초벌·훈제', title: '생산일지', sub: '(통 초벌/훈제막창)', sauce: '훈초벌 양념소스' },
+    { id: 'etc', label: '기타 공정', title: '생산일지', sub: '', sauce: '' },   // 소막창 · 제육 · 뼈삼겹 · 닭발 등 (부제는 공정명)
   ];
   const procOf = id => PROCS.find(p => p.id === id) || null;
+  // 회사 제품분류(품목보고현황.xls) 기준 목록 — 공정 · 제품(세부) · 사용 원료육 · 원재료 배합비(BOM) · 소스
+  const CONFIG_VER = 2;
   const DEFAULT_CONFIG = {
-    meats: [{ name: '(돈막창)하이라이프', input: '돼지막창', origin: '캐나다산' }],
+    ver: CONFIG_VER,
+    meats: [{"name": "(돈막창)하이라이프", "input": "돼지막창", "origin": "캐나다산"}, {"name": "(돈막창)ICP", "input": "돼지막창", "origin": ""}, {"name": "(소홍창)스위프트", "input": "소막창", "origin": ""}, {"name": "(돈전지)INCARLOPSA", "input": "돼지고기", "origin": ""}, {"name": "뼈삼겹살", "input": "돼지고기", "origin": ""}, {"name": "무뼈닭발", "input": "닭발", "origin": ""}],
     origins: ['캐나다산', '미국산', '스페인산', '국내산', '외국산'],
-    sauces: ['생막창 양념소스', '훈초벌 양념소스'],
-    jobs: ['회색', '갈색', '미진', '통초벌', '슬라이스', '훈제', 'A막창'],
+    sauces: ["생막창 양념소스", "소막창 양념소스", "훈초벌 양념소스", "파삼초벌 양념소스", "코리아제육양념소스", "뼈삼겹살양념소스", "생납작 양념소스", "코리아닭발양념", "초벌훈제납작 양념소스"],
+    // 공정 → 생산일지 양식 (raw: 생산일지(생막창) · grill: 생산일지(통 초벌/훈제막창) · etc: 생산일지(기타 공정))
+    processes: [{"name": "생막창", "form": "raw"}, {"name": "생납작", "form": "raw"}, {"name": "소막창", "form": "etc"}, {"name": "통초벌", "form": "grill"}, {"name": "초벌 머리꼬리", "form": "grill"}, {"name": "훈제 머리꼬리", "form": "grill"}, {"name": "파삼 생막창", "form": "raw"}, {"name": "제육볶음", "form": "etc"}, {"name": "뼈삼겹", "form": "etc"}, {"name": "생납작(3등분)", "form": "raw"}, {"name": "가열닭발", "form": "etc"}, {"name": "초벌납작", "form": "grill"}, {"name": "파삼초벌", "form": "grill"}, {"name": "비가열닭발", "form": "etc"}, {"name": "훈제납작", "form": "grill"}],
     products: [
-      { name: '회색 숙성돼지막창 - 2kg', proc: 'raw', job: '회색', unitKg: 2, origin: '외국산', shelfDays: 455 },
-      { name: '미진 숙성돼지막창 - 1kg', proc: 'raw', job: '미진', unitKg: 1, origin: '외국산', shelfDays: 455 },
-      { name: '김사부의 돼지막창 - 2kg', proc: 'grill', job: '통초벌', unitKg: 2, origin: '캐나다산', shelfDays: 363 },
-      { name: '통초벌막창 - 2kg', proc: 'grill', job: '통초벌', unitKg: 2, origin: '캐나다산', shelfDays: 363 },
-      { name: '슬라이스 초벌막창 - 2kg', proc: 'grill', job: '슬라이스', unitKg: 2, origin: '캐나다산', shelfDays: 363 },
-      { name: 'A막창 - 2kg', proc: '', job: 'A막창', unitKg: 2, origin: '', shelfDays: 0 },
+      {"name": "회색 숙성돼지막창 - 2kg", "group": "숙성돼지막창", "job": "생막창", "meat": "(돈막창)하이라이프", "unitKg": 2, "origin": "외국산", "shelfDays": 455, "bom": {"main": "돼지막창", "mainPct": 95.85, "sauce": "생막창 양념소스", "saucePct": 4.15}},
+      {"name": "미진 숙성돼지막창 - 1kg", "group": "숙성돼지막창", "job": "생막창", "meat": "(돈막창)하이라이프", "unitKg": 1, "origin": "", "shelfDays": 455, "bom": {"main": "돼지막창", "mainPct": 95.85, "sauce": "생막창 양념소스", "saucePct": 4.15}},
+      {"name": "안지랑 숙성돼지막창 - 1kg", "group": "숙성돼지막창", "job": "생막창", "meat": "(돈막창)하이라이프", "unitKg": 1, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.85, "sauce": "생막창 양념소스", "saucePct": 4.15}},
+      {"name": "갈색 숙성돼지막창 - 2kg", "group": "숙성돼지막창", "job": "생막창", "meat": "(돈막창)ICP", "unitKg": 2, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.85, "sauce": "생막창 양념소스", "saucePct": 4.15}},
+      {"name": "마시불 숙성돼지막창 - 2kg", "group": "마시불 숙성돼지막창", "job": "생납작", "meat": "(돈막창)하이라이프", "unitKg": 2, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.7, "sauce": "생막창 양념소스", "saucePct": 4.3}},
+      {"name": "성주 숙성돼지막창 - 2kg", "group": "성주 숙성돼지막창", "job": "생막창", "meat": "(돈막창)하이라이프", "unitKg": 2, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.85, "sauce": "생막창 양념소스", "saucePct": 4.15}},
+      {"name": "숙성소막창 - 2kg", "group": "숙성소막창", "job": "소막창", "meat": "(소홍창)스위프트", "unitKg": 2, "origin": "", "shelfDays": null, "bom": {"main": "소막창", "mainPct": 94.36, "sauce": "소막창 양념소스", "saucePct": 5.64}},
+      {"name": "청춘불판 숙성소막창 - 200g", "group": "숙성소막창", "job": "소막창", "meat": "(소홍창)스위프트", "unitKg": 0.2, "origin": "", "shelfDays": null, "bom": {"main": "소막창", "mainPct": 94.36, "sauce": "소막창 양념소스", "saucePct": 5.64}},
+      {"name": "초벌막창 - 2kg", "group": "초벌막창", "job": "통초벌", "meat": "(돈막창)하이라이프", "unitKg": 2, "origin": "", "shelfDays": 363, "bom": {"main": "돼지막창", "mainPct": 95.55, "sauce": "훈초벌 양념소스", "saucePct": 4.45}},
+      {"name": "슬라이스 초벌막창 - 2kg", "group": "초벌막창", "job": "초벌 머리꼬리", "meat": "(돈막창)하이라이프", "unitKg": 2, "origin": "", "shelfDays": 363, "bom": {"main": "돼지막창", "mainPct": 95.55, "sauce": "훈초벌 양념소스", "saucePct": 4.45}},
+      {"name": "안지랑 초벌막창 - 1kg", "group": "초벌막창", "job": "초벌 머리꼬리", "meat": "(돈막창)하이라이프", "unitKg": 1, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.55, "sauce": "훈초벌 양념소스", "saucePct": 4.45}},
+      {"name": "초벌막창 - 400g", "group": "초벌막창", "job": "초벌 머리꼬리", "meat": "(돈막창)하이라이프", "unitKg": 0.4, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.55, "sauce": "훈초벌 양념소스", "saucePct": 4.45}},
+      {"name": "성주 초벌막창 - 400g", "group": "초벌막창", "job": "초벌 머리꼬리", "meat": "(돈막창)하이라이프", "unitKg": 0.4, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.55, "sauce": "훈초벌 양념소스", "saucePct": 4.45}},
+      {"name": "성주 초벌막창 - 300g", "group": "초벌막창", "job": "초벌 머리꼬리", "meat": "(돈막창)하이라이프", "unitKg": 0.3, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.55, "sauce": "훈초벌 양념소스", "saucePct": 4.45}},
+      {"name": "훈제막창 - 1kg", "group": "훈제막창", "job": "훈제 머리꼬리", "meat": "(돈막창)하이라이프", "unitKg": 1, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.55, "sauce": "훈초벌 양념소스", "saucePct": 4.45}},
+      {"name": "훈제막창 - 500g", "group": "훈제막창", "job": "훈제 머리꼬리", "meat": "(돈막창)하이라이프", "unitKg": 0.5, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.55, "sauce": "훈초벌 양념소스", "saucePct": 4.45}},
+      {"name": "훈제막창 - 400g", "group": "훈제막창", "job": "훈제 머리꼬리", "meat": "(돈막창)하이라이프", "unitKg": 0.4, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.55, "sauce": "훈초벌 양념소스", "saucePct": 4.45}},
+      {"name": "안지랑 훈제막창 - 400g", "group": "훈제막창", "job": "훈제 머리꼬리", "meat": "(돈막창)하이라이프", "unitKg": 0.4, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.55, "sauce": "훈초벌 양념소스", "saucePct": 4.45}},
+      {"name": "태승 훈제막창 - 400g", "group": "훈제막창", "job": "훈제 머리꼬리", "meat": "(돈막창)하이라이프", "unitKg": 0.4, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.55, "sauce": "훈초벌 양념소스", "saucePct": 4.45}},
+      {"name": "근사한끼 훈제막창 - 200g", "group": "훈제막창", "job": "훈제 머리꼬리", "meat": "(돈막창)하이라이프", "unitKg": 0.2, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.55, "sauce": "훈초벌 양념소스", "saucePct": 4.45}},
+      {"name": "청춘불판 훈제막창 - 250g", "group": "훈제막창", "job": "훈제 머리꼬리", "meat": "(돈막창)하이라이프", "unitKg": 0.25, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.55, "sauce": "훈초벌 양념소스", "saucePct": 4.45}},
+      {"name": "육육정 훈제막창 - 250g", "group": "훈제막창", "job": "훈제 머리꼬리", "meat": "(돈막창)하이라이프", "unitKg": 0.25, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.55, "sauce": "훈초벌 양념소스", "saucePct": 4.45}},
+      {"name": "도시별장 훈제막창 - 250g", "group": "훈제막창", "job": "훈제 머리꼬리", "meat": "(돈막창)하이라이프", "unitKg": 0.25, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.55, "sauce": "훈초벌 양념소스", "saucePct": 4.45}},
+      {"name": "김사부의 돼지막창 - 2kg", "group": "김사부의 돼지막창", "job": "훈제 머리꼬리", "meat": "(돈막창)하이라이프", "unitKg": 2, "origin": "캐나다산", "shelfDays": 363, "bom": {"main": "돼지막창", "mainPct": 95.55, "sauce": "훈초벌 양념소스", "saucePct": 4.45}},
+      {"name": "파삼 숙성돼지막창 - 2kg", "group": "파삼 숙성돼지막창", "job": "파삼 생막창", "meat": "(돈막창)하이라이프", "unitKg": 2, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.67, "sauce": "파삼초벌 양념소스", "saucePct": 4.33}},
+      {"name": "제육볶음 - 1kg", "group": "제육볶음", "job": "제육볶음", "meat": "(돈전지)INCARLOPSA", "unitKg": 1, "origin": "", "shelfDays": null, "bom": {"main": "돼지고기", "mainPct": 64.96, "sauce": "코리아제육양념소스", "saucePct": 35.04}},
+      {"name": "제육볶음 - 500g", "group": "제육볶음", "job": "제육볶음", "meat": "(돈전지)INCARLOPSA", "unitKg": 0.5, "origin": "", "shelfDays": null, "bom": {"main": "돼지고기", "mainPct": 64.96, "sauce": "코리아제육양념소스", "saucePct": 35.04}},
+      {"name": "참숯골 뼈삼겹살 - 5kg", "group": "뼈삼겹살", "job": "뼈삼겹", "meat": "뼈삼겹살", "unitKg": 5, "origin": "", "shelfDays": 363, "bom": {"main": "돼지고기", "mainPct": 60.0, "sauce": "뼈삼겹살양념소스", "saucePct": 40.0}},
+      {"name": "완산벌 뼈삼겹살 - 5kg", "group": "완산벌 뼈삼겹살", "job": "뼈삼겹", "meat": "뼈삼겹살", "unitKg": 5, "origin": "", "shelfDays": 363, "bom": {"main": "돼지고기", "mainPct": 60.0, "sauce": "뼈삼겹살양념소스", "saucePct": 40.0}},
+      {"name": "쿠캣 납작막창 - 200g", "group": "납작막창", "job": "생납작(3등분)", "meat": "(돈막창)하이라이프", "unitKg": 0.2, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 94.85, "sauce": "생납작 양념소스", "saucePct": 5.15}},
+      {"name": "청춘불판 무뼈불닭발 - 300g", "group": "무뼈불닭발", "job": "가열닭발", "meat": "무뼈닭발", "unitKg": 0.3, "origin": "", "shelfDays": null, "bom": {"main": "닭발", "mainPct": 65.0, "sauce": "코리아닭발양념", "saucePct": 35.0}},
+      {"name": "청춘불판 무뼈불닭발 - 200g", "group": "무뼈불닭발", "job": "가열닭발", "meat": "무뼈닭발", "unitKg": 0.2, "origin": "", "shelfDays": null, "bom": {"main": "닭발", "mainPct": 65.0, "sauce": "코리아닭발양념", "saucePct": 35.0}},
+      {"name": "초벌누드닭발 - 1kg", "group": "초벌닭발", "job": "가열닭발", "meat": "무뼈닭발", "unitKg": 1, "origin": "", "shelfDays": null, "bom": {"main": "닭발", "mainPct": 65.0, "sauce": "", "saucePct": 0}},
+      {"name": "초벌납작막창 - 2kg", "group": "초벌납작막창", "job": "초벌납작", "meat": "(돈막창)하이라이프", "unitKg": 2, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 94.74, "sauce": "초벌훈제납작 양념소스", "saucePct": 5.26}},
+      {"name": "뚱보집 초벌납작막창 - 1kg", "group": "초벌납작막창", "job": "초벌납작", "meat": "(돈막창)하이라이프", "unitKg": 1, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 94.74, "sauce": "초벌훈제납작 양념소스", "saucePct": 5.26}},
+      {"name": "청춘불판 초벌납작막창 - 250g", "group": "초벌납작막창", "job": "초벌납작", "meat": "(돈막창)하이라이프", "unitKg": 0.25, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 94.74, "sauce": "초벌훈제납작 양념소스", "saucePct": 5.26}},
+      {"name": "도시별장 초벌납작막창 - 250g", "group": "초벌납작막창", "job": "초벌납작", "meat": "(돈막창)하이라이프", "unitKg": 0.25, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 94.74, "sauce": "초벌훈제납작 양념소스", "saucePct": 5.26}},
+      {"name": "파삼 초벌막창 - 2kg", "group": "파삼 초벌돼지막창", "job": "파삼초벌", "meat": "(돈막창)하이라이프", "unitKg": 2, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 95.49, "sauce": "파삼초벌 양념소스", "saucePct": 4.51}},
+      {"name": "무뼈양념닭발 - 250g", "group": "무뼈양념닭발", "job": "비가열닭발", "meat": "무뼈닭발", "unitKg": 0.25, "origin": "", "shelfDays": 729, "bom": {"main": "닭발", "mainPct": 60.0, "sauce": "코리아닭발양념", "saucePct": 40.0}},
+      {"name": "청춘불판 편편막창 - 200g", "group": "편편막창", "job": "생납작(3등분)", "meat": "(돈막창)하이라이프", "unitKg": 0.2, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 94.85, "sauce": "생납작 양념소스", "saucePct": 5.15}},
+      {"name": "뚱보집 훈제납작막창 - 2kg", "group": "훈제납작막창", "job": "훈제납작", "meat": "(돈막창)하이라이프", "unitKg": 2, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 94.74, "sauce": "초벌훈제납작 양념소스", "saucePct": 5.26}},
+      {"name": "리니네 훈제납작막창 - 400g", "group": "훈제납작막창", "job": "훈제납작", "meat": "(돈막창)하이라이프", "unitKg": 0.4, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 94.74, "sauce": "초벌훈제납작 양념소스", "saucePct": 5.26}},
+      {"name": "청춘불판 훈제납작막창 - 250g", "group": "훈제납작막창", "job": "훈제납작", "meat": "(돈막창)하이라이프", "unitKg": 0.25, "origin": "", "shelfDays": null, "bom": {"main": "돼지막창", "mainPct": 94.74, "sauce": "초벌훈제납작 양념소스", "saucePct": 5.26}},
+      {"name": "김사부의 무뼈불닭발 - 300g", "group": "김사부의 무뼈불닭발", "job": "가열닭발", "meat": "무뼈닭발", "unitKg": 0.3, "origin": "", "shelfDays": 729, "bom": {"main": "닭발", "mainPct": 65.0, "sauce": "코리아닭발양념", "saucePct": 35.0}},
+      {"name": "A막창 - 2kg", "group": "A막창", "job": "", "meat": "(돈막창)하이라이프", "unitKg": 2, "origin": "", "shelfDays": 0, "bom": null}
     ],
     // 계산 기준 (설정에서 바꿈)
     calc: { washBasis: 'wash', packFormula: 'withRest', packBase: 'use', washWarn: 5, packWarn: 5 },
@@ -773,13 +862,28 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   const loadLS = k => { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } };
   const saveLS = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } };
   const clone = o => JSON.parse(JSON.stringify(o));
+  const uniq = a => [...new Set(a.filter(Boolean))];
+  const OLD_GUESS_PRODUCTS = ['통초벌막창 - 2kg'];   // 1차 버전에서 추정으로 넣었던 이름
   const mergeConfig = c => {
-    const d = clone(DEFAULT_CONFIG), o = Object.assign(d, c || {});
-    o.calc = Object.assign(clone(DEFAULT_CONFIG.calc), (c && c.calc) || {});
-    ['meats', 'origins', 'sauces', 'products', 'jobs'].forEach(k => { if (!Array.isArray(o[k])) o[k] = clone(DEFAULT_CONFIG[k]); });
-    o.products.forEach(p => { if (p.job && !o.jobs.includes(p.job)) o.jobs.push(p.job); });
+    c = c || {};
+    const o = Object.assign(clone(DEFAULT_CONFIG), c);
+    o.calc = Object.assign(clone(DEFAULT_CONFIG.calc), c.calc || {});
+    if ((c.ver || 1) < CONFIG_VER) {   // 예전 목록 → 회사 제품분류 목록 (직접 추가한 항목은 유지)
+      const D = clone(DEFAULT_CONFIG);
+      o.meats = [...D.meats, ...(c.meats || []).filter(m => m && m.name && !D.meats.some(x => x.name === m.name))];
+      o.origins = uniq([...D.origins, ...(c.origins || [])]);
+      o.sauces = uniq([...D.sauces, ...(c.sauces || [])]);
+      o.products = [...D.products, ...(c.products || []).filter(p => p && p.name && !OLD_GUESS_PRODUCTS.includes(p.name) && !D.products.some(x => x.name === p.name)).map(p => Object.assign(p, { job: '' }))];
+      o.processes = D.processes;
+      o.ver = CONFIG_VER;
+    }
+    ['meats', 'origins', 'sauces', 'products', 'processes'].forEach(k => { if (!Array.isArray(o[k])) o[k] = clone(DEFAULT_CONFIG[k]); });
+    o.products.forEach(p => {   // 제품의 생산일지 양식은 공정에서
+      if (p.job && !o.processes.some(x => x.name === p.job)) o.processes.push({ name: p.job, form: p.proc || 'etc' });
+      const pr = o.processes.find(x => x.name === p.job); p.proc = pr ? pr.form : '';
+    });
     ['washWarn', 'packWarn'].forEach(k => { o.calc[k] = +o.calc[k] > 0 ? +o.calc[k] : 5; });
-    delete o.formDate; delete o.procs;
+    delete o.formDate; delete o.procs; delete o.jobs;
     return o;
   };
 
@@ -899,17 +1003,41 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   const washYieldOf = (outKg, washKg, use) => { const b = CALC().washBasis === 'use' ? (use != null ? use : washKg) : washKg; return outKg > 0 && b > 0 ? b / outKg * 100 : null; };
   const washYield = l => l.wash ? washYieldOf(l.outKg, l.wash.kg, useKg(l)) : null;
   const packsOf = l => state.packs.filter(p => (p.lotIds || []).includes(l.id));
-  const statusOf = l => packsOf(l).length ? 'done' : l.wash ? 'washed' : 'out';
+  // 원료육 하나가 여러 제품(브랜드 · 중량)으로 포장될 수 있음
+  const lotProducts = l => (l.products && l.products.length ? l.products : (l.product ? [l.product] : []));
+  const packedProducts = l => uniq(packsOf(l).map(p => p.product));
+  const leftProducts = l => lotProducts(l).filter(n => !packedProducts(l).includes(n));
+  // 포장 완료: 계획한 제품을 모두 포장했거나, '포장 끝'으로 표시한 경우
+  const statusOf = l => { const pk = packsOf(l); if (!pk.length) return l.wash ? 'washed' : 'out'; return l.packDone || !leftProducts(l).length ? 'done' : 'washed'; };
   const packKg = p => p.kg != null ? p.kg : (p.qty || 0) * (p.unitKg || 0);
   const lotBase = l => CALC().packBase === 'wash' ? (l.wash ? l.wash.kg : 0) : (useKg(l) || 0);
   const baseOf = ids => (ids || []).map(lotById).filter(Boolean).reduce((s, l) => s + lotBase(l), 0);
   const packBase = p => baseOf(p.lotIds);
   // 포장 수율 = (포장중량 + 잔량 + 폐기) ÷ 연결 원료육 실사용중량 — 회사 작업일지와 같은 식 (설정에서 바꿀 수 있음)
   const packYieldOf = (kgv, restG, wasteG, base) => base > 0 && kgv != null ? (kgv + (CALC().packFormula === 'withRest' ? (restG || 0) / 1000 + (wasteG || 0) / 1000 : 0)) / base * 100 : null;
-  const packYield = p => packYieldOf(packKg(p), p.restG, p.wasteG, packBase(p));
+  // 같은 원료육으로 여러 제품을 포장하면 그 원료육 묶음 전체를 합산해 수율 계산 (제품별로 나누면 반쪽 수율이 됨)
+  function packGroup(p, all) {
+    const lots = new Set(p.lotIds || []), G = new Set([p]);
+    if (!lots.size) return { packs: [p], lots: [] };
+    for (let changed = true; changed;) {
+      changed = false;
+      for (const q of all) { if (G.has(q) || !(q.lotIds || []).some(id => lots.has(id))) continue; G.add(q); (q.lotIds || []).forEach(id => lots.add(id)); changed = true; }
+    }
+    return { packs: [...G], lots: [...lots] };
+  }
+  const packOut = q => packKg(q) + (CALC().packFormula === 'withRest' ? (q.restG || 0) / 1000 + (q.wasteG || 0) / 1000 : 0);
+  function groupYield(p, all) { const g = packGroup(p, all), b = baseOf(g.lots); return b > 0 ? g.packs.reduce((s, q) => s + packOut(q), 0) / b * 100 : null; }
+  const packYield = p => groupYield(p, state.packs);
+  const isGrouped = (p, all) => packGroup(p, all || state.packs).packs.length > 1;
   const sauceShort = s => String(s || '').replace(/\s*양념\s*소스$/, '').replace(/\s*소스$/, '');
   const traceTail = t => t ? '…' + String(t).slice(-4) : '';
-  const jobsOf = () => state.config.jobs;
+  const jobsOf = () => state.config.processes.map(x => x.name);
+  const processOf = name => state.config.processes.find(x => x.name === name) || null;
+  const formOfJob = name => (processOf(name) || {}).form || null;
+  // BOM: 소스 투입중량 = 기준 원료 무게 × 소스% ÷ 원료% (예: 947kg × 4.15 ÷ 95.85 = 41.00kg)
+  const bomOfLot = l => { for (const n of lotProducts(l)) { const p = productOf(n); if (p && p.bom && p.bom.mainPct) return p.bom; } return null; };
+  const bomSauceKg = (bom, baseKg) => bom && bom.saucePct && baseKg > 0 ? Math.round(baseKg * bom.saucePct / bom.mainPct * 100) / 100 : null;
+  const bomText = b => b ? `${b.main} ${b.mainPct}%${b.sauce ? ` · ${b.sauce} ${b.saucePct}%` : ''}` : '';
 
   // ---------- 화면 틀 ----------
   const TABS = [
@@ -1196,7 +1324,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   function openAdd(kind) {
     if (kind === 'origin') return openText('원산지 추가', '', async v => { if (v && await addToConfig('origins', v)) setF('origin', v); }, '예: 칠레산');
     if (kind === 'sauce') return openText('양념소스 추가', '', async v => { if (v && await addToConfig('sauces', v)) setF('sauce', v); }, '예: 매운 양념소스');
-    if (kind === 'job') return openText('작업명 추가', '', async v => { if (v && await addToConfig('jobs', v)) setF('job', v); }, '예: 갈색');
+    if (kind === 'job') return openText('공정명 추가', '', async v => { if (v && await addProcess(v)) setF('job', v); }, '예: 생막창');
     if (kind === 'meat') return openMeat(null, name => setF('meat', name));
     if (kind === 'product') return openProduct(null);
   }
@@ -1228,42 +1356,98 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     };
     setPopKeys(null); draw();
   }
-  // 제품 추가 · 수정 (작업 유형, 작업명, 규격, 원산지 표기, 소비기한 일수)
+  // 제품 추가 · 수정: 세부 제품명, 제품명(묶음), 공정명, 사용 원료육, 규격, 원산지 표기, 소비기한, BOM(원재료 배합비 · 소스)
   function openProduct(name, after) {
-    const p = name ? clone(productOf(name)) : { name: '', proc: (F_().proc) || 'raw', job: '', unitKg: 2, origin: '', shelfDays: null };
+    const cur = name ? productOf(name) : null;
+    const p = cur ? clone(cur) : { name: '', group: '', job: (state.form && state.form.rows ? '' : '') || '', meat: (state.config.meats[0] || {}).name || '', unitKg: 2, origin: '', shelfDays: null, bom: null };
+    if (!p.bom) p.bom = { main: (meatOf(p.meat) || {}).input || '돼지막창', mainPct: null, sauce: '', saucePct: null };
+    const UNITS = [0.2, 0.25, 0.3, 0.4, 0.5, 1, 2, 5];
     const draw = () => {
+      const C0 = state.config, b = p.bom;
       openSheet(`<div class="cal-title" style="font-size:17px">${name ? '제품 수정' : '새 제품'}</div>
-        <div class="tp-sec">제품명</div><input class="input" id="pn" value="${esc(p.name)}" placeholder="예: 갈색 숙성돼지막창 - 2kg" autocomplete="off">
-        <div class="tp-sec">작업 유형</div><div class="chips">${[...PROCS, { id: '', label: '따로 포장' }].map(x => `<button class="chip ${p.proc === x.id ? 'on' : ''}" data-pp="${x.id}">${x.label}</button>`).join('')}</div>
-        <div class="tp-sec">작업명 (일지의 제품명 칸)</div><div class="chips">${state.config.jobs.map(j => `<button class="chip ${p.job === j ? 'on' : ''}" data-pj="${esc(j)}">${esc(j)}</button>`).join('')}</div>
-        <div class="tp-sec">규격 (1개)</div><div class="chips">${[0.3, 0.35, 0.5, 1, 2].map(v => `<button class="chip ${p.unitKg === v ? 'on' : ''}" data-pu="${v}">${v < 1 ? v * 1000 + 'g' : v + 'kg'}</button>`).join('')}<button class="chip ${[0.3, 0.35, 0.5, 1, 2].includes(p.unitKg) ? '' : 'on'}" data-pux>${[0.3, 0.35, 0.5, 1, 2].includes(p.unitKg) ? '직접' : (p.unitKg || '-') + 'kg'}</button></div>
-        <div class="tp-sec">원산지 표기</div><div class="chips">${state.config.origins.map(o => `<button class="chip ${p.origin === o ? 'on' : ''}" data-po="${esc(o)}">${esc(o)}</button>`).join('')}</div>
-        <div class="tp-sec">소비기한 (포장일부터)</div><div class="chips">${[0, 90, 180, 363, 365, 455].map(v => `<button class="chip ${p.shelfDays === v ? 'on' : ''}" data-ps="${v}">${v}일</button>`).join('')}<button class="chip ${[0, 90, 180, 363, 365, 455].includes(p.shelfDays) || p.shelfDays == null ? '' : 'on'}" data-psx>${[0, 90, 180, 363, 365, 455].includes(p.shelfDays) || p.shelfDays == null ? '직접' : p.shelfDays + '일'}</button></div>
+        <div class="tp-sec">세부 제품명 (포장 제품)</div><input class="input" id="pn" value="${esc(p.name)}" placeholder="예: 회색 숙성돼지막창 - 2kg" autocomplete="off">
+        <div class="tp-sec">제품명 (묶음)</div><input class="input" id="pg" value="${esc(p.group || '')}" placeholder="예: 숙성돼지막창" autocomplete="off">
+        <div class="tp-sec">공정명</div><div class="chips">${C0.processes.map(x => `<button class="chip ${p.job === x.name ? 'on' : ''}" data-pj="${esc(x.name)}">${esc(x.name)}</button>`).join('')}<button class="chip ${!p.job ? 'on' : ''}" data-pj="">따로 포장</button></div>
+        <div class="tp-sec">사용 원료육</div><div class="chips">${C0.meats.map(m => `<button class="chip ${p.meat === m.name ? 'on' : ''}" data-pm="${esc(m.name)}">${esc(m.name)}</button>`).join('')}</div>
+        <div class="tp-sec">BOM · 원재료 배합비 <small>소스 투입중량 = 실사용중량 × 소스% ÷ 원료%</small></div>
+        <div class="bom-row">
+          <div class="chips">${uniq([...C0.meats.map(m => m.input), b.main]).map(v => `<button class="chip ${b.main === v ? 'on' : ''}" data-bm="${esc(v)}">${esc(v)}</button>`).join('')}</div>
+          <button class="box bpct" data-bp="mainPct"><span class="v ${b.mainPct != null ? '' : 'ph'}">${b.mainPct != null ? b.mainPct + '<small>%</small>' : '원료 %'}</span>${icon('pad')}</button>
+        </div>
+        <div class="bom-row">
+          <div class="chips">${C0.sauces.map(v => `<button class="chip ${b.sauce === v ? 'on' : ''}" data-bs="${esc(v)}">${esc(v)}</button>`).join('')}<button class="chip ${!b.sauce ? 'on' : ''}" data-bs="">소스 없음</button></div>
+          <button class="box bpct" data-bp="saucePct" ${b.sauce ? '' : 'disabled'}><span class="v ${b.saucePct != null && b.sauce ? '' : 'ph'}">${b.saucePct != null && b.sauce ? b.saucePct + '<small>%</small>' : '소스 %'}</span>${icon('pad')}</button>
+        </div>
+        ${b.mainPct && b.saucePct && b.sauce ? `<p class="fh">예) 실사용 1,000kg → ${esc(b.sauce)} ${kg(bomSauceKg(b, 1000))}kg</p>` : ''}
+        <div class="tp-sec">규격 (1개)</div><div class="chips">${UNITS.map(v => `<button class="chip ${p.unitKg === v ? 'on' : ''}" data-pu="${v}">${unitTxt(v)}</button>`).join('')}<button class="chip ${UNITS.includes(p.unitKg) ? '' : 'on'}" data-pux>${UNITS.includes(p.unitKg) ? '직접' : (p.unitKg || '-') + 'kg'}</button></div>
+        <div class="tp-sec">원산지 표기 <small>비우면 원료육의 원산지</small></div><div class="chips">${C0.origins.map(o => `<button class="chip ${p.origin === o ? 'on' : ''}" data-po="${esc(o)}">${esc(o)}</button>`).join('')}<button class="chip ${!p.origin ? 'on' : ''}" data-po="">원료육 따라</button></div>
+        <div class="tp-sec">소비기한 (포장일부터)</div><div class="chips">${[0, 90, 180, 363, 365, 455, 729].map(v => `<button class="chip ${p.shelfDays === v ? 'on' : ''}" data-ps="${v}">${v}일</button>`).join('')}<button class="chip ${[0, 90, 180, 363, 365, 455, 729].includes(p.shelfDays) || p.shelfDays == null ? '' : 'on'}" data-psx>${[0, 90, 180, 363, 365, 455, 729].includes(p.shelfDays) || p.shelfDays == null ? '직접' : p.shelfDays + '일'}</button></div>
         ${name ? '<p class="fh" style="margin-top:10px">이미 저장된 기록의 제품명은 바뀌지 않습니다.</p>' : ''}
         <div class="kp-f"><button class="btn" data-x2>취소</button><button class="btn primary" data-ok>${icon('check')}저장</button></div>`);
-      const S = $('#sheet-body'), pn = S.querySelector('#pn');
-      const keep = () => { p.name = pn.value.trim(); };
-      S.querySelectorAll('[data-pp]').forEach(b => b.onclick = () => { keep(); p.proc = b.dataset.pp; draw(); });
-      S.querySelectorAll('[data-pj]').forEach(b => b.onclick = () => { keep(); p.job = b.dataset.pj; draw(); });
-      S.querySelectorAll('[data-pu]').forEach(b => b.onclick = () => { keep(); p.unitKg = +b.dataset.pu; draw(); });
+      const S = $('#sheet-body'), pn = S.querySelector('#pn'), pg = S.querySelector('#pg');
+      const keep = () => { p.name = pn.value.trim(); p.group = pg.value.trim(); };
+      const on = (sel, fn) => S.querySelectorAll(sel).forEach(x => x.onclick = () => { keep(); fn(x); draw(); });
+      on('[data-pj]', x => { p.job = x.dataset.pj; });
+      on('[data-pm]', x => { p.meat = x.dataset.pm; const m = meatOf(p.meat); if (m && m.input) p.bom.main = m.input; });
+      on('[data-bm]', x => { p.bom.main = x.dataset.bm; });
+      on('[data-bs]', x => { p.bom.sauce = x.dataset.bs; if (!p.bom.sauce) p.bom.saucePct = null; else if (!p.bom.saucePct && p.bom.mainPct) p.bom.saucePct = Math.round((100 - p.bom.mainPct) * 100) / 100; });
+      on('[data-pu]', x => { p.unitKg = +x.dataset.pu; });
+      on('[data-po]', x => { p.origin = x.dataset.po; });
+      on('[data-ps]', x => { p.shelfDays = +x.dataset.ps; });
+      S.querySelectorAll('[data-bp]').forEach(x => x.onclick = () => { keep(); const k = x.dataset.bp; openKeypad({ label: k === 'mainPct' ? `${p.bom.main} 배합비 (%)` : `${p.bom.sauce} 배합비 (%)`, unit: '%', value: p.bom[k], onOk: v => {
+        p.bom[k] = v; const o = k === 'mainPct' ? 'saucePct' : 'mainPct';   // 원료 + 소스 = 100% : 한쪽을 넣으면 다른 쪽은 100에서 뺀 값
+        if (v != null && (o === 'mainPct' || p.bom.sauce)) p.bom[o] = Math.round((100 - v) * 100) / 100;
+        draw(); } }); });
       S.querySelector('[data-pux]').onclick = () => { keep(); openKeypad({ label: '규격 (kg)', unit: 'kg', value: p.unitKg, onOk: v => { if (v) p.unitKg = v; draw(); } }); };
-      S.querySelectorAll('[data-po]').forEach(b => b.onclick = () => { keep(); p.origin = b.dataset.po; draw(); });
-      S.querySelectorAll('[data-ps]').forEach(b => b.onclick = () => { keep(); p.shelfDays = +b.dataset.ps; draw(); });
       S.querySelector('[data-psx]').onclick = () => { keep(); openKeypad({ label: '소비기한 (포장일부터 며칠)', unit: '일', mode: 'int', value: p.shelfDays, onOk: v => { p.shelfDays = v; draw(); } }); };
       S.querySelector('[data-x2]').onclick = closePop;
       S.querySelector('[data-ok]').onclick = () => {
-        keep(); if (!p.name) { toast('제품명을 입력해 주세요.', true); return; }
-        confirmSave(name ? '제품 수정' : '새 제품 저장', [['제품명', esc(p.name)], ['작업 유형', esc((procOf(p.proc) || { label: '따로 포장' }).label)], ['작업명', esc(p.job || '-')],
-          ['규격', p.unitKg ? (p.unitKg < 1 ? p.unitKg * 1000 + 'g' : p.unitKg + 'kg') : '-'], ['원산지 표기', esc(p.origin || '-')], ['소비기한', p.shelfDays != null ? `포장일 +${p.shelfDays}일` : '-']], async () => {
-          const C = clone(state.config), i = C.products.findIndex(x => x.name === (name || p.name));
-          if (i >= 0) C.products[i] = p; else C.products.push(p);
-          if (p.job && !C.jobs.includes(p.job)) C.jobs.push(p.job);
+        keep(); if (!p.name) { toast('세부 제품명을 입력해 주세요.', true); return; }
+        const bom = p.bom && p.bom.mainPct ? { main: p.bom.main, mainPct: p.bom.mainPct, sauce: p.bom.sauce || '', saucePct: p.bom.sauce ? (p.bom.saucePct || 0) : 0 } : null;
+        const rec = { name: p.name, group: p.group, job: p.job, meat: p.meat, unitKg: p.unitKg, origin: p.origin, shelfDays: p.shelfDays, bom };
+        confirmSave(name ? '제품 수정' : '새 제품 저장', [['세부 제품명', esc(rec.name)], ['제품명', esc(rec.group || '-')], ['공정명', esc(rec.job || '따로 포장')], ['사용 원료육', esc(rec.meat || '-')],
+          ['BOM', esc(bom ? bomText(bom) : '없음')], ['규격', unitTxt(rec.unitKg) || '-'], ['원산지 표기', esc(rec.origin || '원료육 따라')], ['소비기한', rec.shelfDays != null ? `포장일 +${rec.shelfDays}일` : '-']], async () => {
+          const C = clone(state.config), i = C.products.findIndex(x => x.name === (name || rec.name));
+          if (i >= 0) C.products[i] = rec; else C.products.push(rec);
           if (!(await saveConfig(C))) return;
           closePop(); toast(name ? '제품을 수정했습니다.' : '새 제품을 추가했습니다.');
-          if (after) after(p); else if (state.form && 'product' in state.form) setF('product', p.name); else paint();
+          if (after) after(rec); else paint();
         });
       };
       if (!name) setTimeout(() => pn.focus(), 80);
+    };
+    setPopKeys(null); draw();
+  }
+  // 공정 추가 · 수정: 이름, 생산일지 양식
+  const FORMS = [['raw', '생산일지(생막창)'], ['grill', '생산일지(통 초벌/훈제막창)'], ['etc', '생산일지(기타 공정)']];
+  async function addProcess(name, form) {
+    const C = clone(state.config);
+    if (!C.processes.some(x => x.name === name)) C.processes.push({ name, form: form || 'etc' });
+    const ok = await saveConfig(C);
+    if (ok && !form) toast(`'${name}' 공정을 추가했습니다. 생산일지 양식은 '수정 → 공정명'에서 정할 수 있습니다.`);
+    return ok;
+  }
+  function openProcess(name) {
+    const cur = name ? processOf(name) : null, x = cur ? clone(cur) : { name: '', form: 'raw' };
+    const draw = () => {
+      openSheet(`<div class="cal-title" style="font-size:17px">${name ? '공정 수정' : '공정 추가'}</div>
+        <div class="tp-sec">공정명</div><input class="input" id="jn" value="${esc(x.name)}" placeholder="예: 생막창" autocomplete="off">
+        <div class="tp-sec">생산일지 양식 <small>이 공정의 원료육이 들어갈 생산일지</small></div><div class="chips">${FORMS.map(([v, l]) => `<button class="chip ${x.form === v ? 'on' : ''}" data-f="${v}">${l}</button>`).join('')}</div>
+        ${name ? `<p class="fh" style="margin-top:10px">이 공정의 제품 ${state.config.products.filter(p => p.job === name).length}개도 함께 바뀝니다. 이미 저장된 출고 기록의 공정명은 그대로입니다.</p>` : ''}
+        <div class="kp-f"><button class="btn" data-x2>취소</button><button class="btn primary" data-ok>${icon('check')}저장</button></div>`);
+      const S = $('#sheet-body'), jn = S.querySelector('#jn');
+      S.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { x.name = jn.value.trim(); x.form = b.dataset.f; draw(); });
+      S.querySelector('[data-x2]').onclick = closePop;
+      S.querySelector('[data-ok]').onclick = () => {
+        x.name = jn.value.trim(); if (!x.name) { toast('공정명을 입력해 주세요.', true); return; }
+        confirmSave(name ? '공정 수정' : '공정 추가', [['공정명', esc(name && name !== x.name ? `${name} → ${x.name}` : x.name)], ['생산일지 양식', FORMS.find(f => f[0] === x.form)[1]]], async () => {
+          const C = clone(state.config), i = C.processes.findIndex(y => y.name === (name || x.name));
+          if (i >= 0) C.processes[i] = x; else C.processes.push(x);
+          if (name && name !== x.name) C.products.forEach(p => { if (p.job === name) p.job = x.name; });
+          if (await saveConfig(C)) { closePop(); toast('저장했습니다.'); paint(); }
+        });
+      };
+      if (!name) setTimeout(() => jn.focus(), 80);
     };
     setPopKeys(null); draw();
   }
@@ -1289,7 +1473,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       <span class="st ${st === 'done' ? 'done' : l.wash ? 'now' : ''}">${pk.length ? pk.map(p => `포장 ${dMD(p.date)} <b>${fmt(p.qty)}ea · ${pct(packYield(p), 1)}</b>`).join(' · ') : '포장 대기'}</span></div>`;
   }
   function lotRow(l, action) {
-    return `<div class="lotrow"><div><div class="t"><b>${esc(l.job || '-')}</b><span class="m">${esc(l.product || '')}</span>${l.sample ? '<span class="tag">예시</span>' : ''}</div>
+    return `<div class="lotrow"><div><div class="t"><b>${esc(l.job || '-')}</b><span class="m">${esc(lotProducts(l).join(', '))}</span>${l.sample ? '<span class="tag">예시</span>' : ''}${statusOf(l) === 'washed' && packsOf(l).length ? `<span class="tag b">일부 포장 ${packedProducts(l).length}/${lotProducts(l).length}</span>` : ''}</div>
       <div class="m">${esc(l.meat)} · ${esc(l.trace || '이력번호 없음')} · ${esc(l.origin || '')}</div>${progress(l)}</div><div>${action || ''}</div></div>`;
   }
   function pageHome() {
@@ -1321,7 +1505,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     goOut: () => go('out'), goWash: () => go('wash'), goPack: () => go('pack'), goDocs: () => go('docs'), sample: () => addSample(),
     unsample: () => ask('예시 데이터(10/17~20)를 모두 지울까요? 직접 입력한 기록은 그대로 남습니다.', '지우기', removeSample, true),
     washLot: b => go('wash', { lot: b.dataset.id }),
-    packLot: b => { const l = lotById(b.dataset.id); go('pack', { lots: [l.id], product: l.product }); },
+    packLot: b => { const l = lotById(b.dataset.id); go('pack', { lots: [l.id], product: leftProducts(l)[0] || lotProducts(l)[0] }); },
     docLot: b => { const l = lotById(b.dataset.id); go('docs', { date: packsOf(l)[0].date }); },
   });
 
@@ -1332,7 +1516,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   // 칸 정의 만들기
   const C = {
     num: (key, label, unit, o = {}) => ({ key, label, type: 'num', unit, mode: o.mode || 'dec', w: o.w || 96, req: o.req, sub: o.sub, auto: o.auto, extra: o.extra,
-      show: r => { const v = r[key] != null ? r[key] : (o.auto ? o.auto(r) : null); return v == null ? '' : `<span class="${r[key] == null && o.auto ? 'au' : ''}">${numShow(v, unit)}</span>${o.extra ? o.extra(r) : ''}`; },
+      show: r => { const v = r[key] != null ? r[key] : (o.auto ? o.auto(r) : null); return v == null ? '' : `<span class="${r[key] == null && o.auto ? 'au' : ''}">${numShow(v, unit)}</span>${r[key] == null && o.auto ? `<em class="atag">${o.autoTag || '자동'}</em>` : ''}${o.extra ? o.extra(r) : ''}`; },
       txt: r => r[key] == null ? '(지움)' : `${fmt(r[key], Number.isInteger(+r[key]) ? 0 : 2)}${unit}` }),
     digits: (key, label, o = {}) => ({ key, label, type: 'num', mode: 'digits', unit: '', w: o.w || 150, req: o.req, show: r => r[key] ? `<span class="mono">${esc(r[key])}</span>` : '', txt: r => r[key] || '(지움)' }),
     date: (key, label, o = {}) => ({ key, label, type: 'date', kind: o.kind || 'work', w: o.w || 112, req: o.req, sugg: o.sugg, show: r => r[key] ? `${dDot(r[key])}` : '', txt: r => r[key] ? dFull(r[key]) : '(지움)' }),
@@ -1340,13 +1524,21 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     pick: (key, label, items, o = {}) => ({ key, label, type: 'pick', items, add: o.add, w: o.w || 120, req: o.req, show: r => r[key] ? esc(o.short ? o.short(r[key]) : r[key]) : '', txt: r => r[key] || '(지움)' }),
     text: (key, label, o = {}) => ({ key, label, type: 'text', w: o.w || 120, show: r => r[key] ? esc(r[key]) : '', txt: r => r[key] || '(지움)' }),
     ro: (key, label, show, o = {}) => ({ key, label, ro: true, w: o.w || 80, show }),
+    multi: (key, label, groups, o = {}) => ({ key, label, type: 'multi', items: groups, add: o.add, w: o.w || 160, req: o.req, sub: o.sub,
+      show: r => (r[key] || []).map(n => `<span class="ml">${esc(n)}</span>`).join(''), txt: r => (r[key] || []).join(', ') || '(없음)' }),
+  };
+  // 제품 고르기 목록: 이 공정의 제품 먼저, 나머지는 공정별로 접어서
+  const productGroups = job => {
+    const C0 = state.config, label = p => ({ v: p.name, l: p.name, s: `${p.group || ''}${p.group ? ' · ' : ''}${unitTxt(p.unitKg)}${p.bom && p.bom.sauce ? ` · ${p.bom.sauce} ${p.bom.saucePct}%` : ''}` });
+    const order = [job, ...jobsOf().filter(j => j !== job), ''];
+    return order.map(j => ({ title: j || '따로 포장', main: !!job && j === job, items: C0.products.filter(p => (p.job || '') === (j || '')).map(label) })).filter(g => g.items.length);
   };
   const same = (a, b) => JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
   const isChanged = (r, k) => r._orig ? !same(r._orig[k], r[k]) : (r[k] != null && r[k] !== '' && !(Array.isArray(r[k]) && !r[k].length));
   function cellHTML(c, r, i) {
     if (c.ro) return `<span class="cv">${c.show(r, i)}</span>`;
     const h = c.show(r, i);
-    return `<button type="button" class="cell${c.type === 'pick' || c.type === 'text' ? ' tx' : ''}${isChanged(r, c.key) ? ' chg' : ''}${(r._miss || []).includes(c.key) ? ' miss' : ''}" data-cell="${i}" data-k="${c.key}" aria-label="${esc(c.label)}">${h || '<span class="ph">+</span>'}</button>`;
+    return `<button type="button" class="cell${c.type === 'pick' || c.type === 'text' || c.type === 'multi' ? ' tx' : ''}${isChanged(r, c.key) ? ' chg' : ''}${(r._miss || []).includes(c.key) ? ' miss' : ''}" data-cell="${i}" data-k="${c.key}" aria-label="${esc(c.label)}">${h || '<span class="ph">+</span>'}</button>`;
   }
   function sheetTable(cols, rows, o = {}) {
     const n = cols.length + 1;
@@ -1374,6 +1566,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     if (c.type === 'text') return openText(label, r[k] || '', set);
     if (c.type === 'pick') return openPick({ anchor, label, items: c.items(r), value: r[k], add: c.add, onOk: set });
     if (c.type === 'lots') return openLotPick({ anchor, label, row: r, onOk: set });
+    if (c.type === 'multi') return openPickMulti({ anchor, label, groups: c.items(r), value: r[k] || [], add: c.add, onOk: set });
   }
   function applyCell(i, k, v) {
     const F = state.form, r = F.rows[i]; if (!r) return;
@@ -1396,10 +1589,28 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const ad = S.querySelector('[data-padd]'); if (ad) ad.onclick = () => addItem(add, onOk);
     setPopKeys(null);
   }
+  function openPickMulti({ anchor, label, groups, value, add, onOk }) {
+    let sel = [...value];
+    const open = new Set(groups.filter((g, i) => g.main || (i === 0 && !groups.some(x => x.main)) || g.items.some(x => sel.includes(x.v))).map(g => g.title));
+    const draw = () => {
+      openPop(`<div class="pk-list"><div class="cal-title">${esc(label)} <small>여러 개 고를 수 있습니다 · ${sel.length}개 선택</small></div>
+        <div class="pl">${groups.map((g, gi) => `<div class="pg"><button class="pg-h ${open.has(g.title) ? 'on' : ''}" data-g="${gi}">${icon(open.has(g.title) ? 'chevD' : 'chevR')}<b>${esc(g.title)}</b><small>${g.items.length}개${g.items.filter(x => sel.includes(x.v)).length ? ` · ${g.items.filter(x => sel.includes(x.v)).length}개 선택` : ''}</small></button>
+          ${open.has(g.title) ? g.items.map(x => `<button class="chk ${sel.includes(x.v) ? 'on' : ''}" data-v="${esc(x.v)}"><i>${sel.includes(x.v) ? icon('check') : ''}</i><span><b>${esc(x.l)}</b>${x.s ? `<small>${esc(x.s)}</small>` : ''}</span></button>`).join('') : ''}</div>`).join('')}
+        ${add ? `<button class="add" data-padd>${icon('plus')}새 제품 추가</button>` : ''}</div>
+        <div class="kp-f"><button class="btn" data-pclear>모두 해제</button><button class="btn primary" data-pok>${icon('check')}확인 (${sel.length})</button></div></div>`, anchor, 420);
+      const S = $('#sheet-body');
+      S.querySelectorAll('[data-g]').forEach(b => b.onclick = () => { const t = groups[+b.dataset.g].title; open.has(t) ? open.delete(t) : open.add(t); draw(); });
+      S.querySelectorAll('[data-v]').forEach(b => b.onclick = () => { const v = b.dataset.v; sel = sel.includes(v) ? sel.filter(x => x !== v) : [...sel, v]; draw(); });
+      S.querySelector('[data-pclear]').onclick = () => { sel = []; draw(); };
+      S.querySelector('[data-pok]').onclick = () => { closePop(); onOk(sel); };
+      const ad = S.querySelector('[data-padd]'); if (ad) ad.onclick = () => addItem(add, v => onOk([...sel, v]));
+    };
+    setPopKeys(null); draw();
+  }
   function addItem(kind, onOk) {
     if (kind === 'origin') return openText('원산지 추가', '', async v => { if (v && await addToConfig('origins', v)) onOk(v); }, '예: 칠레산');
     if (kind === 'sauce') return openText('양념소스 추가', '', async v => { if (v && await addToConfig('sauces', v)) onOk(v); }, '예: 매운 양념소스');
-    if (kind === 'job') return openText('작업명 추가', '', async v => { if (v && await addToConfig('jobs', v)) onOk(v); }, '예: 갈색');
+    if (kind === 'job') return openText('공정명 추가', '', async v => { if (v && await addProcess(v)) onOk(v); }, '예: 생막창');
     if (kind === 'meat') return openMeat(null, name => onOk(name));
     if (kind === 'product') return openProduct(null, p => onOk(p.name));
   }
@@ -1444,17 +1655,21 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
   // ================= ① 출고 (작업일지 해동 · 해당일 기록 계획 칸) =================
   function lotToOut(l) {
-    const r = { id: l.id, meat: l.meat, trace: l.trace || null, meatExp: l.meatExp || null, origin: l.origin || null, outKg: l.outKg ?? null, job: l.job || null, product: l.product || null,
+    const r = { id: l.id, meat: l.meat, trace: l.trace || null, meatExp: l.meatExp || null, origin: l.origin || null, outKg: l.outKg ?? null, job: l.job || null, products: lotProducts(l),
       expYield: l.expYield ?? null, expKg: l.expKg ?? null, planQty: l.planQty ?? null, note: l.note || null };
-    r._orig = clone(r); r._proc = l.proc; r._washed = !!l.wash;
+    r._orig = clone(r); r._proc = l.proc; r._washed = !!l.wash; r._meatSet = true;
     return r;
   }
+  // 원산지: 원료육 목록의 값 → 없으면 같은 원료육의 지난 출고 값
+  const originOfMeat = m => (meatOf(m) || {}).origin || ((state.lots.filter(l => l.meat === m && l.origin).slice(-1)[0] || {}).origin) || null;
   function newOutRow(prev) {
     const C0 = state.config, last = prev || state.lots[state.lots.length - 1];
-    const product = (prev && prev.product) || (last && last.product) || ((C0.products.find(p => p.proc) || {}).name) || null;
-    const p = productOf(product), meat = (prev && prev.meat) || (last && last.meat) || (C0.meats[0] && C0.meats[0].name) || null;
-    return { _new: true, id: newId('L'), meat, trace: null, meatExp: null, origin: (prev && prev.origin) || (meatOf(meat) || {}).origin || null, outKg: null,
-      job: (prev && prev.job) || (p && p.job) || null, product, expYield: (prev && prev.expYield) ?? null, expKg: null, planQty: null, note: null };
+    const job = (prev && prev.job) || (last && last.job && processOf(last.job) ? last.job : null) || (C0.processes[0] && C0.processes[0].name) || null;
+    const products = prev ? [...(prev.products || [])] : [];   // 첫 줄은 비워 둠 ('한 줄 추가'는 윗줄 복사)
+    const p0 = productOf(products[0]) || C0.products.find(p => p.job === job);
+    const meat = (prev && prev.meat) || (p0 && p0.meat) || (last && last.meat) || (C0.meats[0] && C0.meats[0].name) || null;
+    return { _new: true, id: newId('L'), meat, trace: null, meatExp: null, origin: (prev && prev.origin) || originOfMeat(meat), outKg: null,
+      job, products, expYield: (prev && prev.expYield) ?? null, expKg: null, planQty: null, note: null, _meatSet: !!(prev && prev._meatSet) };
   }
   function initOutT(o = {}) {
     const l = o.lot ? lotById(o.lot) : null;
@@ -1472,16 +1687,27 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       C.date('meatExp', '소비기한', { kind: 'exp', w: 88, sugg: r => state.lots.filter(x => x.meat === r.meat && x.meatExp).map(x => x.meatExp).reverse().filter((v, i, a) => a.indexOf(v) === i).slice(0, 2).map(v => ['지난 값', v]) }),
       C.pick('origin', '원산지', () => state.config.origins, { add: 'origin', w: 74 }),
       C.num('outKg', '투입(출고) 중량', 'kg', { req: 1, w: 80 }),
-      C.pick('job', '작업명', () => state.config.jobs, { add: 'job', w: 70 }),
-      C.pick('product', '제품명', () => state.config.products.map(p => ({ v: p.name, l: p.name, s: `${(procOf(p.proc) || { label: '따로 포장' }).label} · ${unitTxt(p.unitKg)}` })), { add: 'product', w: 126 }),
-      C.num('expYield', '수율', '%', { sub: '예상', w: 60 }),
-      C.num('expKg', '예상 세척 중량', 'kg', { w: 76, auto: r => r.outKg && r.expYield ? Math.round(r.outKg * r.expYield / 100) : null }),
+      C.pick('job', '공정명', () => state.config.processes.map(x => ({ v: x.name, l: x.name, s: `${(procOf(x.form) || {}).title === '생산일지' ? `생산일지(${x.form === 'grill' ? '통 초벌/훈제막창' : '기타 공정'})` : (procOf(x.form) || {}).title || ''} · 제품 ${state.config.products.filter(p => p.job === x.name).length}개` })), { add: 'job', w: 84 }),
+      C.multi('products', '제품명', r => productGroups(r.job), { add: 'product', sub: '여러 개', w: 150 }),
+      C.num('expYield', '수율', '%', { sub: '예상', w: 60, auto: r => r.expKg != null && r.outKg ? Math.round(r.expKg / r.outKg * 1000) / 10 : null }),
+      C.num('expKg', '예상 세척 중량', 'kg', { sub: '직접 입력 가능', w: 80, auto: r => r.outKg && r.expYield != null ? Math.round(r.outKg * r.expYield / 100) : null }),
       C.num('planQty', '예상 생산 수량', '개', { mode: 'int', w: 70 }),
       C.text('note', '비고', { w: 62 }),
     ];
     F._hook = (r, k, v) => {
-      if (k === 'meat') { const m = meatOf(v); if (m && m.origin) r.origin = m.origin; }
-      if (k === 'product') { const p = productOf(v); if (p && p.job) r.job = p.job; }
+      if (k === 'meat') { r._meatSet = true; const o = originOfMeat(v); if (o) r.origin = o; }
+      if (k === 'job') {   // 공정을 바꾸면 그 공정 제품만 남기고, 제품이 하나뿐이면 자동 선택
+        r.products = (r.products || []).filter(n => (productOf(n) || {}).job === v);
+        const list = state.config.products.filter(p => p.job === v);
+        if (!r.products.length && list.length === 1) r.products = [list[0].name];
+        const p0 = productOf(r.products[0]) || list[0];
+        if (p0 && p0.meat && !r._meatSet) { r.meat = p0.meat; const o = originOfMeat(p0.meat); if (o) r.origin = o; }
+      }
+      if (k === 'products') {
+        const p0 = productOf((v || [])[0]);
+        if (p0 && p0.job && (!r.job || !(v || []).some(n => (productOf(n) || {}).job === r.job))) r.job = p0.job;
+        if (p0 && p0.meat && !r._meatSet) { r.meat = p0.meat; const o = originOfMeat(p0.meat); if (o) r.origin = o; }
+      }
     };
     F._save = () => saveOutT(F);
     F._del = r => confirmDelLot(r.id);
@@ -1509,14 +1735,14 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     let bad = false;
     rows.forEach(r => { r._miss = []; if (!r.meat) r._miss.push('meat'); if (!(r.outKg > 0)) r._miss.push('outKg'); if (r._miss.length) bad = true; });
     if (bad) { paint(); toast('빨간 칸을 채워 주세요.', true); return; }
-    const lines = rows.map(r => [`${r._new ? '새 ' : ''}${r.job || meatShort(r.meat)} ${traceTail(r.trace)}`, esc(r._new ? `${meatShort(r.meat)} · ${kg(r.outKg)}kg · ${r.product || '-'}` : rowSummary(F, r))]);
+    const lines = rows.map(r => [`${r._new ? '새 ' : ''}${r.job || meatShort(r.meat)} ${traceTail(r.trace)}`, esc(r._new ? `${meatShort(r.meat)} · ${kg(r.outKg)}kg · ${(r.products || []).join(', ') || '제품 미정'}` : rowSummary(F, r))]);
     if (soakChanged) lines.push(['침수일', dFull(F.soakDate)]);
     confirmSave(`출고 저장 · ${dKor(F.date)}`, lines, async () => {
       const now = new Date().toISOString();
       for (const r of rows) {
-        const p = productOf(r.product);
-        const rec = { outDate: F.date, soakDate: F.soakDate, meat: r.meat, trace: r.trace || '', meatExp: r.meatExp, origin: r.origin, outKg: r.outKg, proc: (p && p.proc) || r._proc || 'raw',
-          product: r.product, job: r.job, expYield: r.expYield, expKg: r.expKg != null ? r.expKg : (r.outKg && r.expYield ? Math.round(r.outKg * r.expYield / 100) : null), planQty: r.planQty, note: r.note || '' };
+        const prods = r.products || [], p = productOf(prods[0]);
+        const rec = { outDate: F.date, soakDate: F.soakDate, meat: r.meat, trace: r.trace || '', meatExp: r.meatExp, origin: r.origin, outKg: r.outKg, proc: formOfJob(r.job) || (p && p.proc) || r._proc || 'raw',
+          products: prods, product: prods[0] || null, job: r.job, expYield: r.expYield, expKg: r.expKg != null ? r.expKg : (r.outKg && r.expYield != null ? Math.round(r.outKg * r.expYield / 100) : null), planQty: r.planQty, note: r.note || '' };
         const ok = r._new ? await put('lots', { id: r.id, ...rec, wash: null, createdAt: now, updatedAt: now, by: store.myId }) : await patch('lots', r.id, { ...rec, updatedAt: now, editedBy: store.myId });
         if (!ok) return;
       }
@@ -1538,10 +1764,10 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
   // ================= ② 세척 (해당일 기록) =================
   function lotToWash(l) {
-    const w = l.wash || {}, pr = procOf(l.proc);
-    const r = { id: l.id, meat: l.meat || null, job: l.job || null, product: l.product || null, outKg: l.outKg ?? null, expYield: l.expYield ?? null, expKg: l.expKg ?? null, planQty: l.planQty ?? null,
+    const w = l.wash || {}, pr = procOf(l.proc), bom = bomOfLot(l);
+    const r = { id: l.id, meat: l.meat || null, job: l.job || null, products: lotProducts(l), outKg: l.outKg ?? null, expYield: l.expYield ?? null, expKg: l.expKg ?? null, planQty: l.planQty ?? null,
       use: l.wash ? (w.useKg != null ? w.useKg : w.kg) : null, aKg: w.aKg ?? null, fatKg: w.fatKg ?? null, restKg: w.restKg ?? null, wasteKg: w.wasteKg ?? null,
-      wkg: l.wash ? w.kg : null, sauce: l.wash ? (w.sauce || null) : (pr ? pr.sauce : null), sauceKg: w.sauceKg ?? null, sauceExp: w.sauceExp || null,
+      wkg: l.wash ? w.kg : null, sauce: l.wash ? (w.sauce || null) : ((bom && bom.sauce) || (pr ? pr.sauce : null) || null), sauceKg: w.sauceAuto ? null : (w.sauceKg ?? null), sauceExp: w.sauceExp || null,
       thawKg: l.thawKg ?? null, soakDate: l.soakDate || addDays(l.outDate, 1), wnote: w.note || null };
     r._orig = clone(r);
     r._l = l;
@@ -1560,11 +1786,11 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     F._cols = [
       C.ro('no', 'No', (r, i) => `${i + 1}<small>${esc(traceTail(r._l.trace))}</small>`, { w: 46 }),
       C.pick('meat', '원료육', () => state.config.meats.map(m => ({ v: m.name, l: m.name, s: m.origin })), { add: 'meat', w: 80, short: meatShort }),
-      C.pick('job', '작업명', () => state.config.jobs, { add: 'job', w: 62 }),
-      C.pick('product', '제품명', () => state.config.products.map(p => ({ v: p.name, l: p.name, s: `${(procOf(p.proc) || { label: '따로 포장' }).label} · ${unitTxt(p.unitKg)}` })), { add: 'product', w: 108 }),
+      C.pick('job', '공정명', () => jobsOf(), { add: 'job', w: 70 }),
+      C.multi('products', '제품명', r => productGroups(r.job), { add: 'product', w: 118 }),
       C.num('outKg', '투입 중량', 'kg', { w: 68 }),
-      C.num('expYield', '수율', '%', { sub: '예상', w: 56 }),
-      C.num('expKg', '예상 세척 중량', 'kg', { w: 68, auto: r => r.outKg && r.expYield ? Math.round(r.outKg * r.expYield / 100) : null }),
+      C.num('expYield', '수율', '%', { sub: '예상', w: 56, auto: r => r.expKg != null && r.outKg ? Math.round(r.expKg / r.outKg * 1000) / 10 : null }),
+      C.num('expKg', '예상 세척 중량', 'kg', { w: 70, auto: r => r.outKg && r.expYield != null ? Math.round(r.outKg * r.expYield / 100) : null }),
       C.num('use', '실제 세척 중량', 'kg', { w: 78, extra: yieldSub }),
       C.num('aKg', 'A막창', 'kg', { w: 56 }),
       C.num('fatKg', '지방', 'kg', { w: 56 }),
@@ -1576,13 +1802,16 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     F._sub = [
       C.num('wkg', '세척중량 (작업일지)', 'kg', { auto: r => r.use }),
       C.pick('sauce', '양념소스', () => state.config.sauces, { add: 'sauce' }),
-      C.num('sauceKg', '소스 투입중량', 'kg'),
+      C.num('sauceKg', '소스 투입중량', 'kg', { auto: r => bomSauceKg(bomOfLot({ products: r.products }), r.use != null ? r.use : r.wkg), autoTag: 'BOM', extra: r => { const b = bomOfLot({ products: r.products }); return b ? `<small class="bomx">${esc(bomText(b))}</small>` : ''; } }),
       C.date('sauceExp', '소스 소비기한', { kind: 'exp', sugg: r => state.lots.filter(x => x.wash && x.wash.sauce === r.sauce && x.wash.sauceExp).map(x => x.wash.sauceExp).reverse().filter((v, i, a) => a.indexOf(v) === i).slice(0, 2).map(v => ['지난 값', v]) }),
       C.num('thawKg', '해동 후 중량 (생산일지)', 'kg', { auto: r => r.outKg }),
       C.date('soakDate', '침수일'),
       C.text('wnote', '세척 메모'),
     ];
-    F._hook = (r, k, v) => { if (k === 'product') { const p = productOf(v); if (p && p.job) r.job = p.job; } };
+    F._hook = (r, k, v) => {
+      if (k === 'products') { const p0 = productOf((v || [])[0]); if (p0 && p0.job && (!r.job || !(v || []).some(n => (productOf(n) || {}).job === r.job))) r.job = p0.job; const b = bomOfLot({ products: v }); if (b && b.sauce && !r._sauceSet) r.sauce = b.sauce; }
+      if (k === 'sauce') r._sauceSet = true;
+    };
     F._save = () => saveWashT(F);
     F._del = r => confirmDelLot(r.id);
     return F;
@@ -1594,9 +1823,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       <div class="fields c3 day-head">${pkDate('date', '작업일 (세척일)', { req: 1 })}
         <div class="fld"><span class="fl">이날 세척</span><div class="day-cnt"><b class="num">${done}</b>건 입력됨 · 세척 대기 <b class="num">${wait}</b>건</div></div>
         <div class="fld"><span class="fl">입력 방법</span><div class="day-tip">실제 세척 중량 칸부터 누르고, 키패드의 '다음'으로 오른쪽 칸을 이어서 넣으세요.</div></div></div>
-      ${F.rows.length ? sheetTable(F._cols, F.rows, { acts: (r, i) => `<button class="btn sm stk ${r._open ? 'on' : ''}" data-act="tOpen" data-i="${i}" title="작업일지·생산일지 항목">${icon(r._open ? 'chevD' : 'doc')}<span>일지 항목${r.sauceKg == null ? '<i class="dot"></i>' : ''}</span></button>`, sub: (r, i) => subCells(F._sub, r, i) })
+      ${F.rows.length ? sheetTable(F._cols, F.rows, { acts: (r, i) => `<button class="btn sm stk ${r._open ? 'on' : ''}" data-act="tOpen" data-i="${i}" title="작업일지·생산일지 항목">${icon(r._open ? 'chevD' : 'doc')}<span>일지 항목${r.sauceKg == null && bomSauceKg(bomOfLot({ products: r.products }), r.use != null ? r.use : r.wkg) == null ? '<i class="dot"></i>' : ''}</span></button>`, sub: (r, i) => subCells(F._sub, r, i) })
         : `<div class="empty">${icon('wash')}<b>세척할 원료육이 없습니다</b><span>① 출고를 먼저 입력하세요.</span><button class="btn primary" data-act="goOut">${icon('out')}출고 입력</button></div>`}
-      <p class="dl-note">빨간 점이 있는 행은 생산일지에 들어갈 양념소스 투입량이 아직 없습니다. 행 끝의 '일지 항목'을 누르면 세척중량 · 양념소스 · 해동 후 중량을 넣을 수 있습니다.</p>
+      ${F.rows.some(r => r.sauceKg == null && bomSauceKg(bomOfLot({ products: r.products }), r.use != null ? r.use : r.wkg) == null) ? '' : '<!--'}<p class="dl-note">빨간 점이 있는 행은 생산일지에 들어갈 양념소스 투입량이 아직 없습니다. 행 끝의 '일지 항목'을 누르면 세척중량 · 양념소스 · 해동 후 중량을 넣을 수 있습니다.</p>${F.rows.some(r => r.sauceKg == null && bomSauceKg(bomOfLot({ products: r.products }), r.use != null ? r.use : r.wkg) == null) ? '' : '-->'}
       ${tableBar(F, '세척 저장')}
     </section>`;
   }
@@ -1605,15 +1834,16 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const allCols = [...F._cols, ...F._sub];
     const rows = F.rows.filter(r => allCols.some(c => !c.ro && isChanged(r, c.key)));
     if (!rows.length) { toast('바뀐 내용이 없습니다.'); return; }
-    const lines = rows.map(r => [F._title(r), esc(rowSummary(F, r))]);
+    const lines = rows.map(r => { const bk = r.sauceKg == null ? bomSauceKg(bomOfLot({ products: r.products }), r.use != null ? r.use : r.wkg) : null; return [F._title(r), esc(rowSummary(F, r) + (bk != null ? `${rowSummary(F, r) ? ', ' : ''}소스 ${kg(bk)}kg (BOM)` : ''))]; });
     confirmSave(`세척 저장 · ${dKor(F.date)}`, lines, async () => {
       const now = new Date().toISOString();
       for (const r of rows) {
         const l = r._l, hasWash = r.use != null || r.wkg != null;
+        const bom = bomOfLot({ products: r.products }), bomKg = bomSauceKg(bom, r.use != null ? r.use : r.wkg);   // 소스 투입중량: 직접 넣은 값 → 없으면 BOM 계산값
         const wash = hasWash ? { date: (l.wash && l.wash.date) || F.date, kg: r.wkg != null ? r.wkg : r.use, useKg: r.use != null ? r.use : r.wkg, aKg: r.aKg, fatKg: r.fatKg, restKg: r.restKg, wasteKg: r.wasteKg,
-          sauce: r.sauce || '', sauceKg: r.sauceKg, sauceExp: r.sauceExp, note: r.wnote || '', at: (l.wash && l.wash.at) || now, by: (l.wash && l.wash.by) || store.myId } : null;
-        const pr = productOf(r.product);
-        if (!(await patch('lots', l.id, { wash, meat: r.meat, job: r.job, product: r.product, proc: (pr && pr.proc) || l.proc, outKg: r.outKg, expYield: r.expYield, expKg: r.expKg, planQty: r.planQty, thawKg: r.thawKg, soakDate: r.soakDate, updatedAt: now }))) return;
+          sauce: r.sauce || (bom && bom.sauce) || '', sauceKg: r.sauceKg != null ? r.sauceKg : bomKg, sauceAuto: r.sauceKg == null && bomKg != null, sauceExp: r.sauceExp, note: r.wnote || '', at: (l.wash && l.wash.at) || now, by: (l.wash && l.wash.by) || store.myId } : null;
+        const prods = r.products || [], pr = productOf(prods[0]);
+        if (!(await patch('lots', l.id, { wash, meat: r.meat, job: r.job, products: prods, product: prods[0] || null, proc: formOfJob(r.job) || (pr && pr.proc) || l.proc, outKg: r.outKg, expYield: r.expYield, expKg: r.expKg, planQty: r.planQty, thawKg: r.thawKg, soakDate: r.soakDate, updatedAt: now }))) return;
       }
       toast(`세척 ${rows.length}건 저장했습니다.`);
       state.form = initWashT({ date: F.date }); paint();
@@ -1630,17 +1860,20 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   function packDefaults(r, product, date, lots) {
     const p = productOf(product);
     r.product = product; r._unit = p ? p.unitKg : r._unit;
-    if (p) r.origin = p.origin || r.origin;
+    const lotOrigin = (lots || r.lotIds || []).map(lotById).filter(Boolean).map(l => l.origin).find(Boolean);
+    r.origin = (p && p.origin) || r.origin || null;
     const prev = state.packs.filter(x => x.product === product && x.exp && x.date && x.id !== r.id).slice(-1)[0];
     const days = prev ? daysBetween(prev.date, prev.exp) : p && p.shelfDays != null ? p.shelfDays : null;
     if (days != null) r.exp = addDays(date, days);
     if (lots) r.lotIds = lots;
-    else if (!r._lotsSet) {
+    else if (!r._lotsSet) {   // 이 제품으로 계획한 원료육 → 없으면 같은 공정 → 같은 생산일지 양식
       const c = state.lots.filter(l => statusOf(l) === 'washed');
-      let def = c.filter(l => l.product === product);
+      let def = c.filter(l => lotProducts(l).includes(product));
+      if (!def.length && p && p.job) def = c.filter(l => l.job === p.job);
       if (!def.length && p && p.proc) def = c.filter(l => l.proc === p.proc);
       r.lotIds = def.map(l => l.id);
     }
+    if (!r.origin) r.origin = lotOrigin || (r.lotIds || []).map(lotById).filter(Boolean).map(l => l.origin).find(Boolean) || null;   // 제품에 원산지 표기가 없으면 원료육 원산지
   }
   function initPackT(o = {}) {
     const pk = o.pack ? state.packs.find(x => x.id === o.pack) : null;
@@ -1651,10 +1884,14 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     F._newRow = () => ({ _new: true, id: newId('P'), product: null, exp: null, start: null, end: null, qty: null, restG: null, wasteG: null, origin: null, lotIds: [], kg: null, note: null });
     if (o.product || o.lots) { const r = F._newRow(); packDefaults(r, o.product, date, o.lots); r._lotsSet = !!o.lots; rows.push(r); F._dirty = true; }
     F._title = r => r.product || '새 제품';
-    const yv = r => { const kgv = r.kg != null ? r.kg : r.qty != null && r._unit ? r.qty * r._unit : null; return packYieldOf(kgv, r.restG, r.wasteG, baseOf(r.lotIds)); };
+    // 수율: 같은 원료육 묶음(이 표의 행 + 다른 날 저장된 포장)을 합산
+    const asPack = r => ({ id: r.id, lotIds: r.lotIds || [], kg: r.kg != null ? r.kg : r.qty != null && r._unit ? r.qty * r._unit : null, qty: r.qty, unitKg: r._unit, restG: r.restG, wasteG: r.wasteG, _row: r });
+    const allPacks = () => { const ids = new Set(F.rows.map(r => r.id)); return [...state.packs.filter(q => !ids.has(q.id)), ...F.rows.map(asPack)]; };
+    const yv = r => { if (r.qty == null && r.kg == null) return null; const all = allPacks(); return groupYield(all.find(q => q._row === r), all); };
+    const grp = r => { const all = allPacks(); return isGrouped(all.find(q => q._row === r), all); };
     F._cols = [
       C.ro('no', 'No', (r, i) => i + 1, { w: 44 }),
-      C.pick('product', '제품명', () => [...PROCS, { id: '', label: '따로 포장' }].flatMap(pr => state.config.products.filter(p => (p.proc || '') === pr.id).map(p => ({ v: p.name, l: p.name, s: `${pr.label} · ${unitTxt(p.unitKg)} · ${p.origin || '-'}` }))), { add: 'product', req: 1, w: 160 }),
+      C.pick('product', '제품명', () => [...jobsOf(), ''].flatMap(j => state.config.products.filter(p => (p.job || '') === j).map(p => ({ v: p.name, l: p.name, s: `${j || '따로 포장'} · ${unitTxt(p.unitKg)}${p.origin ? ' · ' + p.origin : ''}` }))), { add: 'product', req: 1, w: 160 }),
       C.date('exp', '소비기한', { kind: 'exp', w: 92, sugg: r => { if (!r.product) return []; const p = productOf(r.product), prev = state.packs.filter(x => x.product === r.product && x.exp && x.date && x.id !== r.id).slice(-1)[0]; const d = prev ? daysBetween(prev.date, prev.exp) : p && p.shelfDays != null ? p.shelfDays : null; return d != null ? [[`포장일 +${d}일`, addDays(F.date, d)]] : []; } }),
       C.time('start', '시작', { w: 66 }),
       C.time('end', '종료', { w: 66 }),
@@ -1663,7 +1900,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       C.num('wasteG', '폐기', 'g', { mode: 'int', w: 70 }),
       C.pick('origin', '원산지', () => state.config.origins, { add: 'origin', w: 76 }),
       { key: 'lotIds', label: '원료육', type: 'lots', w: 100, show: r => (r.lotIds || []).map(id => lotById(id)).filter(Boolean).map(l => `${esc(l.job || '')}<small>${esc(traceTail(l.trace))}</small>`).join('<br>'), txt: r => (r.lotIds || []).map(id => { const l = lotById(id); return l ? `${l.job || ''} ${traceTail(l.trace)}` : ''; }).join(', ') || '연결 안 함' },
-      C.ro('yield', '포장 수율', r => { const y = yv(r); return y != null ? `<b class="yl">${pct(y, 1)}</b>` : '<span class="cvs">-</span>'; }, { w: 70 }),
+      C.ro('yield', '포장 수율', r => { const y = yv(r); return y != null ? `<b class="yl">${pct(y, 1)}</b>${grp(r) ? '<small>묶음 합산</small>' : ''}` : '<span class="cvs">-</span>'; }, { w: 74 }),
       C.text('note', '비고', { w: 76 }),
     ];
     F._hook = (r, k, v) => { if (k === 'product' && v) packDefaults(r, v, F.date, null); if (k === 'lotIds') r._lotsSet = true; };
@@ -1676,7 +1913,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const cand = state.lots.filter(l => l.wash && (statusOf(l) === 'washed' || sel.includes(l.id) || (row._orig && (row._orig.lotIds || []).includes(l.id))));
     const draw = () => {
       openPop(`<div class="pk-list"><div class="cal-title">${esc(label)} <small>누르면 선택 · 해제</small></div>
-        <div class="pl">${cand.length ? cand.map(l => `<button class="${sel.includes(l.id) ? 'on' : ''}" data-li="${esc(l.id)}"><b>${esc(l.job || '-')} ${esc(traceTail(l.trace))}</b><small>${esc(l.product || '')} · 세척 ${dMD(l.wash.date)} · 실사용 ${kg(useKg(l))}kg</small></button>`).join('') : '<p class="dl-none">세척을 마친 원료육이 없습니다. (A막창처럼 따로 포장하는 제품은 비워 두세요)</p>'}</div>
+        <div class="pl">${cand.length ? cand.map(l => `<button class="${sel.includes(l.id) ? 'on' : ''}" data-li="${esc(l.id)}"><b>${esc(l.job || '-')} ${esc(traceTail(l.trace))}</b><small>${esc(lotProducts(l).join(', ') || '')} · 세척 ${dMD(l.wash.date)} · 실사용 ${kg(useKg(l))}kg</small></button>`).join('') : '<p class="dl-none">세척을 마친 원료육이 없습니다. (A막창처럼 따로 포장하는 제품은 비워 두세요)</p>'}</div>
         <div class="kp-f"><button class="btn" data-lc>모두 해제</button><button class="btn primary" data-lo>${icon('check')}확인</button></div></div>`, anchor, 400);
       const S = $('#sheet-body');
       S.querySelectorAll('[data-li]').forEach(b => b.onclick = () => { const id = b.dataset.li; sel = sel.includes(id) ? sel.filter(x => x !== id) : [...sel, id]; draw(); });
@@ -1687,12 +1924,20 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   }
   function pagePack() {
     const F = state.form;
-    const waiting = state.lots.filter(l => statusOf(l) === 'washed' && !F.rows.some(r => (r.lotIds || []).includes(l.id)));
+    // 포장 대기: 원료육마다 아직 포장하지 않은 제품 (이 표에 이미 넣은 제품은 뺌)
+    const waiting = [];
+    state.lots.filter(l => statusOf(l) === 'washed').forEach(l => {
+      const inForm = F.rows.filter(r => (r.lotIds || []).includes(l.id)).map(r => r.product);
+      const left = lotProducts(l).filter(n => !packedProducts(l).includes(n) && !inForm.includes(n));
+      if (lotProducts(l).length) left.forEach(n => waiting.push({ l, n })); else if (!inForm.length) waiting.push({ l, n: null });
+    });
+    const partial = state.lots.filter(l => statusOf(l) === 'washed' && packsOf(l).length);
     $('#ph-right').innerHTML = `<button class="btn" data-act="pAdd">${icon('plus')}제품 추가</button>`;
     $('#page').innerHTML = `<section class="card">
       <div class="fields c3 day-head">${pkDate('date', '포장일', { req: 1 })}
         <div class="fld" style="grid-column:span 2"><span class="fl">포장 대기 원료육 <small>누르면 그 제품으로 한 줄 추가</small></span>
-          <div class="chips">${waiting.map(l => `<button class="chip" data-act="pAddLot" data-id="${esc(l.id)}">${icon('plus')}${esc(l.job || '-')} <small>${esc(traceTail(l.trace))} · ${esc(l.product || '')}</small></button>`).join('') || '<span class="dl-none">없음</span>'}</div></div></div>
+          <div class="chips">${waiting.map(({ l, n }) => `<button class="chip" data-act="pAddLot" data-id="${esc(l.id)}" data-p="${esc(n || '')}">${icon('plus')}${esc(n || l.job || '-')} <small>${esc(l.job || '')} ${esc(traceTail(l.trace))}</small></button>`).join('') || '<span class="dl-none">없음</span>'}</div>
+          ${partial.length ? `<div class="part">${partial.map(l => `<span>${esc(l.job || '')} ${esc(traceTail(l.trace))}: ${packedProducts(l).length}/${lotProducts(l).length} 포장 <button class="lnk" data-act="pDone" data-id="${esc(l.id)}">남은 제품 없음 · 포장 끝</button></span>`).join('')}</div>` : ''}</div></div>
       ${F.rows.length ? sheetTable(F._cols, F.rows, { acts: (r, i) => `<button class="icon-btn sm" data-act="tDelRow" data-i="${i}" aria-label="삭제">${icon(r._new ? 'x' : 'trash')}</button>` })
         : `<div class="empty">${icon('pack')}<b>${dMD(F.date)} 포장 기록이 없습니다</b><span>위의 포장 대기 원료육을 누르거나 '제품 추가'를 누르세요.</span></div>`}
       <button class="btn add-row" data-act="pAdd">${icon('plus')}제품 한 줄 추가</button>
@@ -1702,7 +1947,12 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   HOOKS.packT = (k, v) => { if (k === 'date') { const keep = state.form.rows.filter(r => r._new && r.product); state.form = initPackT({ date: v }); keep.forEach(r => { packDefaults(r, r.product, v, r._lotsSet ? r.lotIds : null); state.form.rows.push(r); }); if (keep.length) state.form._dirty = true; } };
   Object.assign(ACTS, {
     pAdd: b => openPick({ anchor: b, label: '포장할 제품', items: state.form._cols.find(c => c.key === 'product').items(), add: 'product', onOk: v => { if (!v) return; const F = state.form, r = F._newRow(); packDefaults(r, v, F.date, null); F.rows.push(r); F._dirty = true; paint(); } }),
-    pAddLot: b => { const F = state.form, l = lotById(b.dataset.id), r = F._newRow(); packDefaults(r, l.product, F.date, [l.id]); r._lotsSet = true; F.rows.push(r); F._dirty = true; paint(); },
+    pAddLot: b => {
+      const F = state.form, l = lotById(b.dataset.id);
+      const add = n => { const r = F._newRow(); packDefaults(r, n, F.date, [l.id]); r._lotsSet = true; F.rows.push(r); F._dirty = true; paint(); };
+      if (b.dataset.p) add(b.dataset.p); else openPick({ anchor: b, label: '포장할 제품', items: state.form._cols.find(c => c.key === 'product').items(), add: 'product', onOk: v => { if (v) add(v); } });
+    },
+    pDone: b => { const l = lotById(b.dataset.id); ask(`${l.job || ''} ${traceTail(l.trace)}: 계획한 제품 중 ${leftProducts(l).join(', ')} 은(는) 포장하지 않고 이 원료육의 포장을 끝낼까요?`, '포장 끝', async () => { if (await patch('lots', l.id, { packDone: true })) { toast('포장 완료로 표시했습니다.'); paint(); } }); },
     editPack: b => go('pack', { pack: b.dataset.id }),
   });
   async function savePackT(F) {
@@ -1737,8 +1987,8 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     let body;
     if (R.tab === 'lots') {
       const rows = state.lots.filter(l => inM(l.outDate)).reverse();
-      body = rows.length ? `<div class="tw"><table class="t"><thead><tr><th>출고일</th><th>작업명 · 제품</th><th>이력번호</th><th class="r">출고</th><th>세척일</th><th class="r">세척</th><th class="r">세척 수율</th><th class="r">실사용</th><th>상태</th><th>입력</th><th></th></tr></thead><tbody>
-        ${rows.map(l => `<tr><td class="num">${l.outDate}</td><td><b>${esc(l.job || '-')}</b> <span style="color:var(--muted)">${esc(l.product || '')}</span></td><td class="num">${esc(l.trace || '-')}</td><td class="r num">${kg(l.outKg)}</td>
+      body = rows.length ? `<div class="tw"><table class="t"><thead><tr><th>출고일</th><th>공정명 · 제품</th><th>이력번호</th><th class="r">출고</th><th>세척일</th><th class="r">세척</th><th class="r">세척 수율</th><th class="r">실사용</th><th>상태</th><th>입력</th><th></th></tr></thead><tbody>
+        ${rows.map(l => `<tr><td class="num">${l.outDate}</td><td><b>${esc(l.job || '-')}</b> <span style="color:var(--muted)">${esc(lotProducts(l).join(', '))}</span></td><td class="num">${esc(l.trace || '-')}</td><td class="r num">${kg(l.outKg)}</td>
           <td class="num">${l.wash ? l.wash.date : '-'}</td><td class="r num">${l.wash ? kg(l.wash.kg) : '-'}</td><td class="r num"><b>${pct(washYield(l))}</b></td><td class="r num">${l.wash ? kg(useKg(l)) : '-'}</td>
           <td>${{ out: '<span class="tag o">세척 대기</span>', washed: '<span class="tag b">포장 대기</span>', done: '<span class="tag g">포장 완료</span>' }[statusOf(l)]}${l.sample ? ' <span class="tag">예시</span>' : ''}</td>
           <td>${store.user && l.by ? `<span data-uid="${esc(l.by)}">…</span>` : ''}</td>
@@ -1783,6 +2033,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     { id: 'work', label: '작업일지' },
     { id: 'raw', label: '생산일지(생막창)' },
     { id: 'grill', label: '생산일지(통 초벌/훈제막창)' },
+    { id: 'etc', label: '생산일지(기타 공정)' },
     { id: 'day', label: '해당일 기록' },
     { id: 'qty', label: '제품 1차 수량 확인용' },
   ];
@@ -1827,7 +2078,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const data = docData(D.date, D.lots);
     if (D.tab === 'work') return { html: docWorkHTML(data), has: !!(data.lots.length || data.packs.length), name: `작업일지_${D.date}`, sheet: wb => sheetWork(wb, data) };
     const proc = procOf(D.tab), p = data.prods.find(x => x.proc.id === D.tab) || emptyProd(proc);
-    return { html: docProdHTML(data, p), has: p.lots.length > 0, name: `${D.tab === 'raw' ? '생산일지_생막창' : '생산일지_초벌훈제'}_${D.date}`, sheet: wb => sheetProd(wb, data, p) };
+    return { html: docProdHTML(data, p), has: p.lots.length > 0, name: `${{ raw: '생산일지_생막창', grill: '생산일지_초벌훈제', etc: '생산일지_기타공정' }[D.tab]}_${D.date}`, sheet: wb => sheetProd(wb, data, p) };
   }
   const emptyProd = proc => ({ proc, lots: [], packs: [], inRows: [], inTotal: 0, outTotal: 0, thawDate: '', washDate: '', packDate: '' });
   HOOKS.docs = (k, v) => {
@@ -1866,7 +2117,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   function dayData(date) {
     const lots = state.lots.filter(l => (l.wash && l.wash.date === date) || (!l.wash && addDays(l.soakDate || addDays(l.outDate, 1), 1) === date))
       .sort((a, b) => String(a.meat).localeCompare(String(b.meat), 'ko') || String(a.createdAt || '').localeCompare(String(b.createdAt || '')));
-    const rows = lots.map(l => { const ey = l.expYield ?? null; return { l, ey, eKg: l.expKg ?? (ey != null && l.outKg ? l.outKg * ey / 100 : null), act: l.wash ? useKg(l) : null }; });   // 출고·세척 표에서 입력한 값
+    const rows = lots.map(l => { const ey = l.expYield ?? (l.expKg != null && l.outKg ? l.expKg / l.outKg * 100 : null); return { l, ey, eKg: l.expKg ?? (ey != null && l.outKg ? l.outKg * ey / 100 : null), act: l.wash ? useKg(l) : null }; });   // 출고·세척 표에서 입력한 값
     const groups = []; rows.forEach(r => { const g = groups[groups.length - 1]; if (g && g.meat === r.l.meat) g.rows.push(r); else groups.push({ meat: r.l.meat, rows: [r] }); });
     return { date, rows, groups };
   }
@@ -1879,13 +2130,13 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     dd.groups.forEach(g => { no++; g.rows.forEach((r, i) => {
       const l = r.l, w = l.wash || {};
       body += `<tr>${i === 0 ? `<td rowspan="${g.rows.length}">${no}</td><td rowspan="${g.rows.length}">${esc(meatShort(g.meat))}</td>` : ''}
-        <td>${esc(l.job || '')}</td><td>${esc(l.product || '')}</td><td>${kg(l.outKg)}kg</td><td>${r.ey != null ? fmt(r.ey, 0) + '%' : ''}</td><td>${r.eKg != null ? fmt(r.eKg, 0) + 'kg' : ''}</td>
+        <td>${esc(l.job || '')}</td><td class="pl2">${lotProducts(l).map(esc).join('<br>')}</td><td>${kg(l.outKg)}kg</td><td>${r.ey != null ? fmt(r.ey, 0) + '%' : ''}</td><td>${r.eKg != null ? fmt(r.eKg, 0) + 'kg' : ''}</td>
         <td class="rt">${u(r.act)}</td><td class="rt">${u(w.aKg)}</td><td class="rt">${u(w.fatKg)}</td><td class="rt">${u(w.restKg)}</td><td class="rt">${u(w.wasteKg)}</td>
         <td>${l.planQty ? fmt(l.planQty) + '개' : ''}</td><td>${esc([l.origin, l.note].filter(Boolean).join(' · '))}</td></tr>`; }); });
     for (let i = dd.rows.length; i < N; i++) body += `<tr>${'<td></td>'.repeat(7)}${'<td class="rt"><span class="u">kg</span></td>'.repeat(5)}<td></td><td></td></tr>`;
     return `<div class="doc doc-day"><div class="day-title">${esc(dayTitle(dd.date))}</div>
       <table><colgroup>${[4, 9, 9, 16, 7, 5.5, 7, 7.5, 6, 6, 6, 6, 6.5, 7.5].map(w => `<col style="width:${w}%">`).join('')}</colgroup>
-      <tr class="gray"><th>No</th><th>원료육</th><th>작업명</th><th>제품명</th><th>투입중량</th><th>수율</th><th>예상<br>세척 중량</th><th>실제<br>세척 중량</th><th>A막창</th><th>지방</th><th>잔량</th><th>폐기</th><th>예상<br>생산 수량</th><th>비고</th></tr>
+      <tr class="gray"><th>No</th><th>원료육</th><th>공정명</th><th>제품명</th><th>투입중량</th><th>수율</th><th>예상<br>세척 중량</th><th>실제<br>세척 중량</th><th>A막창</th><th>지방</th><th>잔량</th><th>폐기</th><th>예상<br>생산 수량</th><th>비고</th></tr>
       ${body}</table></div>`;
   }
   // ----- 제품 1차 수량 확인용: 기간 안의 포장 기록 -----
@@ -1949,7 +2200,11 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       const inputs = {};
       pl.filter(l => l.wash).forEach(l => { const m = meatOf(l.meat); const nm = (m && m.input) || l.meat; inputs[nm] = (inputs[nm] || 0) + (useKg(l) || 0); });
       const sauces = {};
-      pl.filter(l => l.wash && l.wash.sauce && l.wash.sauceKg).forEach(l => { const k = l.wash.sauce + '|' + (l.wash.sauceExp || ''); sauces[k] = sauces[k] || { name: l.wash.sauce, exp: l.wash.sauceExp, kg: 0 }; sauces[k].kg += l.wash.sauceKg; });
+      pl.filter(l => l.wash).forEach(l => {
+        const bom = bomOfLot(l), name = l.wash.sauce || (bom && bom.sauce), kgv = l.wash.sauceKg != null ? l.wash.sauceKg : bomSauceKg(bom, useKg(l));
+        if (!name || !kgv) return;
+        const k = name + '|' + (l.wash.sauceExp || ''); sauces[k] = sauces[k] || { name, exp: l.wash.sauceExp, kg: 0 }; sauces[k].kg += kgv;
+      });
       const inRows = [...Object.entries(inputs).map(([name, kgv]) => ({ name, kg: kgv, note: '' })), ...Object.values(sauces).map(s => ({ name: s.name, kg: s.kg, note: s.exp ? '~' + dDot(s.exp) : '' }))];
       return { proc, lots: pl, packs: pp, inRows, inTotal: inRows.reduce((s, r) => s + r.kg, 0), outTotal: pp.reduce((s, p) => s + packKg(p), 0),
         thawDate: one(pl.map(l => l.soakDate || l.outDate)), washDate: one(pl.map(l => l.wash && l.wash.date)), packDate: one(pp.map(p => p.date)) };
@@ -1979,7 +2234,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       if (!l) return `<tr>${first}${'<td></td>'.repeat(11)}</tr>`;
       const j = d.byJob[l.job || ''];
       return `<tr>${first}<td>${esc(l.meat)}</td><td>${kg(l.wash.kg)} kg</td><td>${kg(useKg(l))} kg</td><td>${pct(washYield(l))}</td><td>${kg(l.outKg)} kg</td>
-        <td>${l.wash.aKg ? kg(l.wash.aKg) + ' kg' : ''}</td><td>${l.wash.wasteKg ? kg(l.wash.wasteKg) + ' kg' : ''}</td><td>${esc(l.job || '')}</td><td>${j && j.o ? pct(j.w / j.o * 100) : ''}</td><td>${esc(sauceShort(l.wash.sauce))}</td><td class="l">${esc(l.wash.note || '')}</td></tr>`;
+        <td>${l.wash.aKg ? kg(l.wash.aKg) + ' kg' : ''}</td><td>${l.wash.wasteKg ? kg(l.wash.wasteKg) + ' kg' : ''}</td><td class="pl2">${lotProducts(l).map(n => esc(n.replace(/\s*-\s*[\d.]+\s*k?g$/, ''))).join('<br>') || esc(l.job || '')}</td><td>${j && j.o ? pct(j.w / j.o * 100) : ''}</td><td>${esc(sauceShort(l.wash.sauce))}</td><td class="l">${esc(l.wash.note || '')}</td></tr>`;
     }).join('');
     const pn = Math.max(6, d.packs.length);
     const packRows = Array.from({ length: pn }, (_, i) => {
@@ -1998,6 +2253,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     </div>`;
   }
   // ----- 생산일지 (6칸) -----
+  const prodJobs = p => uniq(p.lots.map(l => l.job));
+  const prodTitle = p => p.proc.id === 'etc' && prodJobs(p).length === 1 ? `생산일지(${prodJobs(p)[0]})` : p.proc.title;
+  const prodSub = p => p.proc.id === 'etc' ? (prodJobs(p).length > 1 ? `(${prodJobs(p).join('/')})` : '') : (p.proc.sub || '');
   function docProdHTML(d, p) {
     if (!p) return '<div class="doc"><p>이 날짜에 해당하는 작업 유형의 원료육이 없습니다.</p></div>';
     const mgr = '';   // 결재는 손으로 서명
@@ -2010,7 +2268,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     return `<div class="doc doc-prod">
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
         <div style="flex:1"><div class="orig">원본 수정일 ${FORM_DATE}</div>
-          <div class="title" style="margin-top:26px">${esc(p.proc.title)}</div><div class="subtitle">${esc(p.proc.sub || '')}</div></div>
+          <div class="title" style="margin-top:26px">${esc(prodTitle(p))}</div><div class="subtitle">${esc(prodSub(p))}</div></div>
         <table class="ap" style="width:250px;border:2px solid #000"><tr><td rowspan="2" class="gyul">결<br>재</td><td>담당</td><td>검토</td><td>승인</td></tr><tr><td class="sig">${mgr}</td><td class="sig"></td><td class="sig"></td></tr></table>
       </div>
       <div class="dt">일자 : <span>${esc(p.thawDate)}</span></div>
@@ -2105,7 +2363,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const wl = d.lots.filter(l => l.wash), wn = Math.max(4, wl.length), wtop = r;
     for (let i = 0; i < wn; i++, r++) {
       const l = wl[i], j = l ? d.byJob[l.job || ''] : null;
-      const vals = l ? [l.meat, xnum(l.wash.kg), xnum(useKg(l)), washYield(l) / 100, xnum(l.outKg), xnum(l.wash.aKg), xnum(l.wash.wasteKg), l.job || '', j && j.o ? j.w / j.o : '', sauceShort(l.wash.sauce), l.wash.note || ''] : Array(11).fill('');
+      const vals = l ? [l.meat, xnum(l.wash.kg), xnum(useKg(l)), washYield(l) / 100, xnum(l.outKg), xnum(l.wash.aKg), xnum(l.wash.wasteKg), lotProducts(l).map(n => n.replace(/\s*-\s*[\d.]+\s*k?g$/, '')).join('\n') || l.job || '', j && j.o ? j.w / j.o : '', sauceShort(l.wash.sauce), l.wash.note || ''] : Array(11).fill('');
       const fm = [null, KGF(vals[1]), KGF(vals[2]), '0.00%', KGF(vals[4]), KGF(vals[5]), KGF(vals[6]), null, '0.00%', null, null];
       vals.forEach((v, k) => xcell(ws, `${'BCDEFGHIJKL'[k]}${r}`, v, { fmt: fm[k] || undefined, h: k === 10 ? 'left' : 'center' }));
       ws.getRow(r).height = 22;
@@ -2126,15 +2384,15 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     xcell(ws, `A${ptop}`, '포장', { merge: `A${ptop}:A${r - 1}` });
   }
   function sheetProd(wb, d, p) {
-    const name = (p.proc.id === 'grill' ? '생산일지(통 초벌·훈제막창)' : p.proc.title).slice(0, 31);
+    const name = ({ grill: '생산일지(통 초벌·훈제막창)', etc: '생산일지(기타 공정)' }[p.proc.id] || p.proc.title).slice(0, 31);
     const ws = wb.addWorksheet(name, { pageSetup: { paperSize: 9, orientation: 'portrait', fitToPage: true, fitToWidth: 1, fitToHeight: 1, margins: { left: .5, right: .5, top: .6, bottom: .6, header: .3, footer: .3 } } });
     ws.columns = [34, 17, 15, 10, 10, 10].map(w => ({ width: w }));
     const F2 = '#,##0.00';
     xcell(ws, 'A1', `원본 수정일 ${FORM_DATE}`, { h: 'left', border: false, font: { size: 9 } });
     xcell(ws, 'C2', '결\n재', { merge: 'C2:C3', font: { bold: true } }); ['담당', '검토', '승인'].forEach((t, i) => { xcell(ws, `${'DEF'[i]}2`, t, { font: { bold: true } }); xcell(ws, `${'DEF'[i]}3`, ''); });
     ws.getRow(3).height = 36;
-    xcell(ws, 'A3', p.proc.title, { merge: 'A3:B3', border: false, font: { bold: true, size: 22 } });
-    xcell(ws, 'A4', p.proc.sub || '', { merge: 'A4:C4', border: false, font: { size: 10 } });
+    xcell(ws, 'A3', prodTitle(p), { merge: 'A3:B3', border: false, font: { bold: true, size: 22 } });
+    xcell(ws, 'A4', prodSub(p), { merge: 'A4:C4', border: false, font: { size: 10 } });
     let r = 6;
     const dateRow = (dt, shade) => { xcell(ws, `E${r}`, '일자 :', { border: false, h: 'right', fill: shade ? GRAY : undefined }); xcell(ws, `F${r}`, dt, { border: false, fill: shade ? GRAY : undefined }); r++; };
     const head = (cols, merges = {}) => { cols.forEach(([ref, t]) => xcell(ws, `${ref}${r}`, t, { fill: GRAY, merge: merges[ref] ? `${ref}${r}:${merges[ref]}${r}` : undefined })); r++; };
@@ -2167,14 +2425,14 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const ws = wb.addWorksheet('해당일 기록', { pageSetup: { paperSize: 9, orientation: 'landscape', fitToPage: true, fitToWidth: 1, fitToHeight: 1, margins: { left: .4, right: .4, top: .5, bottom: .5, header: .2, footer: .2 } } });
     ws.columns = [6, 13, 13, 26, 10, 8, 11, 11, 9, 9, 9, 9, 10, 12].map(w => ({ width: w }));
     xcell(ws, 'A1', dayTitle(dd.date), { merge: 'A1:N1', border: false, font: { bold: true, size: 22 } }); ws.getRow(1).height = 40;
-    ['No', '원료육', '작업명', '제품명', '투입중량', '수율', '예상\n세척 중량', '실제\n세척 중량', 'A막창', '지방', '잔량', '폐기', '예상\n생산 수량', '비고'].forEach((t, i) => xcell(ws, `${'ABCDEFGHIJKLMN'[i]}2`, t, { fill: GRAY, font: { bold: true } }));
+    ['No', '원료육', '공정명', '제품명', '투입중량', '수율', '예상\n세척 중량', '실제\n세척 중량', 'A막창', '지방', '잔량', '폐기', '예상\n생산 수량', '비고'].forEach((t, i) => xcell(ws, `${'ABCDEFGHIJKLMN'[i]}2`, t, { fill: GRAY, font: { bold: true } }));
     ws.getRow(2).height = 34;
     let r = 3, no = 0;
     dd.groups.forEach(g => {
       no++; const top = r;
       g.rows.forEach(x => {
         const l = x.l, w = l.wash || {};
-        const vals = [null, null, l.job || '', l.product || '', xnum(l.outKg), x.ey != null ? x.ey / 100 : '', x.eKg != null ? Math.round(x.eKg) : '', xnum(x.act), xnum(w.aKg), xnum(w.fatKg), xnum(w.restKg), xnum(w.wasteKg), l.planQty ? l.planQty : '', [l.origin, l.note].filter(Boolean).join(' · ')];
+        const vals = [null, null, l.job || '', lotProducts(l).join('\n'), xnum(l.outKg), x.ey != null ? x.ey / 100 : '', x.eKg != null ? Math.round(x.eKg) : '', xnum(x.act), xnum(w.aKg), xnum(w.fatKg), xnum(w.restKg), xnum(w.wasteKg), l.planQty ? l.planQty : '', [l.origin, l.note].filter(Boolean).join(' · ')];
         const fm = [null, null, null, null, '#,##0"kg"', '0%', '#,##0"kg"', '#,##0.##" kg"', '#,##0.##" kg"', '#,##0.##" kg"', '#,##0.##" kg"', '#,##0.##" kg"', '#,##0"개"', null];
         vals.forEach((v, k) => { if (k > 1) xcell(ws, `${'ABCDEFGHIJKLMN'[k]}${r}`, v, { fmt: fm[k] || undefined, h: k >= 7 && k <= 11 ? 'right' : 'center' }); });
         ws.getRow(r).height = 30; r++;
@@ -2210,9 +2468,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       ws.views = [{ state: 'frozen', ySplit: 1 }];
     };
     const lots = state.lots.filter(l => inM(l.outDate));
-    sheet('원료육_출고세척', ['출고일', '침수일', '원료육', '이력번호', '원료 소비기한', '원산지', '출고중량(kg)', '작업유형', '작업명', '생산제품', '예상수량', '해동후중량(kg)',
+    sheet('원료육_출고세척', ['출고일', '침수일', '원료육', '이력번호', '원료 소비기한', '원산지', '출고중량(kg)', '생산일지 양식', '공정명', '생산제품', '예상수량', '해동후중량(kg)',
       '세척일', '세척중량(kg)', '실사용중량(kg)', '세척수율', 'A막창(kg)', '지방(kg)', '잔량(kg)', '폐기막창(kg)', '양념소스', '소스투입(kg)', '소스 소비기한', '비고'],
-      lots.map(l => [l.outDate, l.soakDate, l.meat, l.trace, l.meatExp, l.origin, l.outKg, (procOf(l.proc) || {}).label, l.job, l.product, l.planQty, l.thawKg,
+      lots.map(l => [l.outDate, l.soakDate, l.meat, l.trace, l.meatExp, l.origin, l.outKg, (procOf(l.proc) || {}).label, l.job, lotProducts(l).join(', '), l.planQty, l.thawKg,
         l.wash ? l.wash.date : null, l.wash ? l.wash.kg : null, l.wash ? useKg(l) : null, washYield(l) != null ? washYield(l) / 100 : null,
         l.wash ? l.wash.aKg : null, l.wash ? l.wash.fatKg : null, l.wash ? l.wash.restKg : null, l.wash ? l.wash.wasteKg : null, l.wash ? l.wash.sauce : null, l.wash ? l.wash.sauceKg : null, l.wash ? l.wash.sauceExp : null, [l.note, l.wash && l.wash.note].filter(Boolean).join(' / ')]),
       { 15: '0.00%' });
@@ -2235,7 +2493,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     for (const l of state.lots) {
       const st = statusOf(l), soak = l.soakDate || addDays(l.outDate, 1);
       if (st === 'out' && soak < t) out.push({ id: `ww:${l.id}`, lv: 'wait', title: `${l.job || l.meat} 세척 대기 ${daysBetween(soak, t)}일째`, sub: `침수 ${dMD(soak)} · 출고 ${kg(l.outKg)}kg ${traceTail(l.trace)}`, go: ['wash', { lot: l.id }], date: soak });
-      if (st === 'washed' && l.wash.date < t) out.push({ id: `wp:${l.id}`, lv: 'wait', title: `${l.job || l.meat} 포장 대기 ${daysBetween(l.wash.date, t)}일째`, sub: `세척 ${dMD(l.wash.date)} · 실사용 ${kg(useKg(l))}kg ${traceTail(l.trace)}`, go: ['pack', { lots: [l.id], product: l.product }], date: l.wash.date });
+      if (st === 'washed' && l.wash.date < t) out.push({ id: `wp:${l.id}`, lv: 'wait', title: `${l.job || l.meat} 포장 대기 ${daysBetween(l.wash.date, t)}일째`, sub: `세척 ${dMD(l.wash.date)} · 실사용 ${kg(useKg(l))}kg ${traceTail(l.trace)}`, go: ['pack', { lots: [l.id], product: leftProducts(l)[0] || lotProducts(l)[0] }], date: l.wash.date });
       if (l.meatExp && l.meatExp < l.outDate) out.push({ id: `me:${l.id}`, lv: 'bad', title: '원료 소비기한이 출고일보다 빠릅니다', sub: `${l.meat} ${l.trace || ''} · 소비기한 ${dFull(l.meatExp)}`, go: ['out', { lot: l.id }], date: l.outDate });
       if (l.wash && daysBetween(l.wash.date, t) <= 14) {
         const prev = state.lots.filter(o => o.id !== l.id && o.wash && o.job === l.job && o.wash.date <= l.wash.date && o.outKg).slice(-10);
@@ -2280,31 +2538,36 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   }
   function markSeen(list) { const s = seenSet(); list.forEach(a => s.add(a.id)); saveLS(LS_SEEN, [...s].slice(-500)); renderBell(); }
 
-  // ================= 수정: 입력 항목(제품 · 원료육 · 원산지 · 양념소스 · 작업명) 추가·수정·삭제 =================
-  const MTABS = [['product', '제품'], ['meat', '원료육'], ['origin', '원산지'], ['sauce', '양념소스'], ['job', '작업명']];
+  // ================= 수정: 입력 항목(제품 · 공정명 · 원료육 · 원산지 · 양념소스) 추가·수정·삭제 =================
+  const MTABS = [['product', '제품'], ['process', '공정명'], ['meat', '원료육'], ['origin', '원산지'], ['sauce', '양념소스']];
   function pageManage() {
     const M = state.manage, C = state.config;
-    const unit = v => v ? (v < 1 ? v * 1000 + 'g' : v + 'kg') : '-';
+    if (!MTABS.some(t => t[0] === M.tab)) M.tab = 'product';
     const row = (main, sub, acts) => `<div class="mrow"><div class="tx"><b>${main}</b>${sub ? `<small>${sub}</small>` : ''}</div><div class="ma">${acts}</div></div>`;
     const btns = (k, i) => `<button class="btn sm" data-act="mEdit" data-k="${k}" data-i="${i}">${icon('edit')}수정</button><button class="btn sm danger" data-act="mDel" data-k="${k}" data-i="${i}">${icon('trash')}삭제</button>`;
     let body = '', addLabel = '';
     if (M.tab === 'product') {
       addLabel = '제품 추가';
-      body = [...PROCS, { id: '', label: '따로 포장' }].map(pr => {
-        const list = C.products.map((p, i) => [p, i]).filter(([p]) => (p.proc || '') === pr.id);
-        return list.length ? `<div class="mgrp">${pr.label}</div>${list.map(([p, i]) => row(esc(p.name), `작업명 ${esc(p.job || '-')} · 규격 ${unit(p.unitKg)} · 원산지 표기 ${esc(p.origin || '-')} · 소비기한 ${p.shelfDays != null ? `포장일 +${p.shelfDays}일` : '-'}`, btns('product', i))).join('')}` : '';
+      body = [...jobsOf(), ''].map(j => {
+        const list = C.products.map((p, i) => [p, i]).filter(([p]) => (p.job || '') === j);
+        const pr = processOf(j);
+        return list.length ? `<div class="mgrp">${esc(j || '따로 포장')}${pr ? ` <small>${FORMS.find(f => f[0] === pr.form)[1]}</small>` : ''}</div>${list.map(([p, i]) => row(esc(p.name),
+          `${p.group ? esc(p.group) + ' · ' : ''}원료육 ${esc(p.meat || '-')} · 규격 ${unitTxt(p.unitKg) || '-'} · 원산지 표기 ${esc(p.origin || '원료육 따라')} · 소비기한 ${p.shelfDays != null ? `+${p.shelfDays}일` : '-'}<br>BOM ${esc(bomText(p.bom) || '없음')}`, btns('product', i))).join('')}` : '';
       }).join('');
+    } else if (M.tab === 'process') {
+      addLabel = '공정 추가';
+      body = C.processes.map((x, i) => row(esc(x.name), `${FORMS.find(f => f[0] === x.form)[1]} · 제품 ${C.products.filter(p => p.job === x.name).length}개`, btns('process', i))).join('');
     } else if (M.tab === 'meat') {
       addLabel = '원료육 추가';
       body = C.meats.map((m, i) => row(esc(m.name), `원산지 ${esc(m.origin || '-')} · 생산일지 투입품명 ${esc(m.input || '-')}`, btns('meat', i))).join('');
     } else {
-      const key = { origin: 'origins', sauce: 'sauces', job: 'jobs' }[M.tab];
-      addLabel = { origin: '원산지 추가', sauce: '양념소스 추가', job: '작업명 추가' }[M.tab];
+      const key = { origin: 'origins', sauce: 'sauces' }[M.tab];
+      addLabel = { origin: '원산지 추가', sauce: '양념소스 추가' }[M.tab];
       body = C[key].map((v, i) => row(esc(v), '', btns(M.tab, i))).join('');
     }
     $('#ph-right').innerHTML = `<button class="btn primary" data-act="mAdd">${icon('plus')}${addLabel}</button>`;
     $('#page').innerHTML = `<section class="card">
-      <p class="lead">입력 화면에 나오는 선택 항목을 고칩니다. 바꿔도 이미 저장된 기록은 그대로입니다.</p>
+      <p class="lead">입력 화면에 나오는 선택 항목을 고칩니다. 바꿔도 이미 저장된 기록은 그대로입니다. 기본 목록은 회사 제품분류(품목보고현황) 기준입니다.</p>
       <div class="seg" style="margin-bottom:14px">${MTABS.map(([k, l]) => `<button data-act="mTab" data-v="${k}" class="${M.tab === k ? 'on' : ''}">${l}</button>`).join('')}</div>
       <div class="mlist">${body || `<div class="empty">${icon('list')}<b>항목이 없습니다</b></div>`}</div></section>`;
   }
@@ -2313,31 +2576,35 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     mAdd: () => {
       const t = state.manage.tab;
       if (t === 'product') return openProduct(null, () => paint());
+      if (t === 'process') return openProcess(null);
       if (t === 'meat') return openMeat(null, () => paint());
-      const key = { origin: 'origins', sauce: 'sauces', job: 'jobs' }[t], label = { origin: '원산지', sauce: '양념소스', job: '작업명' }[t];
+      const key = { origin: 'origins', sauce: 'sauces' }[t], label = { origin: '원산지', sauce: '양념소스' }[t];
       openText(`${label} 추가`, '', v => { if (!v) return; confirmSave(`${label} 추가`, [[label, esc(v)]], async () => { if (await addToConfig(key, v)) { toast('추가했습니다.'); paint(); } }); });
     },
     mEdit: b => {
       const k = b.dataset.k, i = +b.dataset.i, C = state.config;
       if (k === 'product') return openProduct(C.products[i].name, () => paint());
+      if (k === 'process') return openProcess(C.processes[i].name);
       if (k === 'meat') return openMeat(C.meats[i].name, () => paint());
-      const key = { origin: 'origins', sauce: 'sauces', job: 'jobs' }[k], label = { origin: '원산지', sauce: '양념소스', job: '작업명' }[k], old = C[key][i];
+      const key = { origin: 'origins', sauce: 'sauces' }[k], label = { origin: '원산지', sauce: '양념소스' }[k], old = C[key][i];
       openText(`${label} 이름 바꾸기`, old, v => {
         if (!v || v === old) return;
         confirmSave(`${label} 이름 바꾸기`, [['바꾸기 전', esc(old)], ['바꾼 뒤', esc(v)]], async () => {
           const C2 = clone(state.config); C2[key][i] = v;
-          if (k === 'job') C2.products.forEach(p => { if (p.job === old) p.job = v; });
           if (k === 'origin') { C2.products.forEach(p => { if (p.origin === old) p.origin = v; }); C2.meats.forEach(m => { if (m.origin === old) m.origin = v; }); }
+          if (k === 'sauce') C2.products.forEach(p => { if (p.bom && p.bom.sauce === old) p.bom.sauce = v; });
           if (await saveConfig(C2)) { toast('바꿨습니다.'); paint(); }
         });
       });
     },
     mDel: b => {
       const k = b.dataset.k, i = +b.dataset.i, C = state.config;
-      const key = { product: 'products', meat: 'meats', origin: 'origins', sauce: 'sauces', job: 'jobs' }[k];
+      const key = { product: 'products', process: 'processes', meat: 'meats', origin: 'origins', sauce: 'sauces' }[k];
       const item = C[key][i], name = typeof item === 'string' ? item : item.name;
-      ask(`'${name}' 을(를) 목록에서 지울까요? 이미 저장된 기록에는 그대로 남습니다.`, '삭제', async () => {
+      const used = k === 'process' ? C.products.filter(p => p.job === name).length : 0;
+      ask(`'${name}' 을(를) 목록에서 지울까요?${used ? ` 이 공정의 제품 ${used}개는 '따로 포장'으로 옮겨집니다.` : ''} 이미 저장된 기록에는 그대로 남습니다.`, '삭제', async () => {
         const C2 = clone(state.config); C2[key].splice(i, 1);
+        if (k === 'process') C2.products.forEach(p => { if (p.job === name) p.job = ''; });
         if (await saveConfig(C2)) { toast('지웠습니다.'); paint(); }
       }, true);
     },
@@ -2362,7 +2629,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         ${segRow('세척 수율', '세척 후 무게 ÷ 출고중량', 'washBasis', [['wash', '세척중량 기준'], ['use', '실사용중량 기준']])}
         ${segRow('포장 수율 — 위쪽 (나누는 값)', '회사 작업일지는 잔량·폐기까지 더합니다', 'packFormula', [['withRest', '포장중량 + 잔량 + 폐기'], ['packOnly', '포장중량만']])}
         ${segRow('포장 수율 — 아래쪽 (기준 무게)', '연결한 원료육의 어떤 무게로 나눌지', 'packBase', [['use', '실사용중량'], ['wash', '세척중량']])}
-        <div class="set-sec">확인 알림 기준 <small style="font-weight:400;color:var(--muted)">같은 작업명·제품의 최근 평균과 이만큼 차이 나면 알림</small></div>
+        <div class="set-sec">확인 알림 기준 <small style="font-weight:400;color:var(--muted)">같은 공정명·제품의 최근 평균과 이만큼 차이 나면 알림</small></div>
         ${numRow('세척 수율', '입력 화면 경고와 종 알림에 쓰입니다', 'washWarn')}
         ${numRow('포장 수율', '종 알림에 쓰입니다', 'packWarn')}
         <div class="set-sec" style="color:var(--bad)">기록 초기화</div>
@@ -2410,10 +2677,10 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     if (state.lots.some(l => l.sample)) { toast('예시 데이터가 이미 있습니다.'); return; }
     const now = new Date().toISOString(), base = { sample: true, createdAt: now, updatedAt: now, by: store.myId };
     const A = { id: 'L-sample-a', ...base, outDate: '2026-10-17', soakDate: '2026-10-18', meat: '(돈막창)하이라이프', trace: '905002407766', meatExp: '2028-02-09', origin: '캐나다산', outKg: 800,
-      proc: 'raw', product: '회색 숙성돼지막창 - 2kg', job: '회색', planQty: 467, thawKg: 900, note: '',
+      proc: 'raw', products: ['회색 숙성돼지막창 - 2kg'], product: '회색 숙성돼지막창 - 2kg', job: '생막창', planQty: 467, thawKg: 900, note: '',
       wash: { date: '2026-10-19', kg: 840, useKg: 947, aKg: null, fatKg: null, restKg: null, wasteKg: null, sauce: '생막창 양념소스', sauceKg: 41, sauceExp: '2027-04-19', note: '', at: now, by: store.myId } };
     const B = { id: 'L-sample-b', ...base, createdAt: now + '1', outDate: '2026-10-17', soakDate: '2026-10-18', meat: '(돈막창)하이라이프', trace: '905002408176', meatExp: '2028-06-22', origin: '캐나다산', outKg: 800,
-      proc: 'grill', product: '김사부의 돼지막창 - 2kg', job: '통초벌', planQty: 300, thawKg: 701, note: '',
+      proc: 'grill', products: ['김사부의 돼지막창 - 2kg'], product: '김사부의 돼지막창 - 2kg', job: '훈제 머리꼬리', planQty: 300, thawKg: 701, note: '',
       wash: { date: '2026-10-19', kg: 865, useKg: 758, aKg: null, fatKg: null, restKg: null, wasteKg: null, sauce: '훈초벌 양념소스', sauceKg: 35.3, sauceExp: '2027-04-19', note: '', at: now, by: store.myId } };
     const P1 = { id: 'P-sample-a', ...base, date: '2026-10-20', product: '회색 숙성돼지막창 - 2kg', unitKg: 2, exp: '2028-01-18', qty: 492, kg: 984, kgManual: false, origin: '외국산', restG: 1250, wasteG: 465, start: '11:45', end: '14:50', lotIds: [A.id], note: '' };
     const P2 = { id: 'P-sample-b', ...base, createdAt: now + '1', date: '2026-10-20', product: '김사부의 돼지막창 - 2kg', unitKg: 2, exp: '2027-10-18', qty: 308, kg: 616, kgManual: false, origin: '캐나다산', restG: 1850, wasteG: 1200, start: '16:10', end: '17:35', lotIds: [B.id], note: '' };
