@@ -328,7 +328,7 @@ table.t td.act .btn{margin-left:4px}
 .kp .keys button{height:58px}
 .sheet .input{margin-bottom:4px}
 /* 확인 창: 맨 위 층 */
-.modal-bg.top{z-index:85}
+.modal-bg.ontop{z-index:85}
 .modal.confirm{width:min(480px,100%)}
 .sum{border:1px solid var(--line);border-radius:14px;padding:4px 14px;background:var(--hover)}
 .sum div{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14.5px}
@@ -1065,7 +1065,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       </div>
       <div class="modal-bg" id="modal"><div class="modal" id="modal-body" role="dialog" aria-modal="true"></div></div>
       <div class="sheet-bg" id="sheet"><div class="sheet" id="sheet-body" role="dialog" aria-modal="true"></div></div>
-      <div class="modal-bg top" id="confirm"><div class="modal confirm" id="confirm-body" role="alertdialog" aria-modal="true"></div></div>
+      <div class="modal-bg ontop" id="confirm"><div class="modal confirm" id="confirm-body" role="alertdialog" aria-modal="true"></div></div>
       <div class="toast" id="toast" role="status"></div>
       <div id="print-root"></div>`;
     $('#btn-set').onclick = openSettings;
@@ -1695,6 +1695,8 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       C.text('note', '비고', { w: 62 }),
     ];
     F._hook = (r, k, v) => {
+      if (k === 'expKg' && v != null) r.expYield = null;   // 예상 세척 중량을 직접 넣으면 수율(예상)은 거꾸로 자동 계산
+      if (k === 'expYield' && v != null) r.expKg = null;   // 수율을 넣으면 예상 세척 중량이 자동
       if (k === 'meat') { r._meatSet = true; const o = originOfMeat(v); if (o) r.origin = o; }
       if (k === 'job') {   // 공정을 바꾸면 그 공정 제품만 남기고, 제품이 하나뿐이면 자동 선택
         r.products = (r.products || []).filter(n => (productOf(n) || {}).job === v);
@@ -1809,6 +1811,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       C.text('wnote', '세척 메모'),
     ];
     F._hook = (r, k, v) => {
+      r._open = true;   // 입력하면 그 행의 일지 항목(세척중량 · 양념소스 · 해동 후 중량)을 자동으로 펼침
+      if (k === 'expKg' && v != null) r.expYield = null;
+      if (k === 'expYield' && v != null) r.expKg = null;
       if (k === 'products') { const p0 = productOf((v || [])[0]); if (p0 && p0.job && (!r.job || !(v || []).some(n => (productOf(n) || {}).job === r.job))) r.job = p0.job; const b = bomOfLot({ products: v }); if (b && b.sauce && !r._sauceSet) r.sauce = b.sauce; }
       if (k === 'sauce') r._sauceSet = true;
     };
