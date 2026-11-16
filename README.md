@@ -11,11 +11,11 @@
    - `.nojekyll`처럼 점으로 시작하는 파일이 안 보이면 없어도 동작합니다.
 5. 아래 **Commit changes** 클릭
 6. 저장소 **Settings → Pages** → Source: **Deploy from a branch** → Branch: **main** / **/(root)** → **Save**
-7. 1~2분 뒤 같은 화면 위쪽에 주소가 나타납니다: `https://<GitHub아이디>.github.io/korea-food-mes-dashboard/`
+7. 1~2분 뒤 같은 화면 위쪽에 주소가 나타납니다: `https://<GitHub아이디>.github.io/kf-worklog/`
 
 ## 로그인
 
-- 아이디: `kor178` / 비밀번호: `0123!` (화면 키패드의 `!` 키, PC는 키보드로 입력)
+- 아이디: `admin` / 비밀번호: `0123!` (화면 키패드의 `!` 키, PC는 키보드로 입력)
 - 태블릿(갤럭시탭 · 아이패드)에서 처음 로그인하면 지문(얼굴) 로그인을 쓸지 묻습니다. 켜 두면 다음부터 손가락만 대면 열립니다.
 
 ## 태블릿에 앱처럼 설치

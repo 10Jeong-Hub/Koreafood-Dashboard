@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" data-brand="kfw">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -675,6 +675,20 @@ body{background:var(--bg)}
 }
 @media (min-width:1261px){.wrap.full .card{padding:20px 22px 22px}}
 
+/* ================= 회사별 머리글 (하비랑: 원형 배지 + 이름) ================= */
+.top .brand-txt{font-size:18px;font-weight:700;letter-spacing:-.02em;white-space:nowrap}
+.top.brand-hbr .logo{height:42px}
+.login.brand-hbr .lg-logo{height:84px}
+@media (max-width:900px){.top.brand-hbr .logo{height:34px}.top .brand-txt{font-size:16px}}
+
+/* ================= 회사 색: 하비랑은 파란색 (코리아식품은 위의 주황색 그대로) ================= */
+:root[data-brand="hbr"]{--orange:#2563EB;--orange-600:#1D4ED8;--orange-soft:#EEF4FF;--orange-line:#BFD3FE;--focus:0 0 0 3px rgba(37,99,235,.22)}
+:root[data-brand="hbr"] table.st tr.new td:not(.act){background:linear-gradient(0deg,rgba(37,99,235,.045),rgba(37,99,235,.045))}
+@media (prefers-color-scheme:dark){
+  :root[data-brand="hbr"]:not([data-theme="light"]):not([data-kf-theme="light"]){--orange:#4C8DF6;--orange-600:#7DAAF8;--orange-soft:rgba(76,141,246,.16);--orange-line:rgba(76,141,246,.45);--focus:0 0 0 3px rgba(76,141,246,.3)}
+}
+:root[data-brand="hbr"][data-theme="dark"]:not([data-kf-theme="light"]),:root[data-brand="hbr"][data-kf-theme="dark"]{--orange:#4C8DF6;--orange-600:#7DAAF8;--orange-soft:rgba(76,141,246,.16);--orange-line:rgba(76,141,246,.45);--focus:0 0 0 3px rgba(76,141,246,.3)}
+
 </style>
 </head>
 <body>
@@ -741,6 +755,14 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   const num = v => { if (v == null) return null; const t = String(v).replace(/,/g, '').trim(); return t === '' || !isFinite(+t) ? null : +t; };
   const pct = (v, d = 2) => v == null || !isFinite(v) ? '-' : fmt(v, d) + '%';
   const IMG = window.KFW_IMG || { logoDark: '../assets/logoDark.png', logoWhite: '../assets/logoWhite.png' };
+  // 회사별 설정 (빌드할 때 window.KFW_BRAND로 넣음). 없으면 (주)코리아식품
+  const BRAND = Object.assign({
+    id: 'kfw', name: '(주)코리아식품', short: '코리아식품', formDate: '2023-02-06', sample: true,
+    forms: ['raw', 'grill', 'etc'], etcLabel: '생산일지(기타 공정)', listNote: '기본 목록은 회사 제품분류(품목보고현황) 기준입니다.',
+    inputs: ['돼지막창', '소막창'], ph: { meat: '(돈막창)하이라이프', job: '생막창', product: '회색 숙성돼지막창 - 2kg', group: '숙성돼지막창' },
+    accent: { main: '#FF6A10', soft: '#FFF1E7', line: '#FFD2B5' },
+  }, window.KFW_BRAND || {});
+  document.documentElement.setAttribute('data-brand', BRAND.id);   // 회사별 색 (style.css의 [data-brand])
   const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
 
   // ---------- 날짜 ----------
@@ -792,7 +814,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   const icon = (n, s = '') => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ${s}>${I[n]}</svg>`;
 
   // ---------- 고정 양식 · 기본값 ----------
-  const FORM_DATE = '2023-02-06';   // 회사 생산일지 양식의 원본 수정일 (양식 그대로 인쇄)
+  const FORM_DATE = BRAND.formDate || '';   // 회사 생산일지 양식의 원본 수정일 (양식 그대로 인쇄)
   const PROCS = [
     { id: 'raw', label: '생막창', title: '생산일지(생막창)', sub: '(숙성돼지막창-회색/갈색/제일/안지랑/신풍/소덤소덤/성주/마시불/미진)', sauce: '생막창 양념소스' },
     { id: 'grill', label: '초벌·훈제', title: '생산일지', sub: '(통 초벌/훈제막창)', sauce: '훈초벌 양념소스' },
@@ -801,7 +823,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   const procOf = id => PROCS.find(p => p.id === id) || null;
   // 회사 제품분류(품목보고현황.xls) 기준 목록 — 공정 · 제품(세부) · 사용 원료육 · 원재료 배합비(BOM) · 소스
   const CONFIG_VER = 2;
-  const DEFAULT_CONFIG = {
+  const KF_CONFIG = {
     ver: CONFIG_VER,
     meats: [{"name": "(돈막창)하이라이프", "input": "돼지막창", "origin": "캐나다산"}, {"name": "(돈막창)ICP", "input": "돼지막창", "origin": ""}, {"name": "(소홍창)스위프트", "input": "소막창", "origin": ""}, {"name": "(돈전지)INCARLOPSA", "input": "돼지고기", "origin": ""}, {"name": "뼈삼겹살", "input": "돼지고기", "origin": ""}, {"name": "무뼈닭발", "input": "닭발", "origin": ""}],
     origins: ['캐나다산', '미국산', '스페인산', '국내산', '외국산'],
@@ -858,7 +880,10 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     // 계산 기준 (설정에서 바꿈)
     calc: { washBasis: 'wash', packFormula: 'withRest', packBase: 'use', washWarn: 5, packWarn: 5 },
   };
-  const LS_DATA = 'kfw-data-v1', LS_UI = 'kfw-ui-v1';
+  // 회사 설정에 목록이 있으면 그것을 기본 목록으로 (하비랑 등)
+  const DEFAULT_CONFIG = BRAND.config ? Object.assign({ ver: CONFIG_VER, calc: JSON.parse(JSON.stringify(KF_CONFIG.calc)) }, JSON.parse(JSON.stringify(BRAND.config))) : KF_CONFIG;
+  // 같은 GitHub 계정의 두 사이트(코리아식품 · 하비랑)가 기록을 섞지 않도록 회사별 저장 이름
+  const LS_DATA = BRAND.id + '-data-v1', LS_UI = BRAND.id + '-ui-v1';
   const loadLS = k => { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } };
   const saveLS = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } };
   const clone = o => JSON.parse(JSON.stringify(o));
@@ -1052,8 +1077,8 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   function shell() {
     document.body.innerHTML = `
       <div class="app">
-        <header class="top">
-          <img class="logo logo-k" src="${IMG.logoDark}" alt="(주)코리아식품"><img class="logo logo-w" src="${IMG.logoWhite}" alt="" aria-hidden="true">
+        <header class="top brand-${BRAND.id}">
+          <img class="logo logo-k" src="${IMG.logoDark}" alt="${esc(BRAND.name)}"><img class="logo logo-w" src="${IMG.logoWhite}" alt="" aria-hidden="true">${BRAND.headerText ? `<b class="brand-txt">${esc(BRAND.headerText)}</b>` : ''}
           <span class="div"></span><span class="ttl">생산 작업 기록</span>
           <span class="sp"></span>
           <span class="today" id="today"></span>
@@ -1228,14 +1253,20 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     });
     draw();
   }
-  // 소비기한 제안: 제품 기준 일수, 같은 원료육·소스의 지난 값
+  const addMonths = (s0, n) => { const d = dObj(s0), day = d.getUTCDate(); d.setUTCDate(1); d.setUTCMonth(d.getUTCMonth() + n); d.setUTCDate(Math.min(day, daysIn(d.getUTCFullYear(), d.getUTCMonth() + 1))); return d.toISOString().slice(0, 10); };
+  // 제품의 소비기한 제안: 개월 기준(제품 설정) → 지난번 같은 제품의 간격 → 일수 기준(제품 설정)
+  function shelfSuggest(name, date, exceptId) {
+    const p = productOf(name); if (!date || !name) return null;
+    if (p && p.shelfMonths != null) return [`포장일 +${p.shelfMonths}개월`, addDays(addMonths(date, p.shelfMonths), -1)];
+    const prev = state.packs.filter(x => x.product === name && x.exp && x.date && x.id !== exceptId).slice(-1)[0];
+    const days = prev ? daysBetween(prev.date, prev.exp) : p && p.shelfDays != null ? p.shelfDays : null;
+    return days != null ? [`포장일 +${days}일`, addDays(date, days)] : null;
+  }
+  const shelfText = p => p && p.shelfMonths != null ? `+${p.shelfMonths}개월` : p && p.shelfDays != null ? `+${p.shelfDays}일` : '-';
+  // 소비기한 제안: 제품 기준, 같은 원료육·소스의 지난 값
   function expSuggest(key) {
     const F = F_(), out = [];
-    if (key === 'exp' && F.product) {
-      const p = productOf(F.product), prev = state.packs.filter(x => x.product === F.product && x.exp && x.date && x.id !== F.id).slice(-1)[0];
-      const days = prev ? daysBetween(prev.date, prev.exp) : p && p.shelfDays != null ? p.shelfDays : null;
-      if (days != null && F.date) out.push([`포장일 +${days}일`, addDays(F.date, days)]);
-    }
+    if (key === 'exp' && F.product) { const sg = shelfSuggest(F.product, F.date, F.id); if (sg) out.push(sg); }
     if (key === 'meatExp') state.lots.filter(l => l.meat === F.meat && l.meatExp).map(l => l.meatExp).reverse().filter((v, i, a) => a.indexOf(v) === i).slice(0, 2).forEach(v => out.push(['지난 값', v]));
     if (key === 'sauceExp') state.lots.filter(l => l.wash && l.wash.sauce === F.sauce && l.wash.sauceExp).map(l => l.wash.sauceExp).reverse().filter((v, i, a) => a.indexOf(v) === i).slice(0, 2).forEach(v => out.push(['지난 값', v]));
     return out;
@@ -1324,7 +1355,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   function openAdd(kind) {
     if (kind === 'origin') return openText('원산지 추가', '', async v => { if (v && await addToConfig('origins', v)) setF('origin', v); }, '예: 칠레산');
     if (kind === 'sauce') return openText('양념소스 추가', '', async v => { if (v && await addToConfig('sauces', v)) setF('sauce', v); }, '예: 매운 양념소스');
-    if (kind === 'job') return openText('공정명 추가', '', async v => { if (v && await addProcess(v)) setF('job', v); }, '예: 생막창');
+    if (kind === 'job') return openText('공정명 추가', '', async v => { if (v && await addProcess(v)) setF('job', v); }, `예: ${BRAND.ph.job}`);
     if (kind === 'meat') return openMeat(null, name => setF('meat', name));
     if (kind === 'product') return openProduct(null);
   }
@@ -1333,9 +1364,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const m = name ? clone(meatOf(name)) : { name: '', input: '돼지막창', origin: F_().origin || '' };
     const draw = () => {
       openSheet(`<div class="cal-title" style="font-size:17px">${name ? '원료육 수정' : '원료육 추가'}</div>
-        <div class="tp-sec">원료육 품명</div><input class="input" id="mn" value="${esc(m.name)}" placeholder="예: (돈막창)하이라이프" autocomplete="off">
+        <div class="tp-sec">원료육 품명</div><input class="input" id="mn" value="${esc(m.name)}" placeholder="예: ${esc(BRAND.ph.meat)}" autocomplete="off">
         <div class="tp-sec">원산지</div><div class="chips">${state.config.origins.map(o => `<button class="chip ${m.origin === o ? 'on' : ''}" data-mo="${esc(o)}">${esc(o)}</button>`).join('')}</div>
-        <div class="tp-sec">생산일지 투입품명</div><div class="chips">${[...new Set(['돼지막창', '소막창', ...state.config.meats.map(x => x.input).filter(Boolean)])].map(o => `<button class="chip ${m.input === o ? 'on' : ''}" data-mi="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+        <div class="tp-sec">생산일지 투입품명</div><div class="chips">${[...new Set([...BRAND.inputs, ...state.config.meats.map(x => x.input).filter(Boolean)])].map(o => `<button class="chip ${m.input === o ? 'on' : ''}" data-mi="${esc(o)}">${esc(o)}</button>`).join('')}</div>
         ${name ? '<p class="fh" style="margin-top:10px">이미 저장된 기록의 이름은 바뀌지 않습니다.</p>' : ''}
         <div class="kp-f"><button class="btn" data-x2>취소</button><button class="btn primary" data-ok>${icon('check')}저장</button></div>`);
       const S = $('#sheet-body'), mn = S.querySelector('#mn');
@@ -1359,14 +1390,15 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   // 제품 추가 · 수정: 세부 제품명, 제품명(묶음), 공정명, 사용 원료육, 규격, 원산지 표기, 소비기한, BOM(원재료 배합비 · 소스)
   function openProduct(name, after) {
     const cur = name ? productOf(name) : null;
-    const p = cur ? clone(cur) : { name: '', group: '', job: (state.form && state.form.rows ? '' : '') || '', meat: (state.config.meats[0] || {}).name || '', unitKg: 2, origin: '', shelfDays: null, bom: null };
+    const p = cur ? clone(cur) : { name: '', group: '', job: (state.form && state.form.rows ? '' : '') || '', meat: (state.config.meats[0] || {}).name || '', unitKg: 2, origin: '', shelfDays: null, shelfMonths: null, storage: '', desc: '', bom: null };
     if (!p.bom) p.bom = { main: (meatOf(p.meat) || {}).input || '돼지막창', mainPct: null, sauce: '', saucePct: null };
     const UNITS = [0.2, 0.25, 0.3, 0.4, 0.5, 1, 2, 5];
     const draw = () => {
       const C0 = state.config, b = p.bom;
       openSheet(`<div class="cal-title" style="font-size:17px">${name ? '제품 수정' : '새 제품'}</div>
-        <div class="tp-sec">세부 제품명 (포장 제품)</div><input class="input" id="pn" value="${esc(p.name)}" placeholder="예: 회색 숙성돼지막창 - 2kg" autocomplete="off">
-        <div class="tp-sec">제품명 (묶음)</div><input class="input" id="pg" value="${esc(p.group || '')}" placeholder="예: 숙성돼지막창" autocomplete="off">
+        <div class="tp-sec">세부 제품명 (포장 제품)</div><input class="input" id="pn" value="${esc(p.name)}" placeholder="예: ${esc(BRAND.ph.product)}" autocomplete="off">
+        <div class="tp-sec">제품명 (묶음)</div><input class="input" id="pg" value="${esc(p.group || '')}" placeholder="예: ${esc(BRAND.ph.group)}" autocomplete="off">
+        <div class="tp-sec">일반제품명 · 용도 <small>선택</small></div><input class="input" id="pd" value="${esc(p.desc || '')}" placeholder="예: 닭갈비 볶음 조리" autocomplete="off">
         <div class="tp-sec">공정명</div><div class="chips">${C0.processes.map(x => `<button class="chip ${p.job === x.name ? 'on' : ''}" data-pj="${esc(x.name)}">${esc(x.name)}</button>`).join('')}<button class="chip ${!p.job ? 'on' : ''}" data-pj="">따로 포장</button></div>
         <div class="tp-sec">사용 원료육</div><div class="chips">${C0.meats.map(m => `<button class="chip ${p.meat === m.name ? 'on' : ''}" data-pm="${esc(m.name)}">${esc(m.name)}</button>`).join('')}</div>
         <div class="tp-sec">BOM · 원재료 배합비 <small>소스 투입중량 = 실사용중량 × 소스% ÷ 원료%</small></div>
@@ -1381,11 +1413,14 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         ${b.mainPct && b.saucePct && b.sauce ? `<p class="fh">예) 실사용 1,000kg → ${esc(b.sauce)} ${kg(bomSauceKg(b, 1000))}kg</p>` : ''}
         <div class="tp-sec">규격 (1개)</div><div class="chips">${UNITS.map(v => `<button class="chip ${p.unitKg === v ? 'on' : ''}" data-pu="${v}">${unitTxt(v)}</button>`).join('')}<button class="chip ${UNITS.includes(p.unitKg) ? '' : 'on'}" data-pux>${UNITS.includes(p.unitKg) ? '직접' : (p.unitKg || '-') + 'kg'}</button></div>
         <div class="tp-sec">원산지 표기 <small>비우면 원료육의 원산지</small></div><div class="chips">${C0.origins.map(o => `<button class="chip ${p.origin === o ? 'on' : ''}" data-po="${esc(o)}">${esc(o)}</button>`).join('')}<button class="chip ${!p.origin ? 'on' : ''}" data-po="">원료육 따라</button></div>
-        <div class="tp-sec">소비기한 (포장일부터)</div><div class="chips">${[0, 90, 180, 363, 365, 455, 729].map(v => `<button class="chip ${p.shelfDays === v ? 'on' : ''}" data-ps="${v}">${v}일</button>`).join('')}<button class="chip ${[0, 90, 180, 363, 365, 455, 729].includes(p.shelfDays) || p.shelfDays == null ? '' : 'on'}" data-psx>${[0, 90, 180, 363, 365, 455, 729].includes(p.shelfDays) || p.shelfDays == null ? '직접' : p.shelfDays + '일'}</button></div>
+        <div class="tp-sec">소비기한 (포장일부터) <small>개월은 '제조일로부터 n개월' (포장일 + n개월 - 1일)</small></div><div class="chips">${[6, 8, 12, 18, 24].map(v => `<button class="chip ${p.shelfMonths === v ? 'on' : ''}" data-pmo="${v}">${v}개월</button>`).join('')}</div>
+        <div class="chips" style="margin-top:6px">${[0, 90, 180, 363, 365, 455, 729].map(v => `<button class="chip ${p.shelfMonths == null && p.shelfDays === v ? 'on' : ''}" data-ps="${v}">${v}일</button>`).join('')}<button class="chip ${p.shelfMonths == null && p.shelfDays != null && ![0, 90, 180, 363, 365, 455, 729].includes(p.shelfDays) ? 'on' : ''}" data-psx>${p.shelfMonths == null && p.shelfDays != null && ![0, 90, 180, 363, 365, 455, 729].includes(p.shelfDays) ? p.shelfDays + '일' : '직접(일)'}</button></div>
+        <div class="tp-sec">보관방법</div><div class="chips">${['냉동', '냉장', '실온'].map(v => `<button class="chip ${p.storage === v ? 'on' : ''}" data-pst="${v}">${v}</button>`).join('')}<button class="chip ${!p.storage ? 'on' : ''}" data-pst="">미정</button></div>
         ${name ? '<p class="fh" style="margin-top:10px">이미 저장된 기록의 제품명은 바뀌지 않습니다.</p>' : ''}
         <div class="kp-f"><button class="btn" data-x2>취소</button><button class="btn primary" data-ok>${icon('check')}저장</button></div>`);
       const S = $('#sheet-body'), pn = S.querySelector('#pn'), pg = S.querySelector('#pg');
-      const keep = () => { p.name = pn.value.trim(); p.group = pg.value.trim(); };
+      const pd = S.querySelector('#pd');
+      const keep = () => { p.name = pn.value.trim(); p.group = pg.value.trim(); p.desc = pd.value.trim(); };
       const on = (sel, fn) => S.querySelectorAll(sel).forEach(x => x.onclick = () => { keep(); fn(x); draw(); });
       on('[data-pj]', x => { p.job = x.dataset.pj; });
       on('[data-pm]', x => { p.meat = x.dataset.pm; const m = meatOf(p.meat); if (m && m.input) p.bom.main = m.input; });
@@ -1393,20 +1428,22 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       on('[data-bs]', x => { p.bom.sauce = x.dataset.bs; if (!p.bom.sauce) p.bom.saucePct = null; else if (!p.bom.saucePct && p.bom.mainPct) p.bom.saucePct = Math.round((100 - p.bom.mainPct) * 100) / 100; });
       on('[data-pu]', x => { p.unitKg = +x.dataset.pu; });
       on('[data-po]', x => { p.origin = x.dataset.po; });
-      on('[data-ps]', x => { p.shelfDays = +x.dataset.ps; });
+      on('[data-ps]', x => { p.shelfDays = +x.dataset.ps; p.shelfMonths = null; });
+      on('[data-pmo]', x => { p.shelfMonths = +x.dataset.pmo; p.shelfDays = null; });
+      on('[data-pst]', x => { p.storage = x.dataset.pst; });
       S.querySelectorAll('[data-bp]').forEach(x => x.onclick = () => { keep(); const k = x.dataset.bp; openKeypad({ label: k === 'mainPct' ? `${p.bom.main} 배합비 (%)` : `${p.bom.sauce} 배합비 (%)`, unit: '%', value: p.bom[k], onOk: v => {
         p.bom[k] = v; const o = k === 'mainPct' ? 'saucePct' : 'mainPct';   // 원료 + 소스 = 100% : 한쪽을 넣으면 다른 쪽은 100에서 뺀 값
         if (v != null && (o === 'mainPct' || p.bom.sauce)) p.bom[o] = Math.round((100 - v) * 100) / 100;
         draw(); } }); });
       S.querySelector('[data-pux]').onclick = () => { keep(); openKeypad({ label: '규격 (kg)', unit: 'kg', value: p.unitKg, onOk: v => { if (v) p.unitKg = v; draw(); } }); };
-      S.querySelector('[data-psx]').onclick = () => { keep(); openKeypad({ label: '소비기한 (포장일부터 며칠)', unit: '일', mode: 'int', value: p.shelfDays, onOk: v => { p.shelfDays = v; draw(); } }); };
+      S.querySelector('[data-psx]').onclick = () => { keep(); openKeypad({ label: '소비기한 (포장일부터 며칠)', unit: '일', mode: 'int', value: p.shelfDays, onOk: v => { p.shelfDays = v; p.shelfMonths = null; draw(); } }); };
       S.querySelector('[data-x2]').onclick = closePop;
       S.querySelector('[data-ok]').onclick = () => {
         keep(); if (!p.name) { toast('세부 제품명을 입력해 주세요.', true); return; }
         const bom = p.bom && p.bom.mainPct ? { main: p.bom.main, mainPct: p.bom.mainPct, sauce: p.bom.sauce || '', saucePct: p.bom.sauce ? (p.bom.saucePct || 0) : 0 } : null;
-        const rec = { name: p.name, group: p.group, job: p.job, meat: p.meat, unitKg: p.unitKg, origin: p.origin, shelfDays: p.shelfDays, bom };
+        const rec = { name: p.name, group: p.group, desc: p.desc, job: p.job, meat: p.meat, unitKg: p.unitKg, origin: p.origin, storage: p.storage, shelfDays: p.shelfMonths != null ? null : p.shelfDays, shelfMonths: p.shelfMonths, bom };
         confirmSave(name ? '제품 수정' : '새 제품 저장', [['세부 제품명', esc(rec.name)], ['제품명', esc(rec.group || '-')], ['공정명', esc(rec.job || '따로 포장')], ['사용 원료육', esc(rec.meat || '-')],
-          ['BOM', esc(bom ? bomText(bom) : '없음')], ['규격', unitTxt(rec.unitKg) || '-'], ['원산지 표기', esc(rec.origin || '원료육 따라')], ['소비기한', rec.shelfDays != null ? `포장일 +${rec.shelfDays}일` : '-']], async () => {
+          ['BOM', esc(bom ? bomText(bom) : '없음')], ['규격', unitTxt(rec.unitKg) || '-'], ['원산지 표기', esc(rec.origin || '원료육 따라')], ['소비기한', shelfText(rec) === '-' ? '-' : `포장일 ${shelfText(rec)}`], ['보관방법', esc(rec.storage || '-')], ['일반제품명', esc(rec.desc || '-')]], async () => {
           const C = clone(state.config), i = C.products.findIndex(x => x.name === (name || rec.name));
           if (i >= 0) C.products[i] = rec; else C.products.push(rec);
           if (!(await saveConfig(C))) return;
@@ -1419,20 +1456,20 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     setPopKeys(null); draw();
   }
   // 공정 추가 · 수정: 이름, 생산일지 양식
-  const FORMS = [['raw', '생산일지(생막창)'], ['grill', '생산일지(통 초벌/훈제막창)'], ['etc', '생산일지(기타 공정)']];
+  const FORMS = [['raw', '생산일지(생막창)'], ['grill', '생산일지(통 초벌/훈제막창)'], ['etc', BRAND.etcLabel]].filter(f => BRAND.forms.includes(f[0]));
   async function addProcess(name, form) {
     const C = clone(state.config);
-    if (!C.processes.some(x => x.name === name)) C.processes.push({ name, form: form || 'etc' });
+    if (!C.processes.some(x => x.name === name)) C.processes.push({ name, form: form || (BRAND.forms.includes('etc') ? 'etc' : BRAND.forms[0]) });
     const ok = await saveConfig(C);
-    if (ok && !form) toast(`'${name}' 공정을 추가했습니다. 생산일지 양식은 '수정 → 공정명'에서 정할 수 있습니다.`);
+    if (ok && !form && FORMS.length > 1) toast(`'${name}' 공정을 추가했습니다. 생산일지 양식은 '수정 → 공정명'에서 정할 수 있습니다.`);
     return ok;
   }
   function openProcess(name) {
-    const cur = name ? processOf(name) : null, x = cur ? clone(cur) : { name: '', form: 'raw' };
+    const cur = name ? processOf(name) : null, x = cur ? clone(cur) : { name: '', form: FORMS[0][0] };
     const draw = () => {
       openSheet(`<div class="cal-title" style="font-size:17px">${name ? '공정 수정' : '공정 추가'}</div>
-        <div class="tp-sec">공정명</div><input class="input" id="jn" value="${esc(x.name)}" placeholder="예: 생막창" autocomplete="off">
-        <div class="tp-sec">생산일지 양식 <small>이 공정의 원료육이 들어갈 생산일지</small></div><div class="chips">${FORMS.map(([v, l]) => `<button class="chip ${x.form === v ? 'on' : ''}" data-f="${v}">${l}</button>`).join('')}</div>
+        <div class="tp-sec">공정명</div><input class="input" id="jn" value="${esc(x.name)}" placeholder="예: ${esc(BRAND.ph.job)}" autocomplete="off">
+        ${FORMS.length > 1 ? `<div class="tp-sec">생산일지 양식 <small>이 공정의 원료육이 들어갈 생산일지</small></div><div class="chips">${FORMS.map(([v, l]) => `<button class="chip ${x.form === v ? 'on' : ''}" data-f="${v}">${l}</button>`).join('')}</div>` : ''}
         ${name ? `<p class="fh" style="margin-top:10px">이 공정의 제품 ${state.config.products.filter(p => p.job === name).length}개도 함께 바뀝니다. 이미 저장된 출고 기록의 공정명은 그대로입니다.</p>` : ''}
         <div class="kp-f"><button class="btn" data-x2>취소</button><button class="btn primary" data-ok>${icon('check')}저장</button></div>`);
       const S = $('#sheet-body'), jn = S.querySelector('#jn');
@@ -1493,7 +1530,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         <button data-act="goDocs"><b>${icon('doc', 'style="width:24px;height:24px"')}일지</b><span class="n" style="font-size:20px">${lastPack ? dMD(lastPack) + `<small>최근 포장일</small>` : '<small>포장 기록 없음</small>'}</span></button>
       </div>
       ${!state.lots.length ? `<div class="card"><div class="empty">${icon('out')}<b>아직 기록이 없습니다</b><span>① 원료육 출고부터 입력하세요.</span>
-        <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;justify-content:center"><button class="btn primary" data-act="goOut">${icon('plus')}출고 입력</button><button class="btn" data-act="sample">예시 데이터로 체험</button></div></div></div>` : `
+        <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;justify-content:center"><button class="btn primary" data-act="goOut">${icon('plus')}출고 입력</button>${BRAND.sample ? '<button class="btn" data-act="sample">예시 데이터로 체험</button>' : ''}</div></div></div>` : `
       <section class="card"><div class="blk"><div class="lab">진행 중 <span class="tag o">${waitW.length + waitP.length}</span></div>
         ${[...waitW, ...waitP].map(l => lotRow(l, statusOf(l) === 'out'
           ? `<button class="btn primary" data-act="washLot" data-id="${esc(l.id)}">${icon('wash')}세척 입력</button>`
@@ -1529,7 +1566,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   };
   // 제품 고르기 목록: 이 공정의 제품 먼저, 나머지는 공정별로 접어서
   const productGroups = job => {
-    const C0 = state.config, label = p => ({ v: p.name, l: p.name, s: `${p.group || ''}${p.group ? ' · ' : ''}${unitTxt(p.unitKg)}${p.bom && p.bom.sauce ? ` · ${p.bom.sauce} ${p.bom.saucePct}%` : ''}` });
+    const C0 = state.config, label = p => ({ v: p.name, l: p.name, s: [p.desc || p.group, unitTxt(p.unitKg), p.storage, p.bom && p.bom.sauce ? `${p.bom.sauce} ${p.bom.saucePct}%` : ''].filter(Boolean).join(' · ') });
     const order = [job, ...jobsOf().filter(j => j !== job), ''];
     return order.map(j => ({ title: j || '따로 포장', main: !!job && j === job, items: C0.products.filter(p => (p.job || '') === (j || '')).map(label) })).filter(g => g.items.length);
   };
@@ -1610,7 +1647,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   function addItem(kind, onOk) {
     if (kind === 'origin') return openText('원산지 추가', '', async v => { if (v && await addToConfig('origins', v)) onOk(v); }, '예: 칠레산');
     if (kind === 'sauce') return openText('양념소스 추가', '', async v => { if (v && await addToConfig('sauces', v)) onOk(v); }, '예: 매운 양념소스');
-    if (kind === 'job') return openText('공정명 추가', '', async v => { if (v && await addProcess(v)) onOk(v); }, '예: 생막창');
+    if (kind === 'job') return openText('공정명 추가', '', async v => { if (v && await addProcess(v)) onOk(v); }, `예: ${BRAND.ph.job}`);
     if (kind === 'meat') return openMeat(null, name => onOk(name));
     if (kind === 'product') return openProduct(null, p => onOk(p.name));
   }
@@ -1867,9 +1904,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     r.product = product; r._unit = p ? p.unitKg : r._unit;
     const lotOrigin = (lots || r.lotIds || []).map(lotById).filter(Boolean).map(l => l.origin).find(Boolean);
     r.origin = (p && p.origin) || r.origin || null;
-    const prev = state.packs.filter(x => x.product === product && x.exp && x.date && x.id !== r.id).slice(-1)[0];
-    const days = prev ? daysBetween(prev.date, prev.exp) : p && p.shelfDays != null ? p.shelfDays : null;
-    if (days != null) r.exp = addDays(date, days);
+    const sg = shelfSuggest(product, date, r.id); if (sg) r.exp = sg[1];
     if (lots) r.lotIds = lots;
     else if (!r._lotsSet) {   // 이 제품으로 계획한 원료육 → 없으면 같은 공정 → 같은 생산일지 양식
       const c = state.lots.filter(l => statusOf(l) === 'washed');
@@ -1896,8 +1931,8 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const grp = r => { const all = allPacks(); return isGrouped(all.find(q => q._row === r), all); };
     F._cols = [
       C.ro('no', 'No', (r, i) => i + 1, { w: 44 }),
-      C.pick('product', '제품명', () => [...jobsOf(), ''].flatMap(j => state.config.products.filter(p => (p.job || '') === j).map(p => ({ v: p.name, l: p.name, s: `${j || '따로 포장'} · ${unitTxt(p.unitKg)}${p.origin ? ' · ' + p.origin : ''}` }))), { add: 'product', req: 1, w: 160 }),
-      C.date('exp', '소비기한', { kind: 'exp', w: 92, sugg: r => { if (!r.product) return []; const p = productOf(r.product), prev = state.packs.filter(x => x.product === r.product && x.exp && x.date && x.id !== r.id).slice(-1)[0]; const d = prev ? daysBetween(prev.date, prev.exp) : p && p.shelfDays != null ? p.shelfDays : null; return d != null ? [[`포장일 +${d}일`, addDays(F.date, d)]] : []; } }),
+      C.pick('product', '제품명', () => [...jobsOf(), ''].flatMap(j => state.config.products.filter(p => (p.job || '') === j).map(p => ({ v: p.name, l: p.name, s: `${j || '따로 포장'}${p.unitKg ? ' · ' + unitTxt(p.unitKg) : ''}${p.storage ? ' · ' + p.storage : ''}${p.origin ? ' · ' + p.origin : ''}` }))), { add: 'product', req: 1, w: 160 }),
+      C.date('exp', '소비기한', { kind: 'exp', w: 92, sugg: r => { const sg = shelfSuggest(r.product, F.date, r.id); return sg ? [sg] : []; } }),
       C.time('start', '시작', { w: 66 }),
       C.time('end', '종료', { w: 66 }),
       C.num('qty', '수량', 'ea', { mode: 'int', req: 1, w: 70 }),
@@ -2038,15 +2073,16 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     { id: 'work', label: '작업일지' },
     { id: 'raw', label: '생산일지(생막창)' },
     { id: 'grill', label: '생산일지(통 초벌/훈제막창)' },
-    { id: 'etc', label: '생산일지(기타 공정)' },
+    { id: 'etc', label: BRAND.etcLabel },
     { id: 'day', label: '해당일 기록' },
     { id: 'qty', label: '제품 1차 수량 확인용' },
   ];
+  const DOC_TABS_USE = () => DOC_TABS.filter(t => !['raw', 'grill', 'etc'].includes(t.id) || BRAND.forms.includes(t.id));
   const DOWF = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
   const washDates = () => [...new Set([...state.lots.filter(l => l.wash).map(l => l.wash.date), ...state.lots.filter(l => !l.wash).map(l => addDays(l.soakDate || addDays(l.outDate, 1), 1))])].sort().reverse();
   function pageDocs() {
     const D = state.doc, t = today(), pDates = docDates(), wDates = washDates();
-    if (!DOC_TABS.some(x => x.id === D.tab)) D.tab = 'work';
+    if (!DOC_TABS_USE().some(x => x.id === D.tab)) D.tab = 'work';
     if (!D.date) D.date = pDates[0] || t;
     if (!D.lots) D.lots = docLotsDefault(D.date);
     if (!D.dayDate) D.dayDate = wDates.find(d => d <= t) || wDates[0] || t;
@@ -2069,7 +2105,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
           <div class="lotsel">${cand.map(l => `<button type="button" class="tile ${D.lots.includes(l.id) ? 'on' : ''}" data-act="docLotToggle" data-id="${esc(l.id)}"><b>${esc(l.job || '-')}</b><span class="num">${esc(traceTail(l.trace))} · 세척 ${dMD(l.wash.date)}${packsOf(l).map(p => ` · 포장 ${dMD(p.date)}`).join('')}</span></button>`).join('') || '<span class="dl-none">세척한 원료육이 없습니다</span>'}</div></details>`;
     }
     $('#page').innerHTML = `<section class="card">
-      <div class="doc-tabs" role="tablist">${DOC_TABS.map(x => `<button role="tab" aria-selected="${D.tab === x.id}" data-act="docTab" data-v="${x.id}" class="${D.tab === x.id ? 'on' : ''}">${esc(x.label)}</button>`).join('')}</div>
+      <div class="doc-tabs" role="tablist">${DOC_TABS_USE().map(x => `<button role="tab" aria-selected="${D.tab === x.id}" data-act="docTab" data-v="${x.id}" class="${D.tab === x.id ? 'on' : ''}">${esc(x.label)}</button>`).join('')}</div>
       ${tools}
       <p class="dl-note">${doc.has ? '' : '해당 기록이 없어 빈 양식으로 보여 드립니다. 그대로 인쇄해 손으로 적을 수도 있습니다. '}결재란은 비워 두었습니다(직접 서명).${DL ? ' 인쇄가 열리지 않으면 "인쇄용 파일"을 받아 열고 인쇄하세요.' : ''}</p>
       <div class="paper-wrap" id="d-wrap"><div class="paper-scale" id="d-scale"><div class="paper ${doc.land ? 'land' : ''}">${doc.html}</div></div></div>
@@ -2083,7 +2119,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const data = docData(D.date, D.lots);
     if (D.tab === 'work') return { html: docWorkHTML(data), has: !!(data.lots.length || data.packs.length), name: `작업일지_${D.date}`, sheet: wb => sheetWork(wb, data) };
     const proc = procOf(D.tab), p = data.prods.find(x => x.proc.id === D.tab) || emptyProd(proc);
-    return { html: docProdHTML(data, p), has: p.lots.length > 0, name: `${{ raw: '생산일지_생막창', grill: '생산일지_초벌훈제', etc: '생산일지_기타공정' }[D.tab]}_${D.date}`, sheet: wb => sheetProd(wb, data, p) };
+    return { html: docProdHTML(data, p), has: p.lots.length > 0, name: `${{ raw: '생산일지_생막창', grill: '생산일지_초벌훈제', etc: BRAND.forms.length > 1 ? '생산일지_기타공정' : '생산일지' }[D.tab]}_${D.date}`, sheet: wb => sheetProd(wb, data, p) };
   }
   const emptyProd = proc => ({ proc, lots: [], packs: [], inRows: [], inTotal: 0, outTotal: 0, thawDate: '', washDate: '', packDate: '' });
   HOOKS.docs = (k, v) => {
@@ -2175,14 +2211,14 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   async function saveDocHtml(doc) {
     const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(doc.name)}</title>
 <style>body{margin:0;background:#eee}${docCss()}.paper{margin:16px auto;box-shadow:none}@page{size:A4 ${doc.land ? 'landscape' : 'portrait'};margin:10mm}
-.bar{position:sticky;top:0;background:#FFF1E7;border-bottom:1px solid #FFD2B5;padding:10px;text-align:center;font:14px sans-serif}.bar button{margin-left:8px;padding:6px 14px;border:0;border-radius:8px;background:#FF6A10;color:#fff;font-weight:700}
+.bar{position:sticky;top:0;background:${BRAND.accent.soft};border-bottom:1px solid ${BRAND.accent.line};padding:10px;text-align:center;font:14px sans-serif}.bar button{margin-left:8px;padding:6px 14px;border:0;border-radius:8px;background:${BRAND.accent.main};color:#fff;font-weight:700}
 @media print{body{background:#fff}.bar{display:none}.paper{margin:0;padding:0;width:auto;min-height:0}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style></head>
 <body><div class="bar">인쇄에서 "PDF로 저장"을 고르면 PDF로 남길 수 있습니다<button onclick="print()">인쇄</button></div><div class="paper ${doc.land ? 'land' : ''}">${doc.html}</div></body></html>`;
     await saveFile(`${doc.name}.html`, html);
   }
   async function exportDoc(doc) {
     if (!window.ExcelJS) { toast('엑셀 기능을 불러오지 못했습니다.', true); return; }
-    const wb = new ExcelJS.Workbook(); wb.creator = '코리아식품 생산 작업 기록';
+    const wb = new ExcelJS.Workbook(); wb.creator = `${BRAND.short} 생산 작업 기록`;
     doc.sheet(wb);
     const buf = await wb.xlsx.writeBuffer();
     await saveFile(`${doc.name}.xlsx`, new Uint8Array(buf), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -2272,7 +2308,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const washTotal = p.lots.reduce((s, l) => s + (useKg(l) || 0), 0);
     return `<div class="doc doc-prod">
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div style="flex:1"><div class="orig">원본 수정일 ${FORM_DATE}</div>
+        <div style="flex:1"><div class="orig">${FORM_DATE ? `원본 수정일 ${FORM_DATE}` : '&nbsp;'}</div>
           <div class="title" style="margin-top:26px">${esc(prodTitle(p))}</div><div class="subtitle">${esc(prodSub(p))}</div></div>
         <table class="ap" style="width:250px;border:2px solid #000"><tr><td rowspan="2" class="gyul">결<br>재</td><td>담당</td><td>검토</td><td>승인</td></tr><tr><td class="sig">${mgr}</td><td class="sig"></td><td class="sig"></td></tr></table>
       </div>
@@ -2389,11 +2425,11 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     xcell(ws, `A${ptop}`, '포장', { merge: `A${ptop}:A${r - 1}` });
   }
   function sheetProd(wb, d, p) {
-    const name = ({ grill: '생산일지(통 초벌·훈제막창)', etc: '생산일지(기타 공정)' }[p.proc.id] || p.proc.title).slice(0, 31);
+    const name = ({ grill: '생산일지(통 초벌·훈제막창)', etc: BRAND.etcLabel }[p.proc.id] || p.proc.title).slice(0, 31);
     const ws = wb.addWorksheet(name, { pageSetup: { paperSize: 9, orientation: 'portrait', fitToPage: true, fitToWidth: 1, fitToHeight: 1, margins: { left: .5, right: .5, top: .6, bottom: .6, header: .3, footer: .3 } } });
     ws.columns = [34, 17, 15, 10, 10, 10].map(w => ({ width: w }));
     const F2 = '#,##0.00';
-    xcell(ws, 'A1', `원본 수정일 ${FORM_DATE}`, { h: 'left', border: false, font: { size: 9 } });
+    xcell(ws, 'A1', FORM_DATE ? `원본 수정일 ${FORM_DATE}` : '', { h: 'left', border: false, font: { size: 9 } });
     xcell(ws, 'C2', '결\n재', { merge: 'C2:C3', font: { bold: true } }); ['담당', '검토', '승인'].forEach((t, i) => { xcell(ws, `${'DEF'[i]}2`, t, { font: { bold: true } }); xcell(ws, `${'DEF'[i]}3`, ''); });
     ws.getRow(3).height = 36;
     xcell(ws, 'A3', prodTitle(p), { merge: 'A3:B3', border: false, font: { bold: true, size: 22 } });
@@ -2492,7 +2528,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
   // ================= 알림 (종 아이콘) =================
   // 세척·포장 대기 지연, 수율 이상(최근 평균과 차이), 원료 소비기한, 원료육 연결 누락
-  const LS_SEEN = 'kfw-seen-v1';
+  const LS_SEEN = BRAND.id + '-seen-v1';
   function computeAlerts() {
     const t = today(), W = CALC().washWarn, P = CALC().packWarn, out = [];
     for (const l of state.lots) {
@@ -2557,7 +2593,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         const list = C.products.map((p, i) => [p, i]).filter(([p]) => (p.job || '') === j);
         const pr = processOf(j);
         return list.length ? `<div class="mgrp">${esc(j || '따로 포장')}${pr ? ` <small>${FORMS.find(f => f[0] === pr.form)[1]}</small>` : ''}</div>${list.map(([p, i]) => row(esc(p.name),
-          `${p.group ? esc(p.group) + ' · ' : ''}원료육 ${esc(p.meat || '-')} · 규격 ${unitTxt(p.unitKg) || '-'} · 원산지 표기 ${esc(p.origin || '원료육 따라')} · 소비기한 ${p.shelfDays != null ? `+${p.shelfDays}일` : '-'}<br>BOM ${esc(bomText(p.bom) || '없음')}`, btns('product', i))).join('')}` : '';
+          `${p.group ? esc(p.group) + ' · ' : ''}원료육 ${esc(p.meat || '-')} · 규격 ${unitTxt(p.unitKg) || '-'} · 원산지 표기 ${esc(p.origin || '원료육 따라')} · 소비기한 ${shelfText(p)}${p.storage ? ` · ${esc(p.storage)}` : ''}${p.desc ? `<br>${esc(p.desc)}` : ''}<br>BOM ${esc(bomText(p.bom) || '없음')}`, btns('product', i))).join('')}` : '';
       }).join('');
     } else if (M.tab === 'process') {
       addLabel = '공정 추가';
@@ -2572,7 +2608,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     }
     $('#ph-right').innerHTML = `<button class="btn primary" data-act="mAdd">${icon('plus')}${addLabel}</button>`;
     $('#page').innerHTML = `<section class="card">
-      <p class="lead">입력 화면에 나오는 선택 항목을 고칩니다. 바꿔도 이미 저장된 기록은 그대로입니다. 기본 목록은 회사 제품분류(품목보고현황) 기준입니다.</p>
+      <p class="lead">입력 화면에 나오는 선택 항목을 고칩니다. 바꿔도 이미 저장된 기록은 그대로입니다. ${esc(BRAND.listNote)}</p>
       <div class="seg" style="margin-bottom:14px">${MTABS.map(([k, l]) => `<button data-act="mTab" data-v="${k}" class="${M.tab === k ? 'on' : ''}">${l}</button>`).join('')}</div>
       <div class="mlist">${body || `<div class="empty">${icon('list')}<b>항목이 없습니다</b></div>`}</div></section>`;
   }
@@ -2728,9 +2764,13 @@ https://github.com/nodeca/pako/blob/main/LICENSE
 
   // ================= 로그인 (아이디 저장 · 지문/얼굴 자동 로그인) =================
   // 비밀번호는 코드에 그대로 두지 않고 SHA-256 값만 둠. 지문·얼굴은 기기의 생체 인증(WebAuthn)으로 이 기기에서만 잠금 해제
-  const AUTH = { id: 'kor178', hash: 'd5082b93ac008946bc98fb3d177c2e8105557205b79a4cbcd922a6914b58b3ce' };
-  const LS_AUTH = 'kfw-auth-v1', SS_SESSION = 'kfw-session-v1';
-  const authLS = () => Object.assign({ saveId: true, id: '', bio: null, bioAsked: false, fails: 0, lockUntil: 0 }, loadLS(LS_AUTH) || {});
+  const AUTH = { id: 'admin', hash: '0324955ee20bea06189a64e32ad785137787e48d80eea5219861ec6a2b39893e' };   // 아이디 admin / 비밀번호 0123! (두 회사 같음)
+  const LS_AUTH = BRAND.id + '-auth-v1', SS_SESSION = BRAND.id + '-session-v1';
+  const authLS = () => {
+    const a = Object.assign({ saveId: true, id: '', bio: null, bioAsked: false, fails: 0, lockUntil: 0 }, loadLS(LS_AUTH) || {});
+    if (a.id && a.id !== AUTH.id) a.id = a.saveId ? AUTH.id : '';   // 예전 아이디(kor178)가 저장된 기기 → 새 아이디로
+    return a;
+  };
   const saveAuth = a => saveLS(LS_AUTH, a);
   // SHA-256: 브라우저 기능이 있으면 그것을, 없으면(사내망 http 등) 같은 계산을 직접
   function sha256js(text) {
@@ -2768,8 +2808,8 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   }
   async function bioRegister() {
     const cred = await navigator.credentials.create({ publicKey: {
-      challenge: crypto.getRandomValues(new Uint8Array(32)), rp: { name: '코리아식품 생산 작업 기록' },
-      user: { id: new TextEncoder().encode(AUTH.id), name: AUTH.id, displayName: '코리아식품 현장' },
+      challenge: crypto.getRandomValues(new Uint8Array(32)), rp: { name: `${BRAND.short} 생산 작업 기록` },
+      user: { id: new TextEncoder().encode(BRAND.id === 'kfw' ? AUTH.id : `${BRAND.id}:${AUTH.id}`), name: AUTH.id, displayName: `${BRAND.short} 현장` },   // 회사마다 따로 등록 (서로 덮어쓰지 않음)
       pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }],
       authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required', residentKey: 'discouraged' }, timeout: 60000, attestation: 'none' } });
     return b64u(cred.rawId);
@@ -2792,8 +2832,8 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     let pw = '', msg = opts.msg || '', err = !!opts.err, shake = false, canBio = false, asking = false;
     const draw = () => {
       const idVal = $('#lg-id') ? $('#lg-id').value : (A.saveId ? A.id : '');
-      document.body.innerHTML = `<div class="login"><div class="lg-card${shake ? ' shake' : ''}">
-        <img class="lg-logo logo-k" src="${IMG.logoDark}" alt="(주)코리아식품"><img class="lg-logo logo-w" src="${IMG.logoWhite}" alt="" aria-hidden="true">
+      document.body.innerHTML = `<div class="login brand-${BRAND.id}"><div class="lg-card${shake ? ' shake' : ''}">
+        <img class="lg-logo logo-k" src="${IMG.logoDark}" alt="${esc(BRAND.name)}"><img class="lg-logo logo-w" src="${IMG.logoWhite}" alt="" aria-hidden="true">
         <h1>생산 작업 기록</h1>
         ${asking ? `<div class="lg-ask">${icon('finger')}<b>다음부터 이 기기에서 지문(얼굴)으로 바로 로그인할까요?</b><span>비밀번호를 누르지 않고 손가락만 대면 열립니다. 설정에서 언제든 끌 수 있습니다.</span>
             <div class="lg-row"><button class="btn xl" id="lg-later">나중에</button><button class="btn primary xl" id="lg-use">${icon('finger')}사용하기</button></div></div>` : `
