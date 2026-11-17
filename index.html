@@ -689,6 +689,149 @@ body{background:var(--bg)}
 }
 :root[data-brand="hbr"][data-theme="dark"]:not([data-kf-theme="light"]),:root[data-brand="hbr"][data-kf-theme="dark"]{--orange:#4C8DF6;--orange-600:#7DAAF8;--orange-soft:rgba(76,141,246,.16);--orange-line:rgba(76,141,246,.45);--focus:0 0 0 3px rgba(76,141,246,.3)}
 
+/* ================= 하비랑 CCP 모드 ================= */
+.card-h{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.card-h h2{margin:0;font-size:17px;font-weight:700}
+.card-h h2 small{font-size:12.5px;font-weight:500;color:var(--muted);margin-left:6px}
+.card-h .sp{flex:1}
+.card-h>small{color:var(--muted);font-size:13px}
+.banner.warn,.banner.bad{align-items:flex-start;font-weight:500}
+.banner.warn{background:var(--warn-soft,#FFF6E0);color:#8A5A00}
+.banner.bad{background:var(--bad-soft,#FDECEC);color:var(--bad)}
+.banner>svg{width:20px;height:20px;flex:none;margin-top:2px}
+.banner>div{flex:1 1 240px;display:flex;flex-direction:column;gap:2px}
+.banner>div b{font-weight:700}
+.banner>div small{font-size:13px;line-height:1.45;color:inherit;opacity:.9}
+.sites{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.site-card{display:flex;align-items:center;gap:10px;padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--card);cursor:pointer;text-align:left;color:var(--ink);min-height:74px}
+.site-card>svg{width:26px;height:26px;color:var(--orange);flex:none}
+.site-card .tx{flex:1;display:flex;flex-direction:column;min-width:0}
+.site-card .tx b{font-size:15.5px}.site-card .tx small{font-size:12px;color:var(--muted)}
+.site-card .n{display:flex;flex-direction:column;align-items:flex-end;font-size:13px;color:var(--muted)}
+.site-card .n b{font-size:22px;color:var(--ink)}.site-card .n i{font-style:normal;font-size:18px}
+.site-card .n em{font-style:normal;color:var(--bad);font-weight:700;font-size:12px}
+.site-card.ok{border-color:var(--good);background:var(--good-soft,#EAF7EF)}
+.runs{display:flex;flex-direction:column;gap:6px}
+.runl{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.runl[role=button]{cursor:pointer}.runl[role=button]:hover{border-color:var(--orange-line)}
+.runl.ok{background:var(--good-soft,#F2FAF5)}
+.sq{flex:none;width:28px;height:28px;border-radius:9px;background:var(--track);display:grid;place-items:center;font-weight:700;font-size:13px;color:var(--ink-2)}
+.runl .tx,.runb .tx{flex:1;min-width:0;display:flex;flex-direction:column}
+.runl .tx b,.runb .tx b{font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.runl .tx small,.runb .tx small{font-size:12.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pcs{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.pchip{display:inline-flex;align-items:center;gap:3px;height:26px;padding:0 9px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--line);background:var(--card);color:var(--muted);white-space:nowrap}
+button.pchip{cursor:pointer}
+.pchip svg{width:13px;height:13px}
+.pchip.done{background:var(--good-soft,#EAF7EF);border-color:transparent;color:var(--good)}
+.pchip.dev{background:var(--bad-soft,#FDECEC);border-color:transparent;color:var(--bad)}
+.pchip.todo{border-color:var(--orange-line);color:var(--orange-600);background:var(--orange-soft)}
+.pchip.wait{border-style:dashed}
+.hm{font-size:13px;color:var(--muted)}.hm.on{color:var(--ink)}
+.runs.big .runb{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:var(--card);cursor:pointer;text-align:left;color:var(--ink);min-height:72px}
+.runs.big .runb>svg{width:20px;height:20px;color:var(--muted)}
+.runs.big .runb.done{background:var(--good-soft,#F2FAF5)}
+.site-seg{display:flex;flex-wrap:wrap;margin-bottom:12px}
+.site-seg button{flex:1 1 150px;display:flex;align-items:center;justify-content:center;gap:6px;min-height:56px;flex-wrap:wrap}
+.site-seg button svg{width:18px;height:18px}
+.site-seg button small{font-size:11px;color:var(--muted);font-weight:500;width:100%;text-align:center;margin-top:-6px}
+.run-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.run-head .tx{flex:1 1 260px;display:flex;flex-direction:column}
+.run-head .tx b{font-size:18px}.run-head .tx small{color:var(--muted);font-size:13px}
+.fields.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.fields.c6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.fld.w2{grid-column:span 2}
+.tgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0}
+.tpair{display:flex;flex-direction:column;gap:6px;padding:10px;border:1px solid var(--line);border-radius:14px}
+.tpair>.fl{font-size:13px;font-weight:700;color:var(--ink-2)}
+.boxrow2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.boxrow2 .fl{font-size:11.5px}
+.iss{display:flex;flex-direction:column;gap:10px}
+.iss-r{display:grid;grid-template-columns:2fr 2fr 1fr;gap:10px}
+.iss-r .fld.w2{grid-column:auto}
+.mins.bad,b.bad{color:var(--bad)}
+table.md{border-collapse:separate;border-spacing:0;width:100%;font-size:13px}
+table.md th{background:var(--thead);font-weight:700;font-size:12px;padding:6px 4px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);text-align:center;white-space:nowrap}
+table.md td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:3px;text-align:center}
+table.md tbody th{background:var(--card);text-align:left;padding-left:10px}
+table.md td.na{color:var(--muted);font-size:12px;background:var(--hover)}
+table.md td .cell{min-height:40px;min-width:70px}
+.mdc{width:100%;min-width:38px;height:40px;border:1px solid var(--line);border-radius:9px;background:var(--card);font-size:18px;font-weight:700;color:var(--faint);cursor:pointer}
+.mdc.ok{color:var(--good);border-color:var(--good);background:var(--good-soft,#EAF7EF)}
+.mdc.bad{color:var(--bad);border-color:var(--bad);background:var(--bad-soft,#FDECEC)}
+.lnk.sm{font-size:12px;margin-left:4px}
+.wk-nav{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.wk-nav b{font-size:18px}.wk-nav span{color:var(--muted)}
+.week{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.card.day{margin:0}.card.day.today{border-color:var(--orange);box-shadow:0 0 0 2px var(--orange-soft)}
+.card.day h2 small{font-size:13px;color:var(--muted);margin-left:2px}
+.card.day .runl{flex-wrap:wrap}.card.day .runl .pcs{width:100%;justify-content:flex-start;padding-left:38px}
+.week .add{width:100%;margin-top:8px;min-height:44px;border:1px dashed var(--line);border-radius:12px;background:none;cursor:pointer;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:6px;font-weight:700}
+.week .add svg{width:16px;height:16px}
+.file-btn{position:relative;overflow:hidden;cursor:pointer}
+.file-btn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.imp{display:flex;flex-direction:column;gap:6px;max-height:52vh;overflow:auto}
+.imp-d{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:12px;cursor:pointer}
+.imp-d.on{border-color:var(--orange);background:var(--orange-soft)}
+.imp-d input{width:20px;height:20px;grid-row:span 3;accent-color:var(--orange)}
+.imp-d small{color:var(--muted);font-size:12.5px}.imp-i{font-size:12.5px;color:var(--ink-2);line-height:1.45}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid2 .fl small{font-weight:400;color:var(--muted);font-size:11px}
+.mgrp.warn{color:#8A5A00}
+table.list{border-collapse:separate;border-spacing:0;width:100%;font-size:14px}
+table.list th{background:var(--thead);font-size:12.5px;padding:8px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--line)}
+table.list td{padding:8px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.list .pcs{justify-content:flex-start}
+/* 일지: 하비랑 엑셀 양식을 그대로 그린 표 */
+.xl-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;background:var(--track);border-radius:16px;padding:12px;overflow:auto}
+.xl-page{background:#fff;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.08);border-radius:4px}
+.xlp{position:relative;color:#000;font-family:Pretendard,'Malgun Gothic','Apple SD Gothic Neo',sans-serif}
+.xlp .xl{border-collapse:collapse;table-layout:fixed;background:#fff}
+.xlp .xl td{padding:0 2px;overflow:hidden;line-height:1.15;color:#000}
+#print-root .xl-print{break-after:page;page-break-after:always}
+#print-root .xl-print:last-child{break-after:auto;page-break-after:auto}
+@media print{#print-root .xlp *{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media (max-width:1100px){.sites{grid-template-columns:repeat(2,minmax(0,1fr))}.fields.c6{grid-template-columns:repeat(3,minmax(0,1fr))}.tgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.fields.c4,.fields.c3{grid-template-columns:repeat(2,minmax(0,1fr))}.fields.c6{grid-template-columns:repeat(2,minmax(0,1fr))}.tgrid,.iss-r,.grid2{grid-template-columns:1fr}.runl{flex-wrap:wrap}.runl .pcs{width:100%;justify-content:flex-start;padding-left:38px}.site-card{padding:12px}.fld.w2{grid-column:1 / -1}}
+
+.doc-tabs button small{display:block;font-size:11px;font-weight:500;color:var(--muted);margin-top:1px}
+.doc-tabs button{line-height:1.25;padding-top:4px;padding-bottom:4px}
+.md-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;margin-top:12px;-webkit-overflow-scrolling:touch;max-width:100%}
+.md-wrap table.md{min-width:640px}
+/* 하비랑: 기준 줄 · 기준 창 · 선택 목록 · 주간 생산계획표 */
+.limbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:-4px 0 12px}
+.limbar .lim{font-size:12.5px;padding:4px 10px;border-radius:999px;background:var(--track);color:var(--ink-2)}
+.limbar .lim b{font-weight:700}.limbar .lim.own{background:var(--orange-soft);color:var(--orange-600)}
+.limbar .lnk{display:inline-flex;align-items:center;gap:4px;font-size:13px}.limbar .lnk svg{width:14px;height:14px}
+.lim-list{display:flex;flex-direction:column;gap:6px;max-height:56vh;overflow:auto}
+.lim-r{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;border:1px solid var(--line);border-radius:12px}
+.lim-r.off{opacity:.65}.lim-r .tx{flex:1 1 220px;display:flex;flex-direction:column}.lim-r .tx small{color:var(--muted);font-size:12.5px}
+.lim-r .ma{display:flex;gap:6px;flex-wrap:wrap}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;border-radius:999px;background:var(--track);color:var(--muted);vertical-align:middle}
+.chips.lst{margin-bottom:6px}
+.chip.lc{display:inline-flex;align-items:center;padding:0;overflow:hidden}
+.chip.lc>button{border:0;background:none;padding:0 6px 0 14px;min-height:42px;font:inherit;color:inherit;cursor:pointer}
+.chip.lc>button.x{padding:0 10px 0 4px;color:var(--muted)}.chip.lc>button.x svg{width:14px;height:14px}
+.chip.add{border-style:dashed;color:var(--muted)}
+.mtabs{display:flex;flex-wrap:wrap}.mtabs button{flex:1 1 120px}
+.plan-dash .card-h{gap:6px}
+.pg-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;-webkit-overflow-scrolling:touch}
+table.pgrid{border-collapse:separate;border-spacing:0;width:100%;min-width:760px;table-layout:fixed}
+table.pgrid th{background:var(--thead);font-size:12.5px;font-weight:700;color:var(--ink-2);padding:6px;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+table.pgrid thead th:first-child,table.pgrid tbody th{width:74px}
+table.pgrid thead th button{border:0;background:none;font:inherit;color:inherit;cursor:pointer;width:100%;min-height:34px;border-radius:8px}
+table.pgrid thead th button b{font-size:14px;color:var(--ink)}
+table.pgrid thead th.today{background:var(--orange-soft)}table.pgrid thead th.sel button{box-shadow:inset 0 0 0 2px var(--orange)}
+table.pgrid td{vertical-align:top;padding:4px;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+table.pgrid td.today{background:color-mix(in srgb,var(--orange-soft) 45%,transparent)}
+.pg-c{display:flex;flex-direction:column;align-items:flex-start;gap:1px;width:100%;text-align:left;padding:7px 8px;border:1px solid var(--line);border-radius:10px;background:var(--card);cursor:pointer;color:var(--ink)}
+.pg-c.ok{background:var(--good-soft,#F2FAF5)}
+.pg-c small{font-size:11.5px;color:var(--muted)}.pg-c b{font-size:13.5px;line-height:1.3}.pg-c>span{font-size:12px;color:var(--ink-2)}
+.pg-c .pcs{justify-content:flex-start;margin-top:3px}.pg-c .pchip{height:22px;font-size:11px;padding:0 7px}
+table.pgrid tr.tot td{font-weight:700;text-align:center;font-size:13px;padding:8px}
+.tgrid{grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+.tpair .box .v{font-size:17px}.tpair .boxrow{gap:4px}.tpair .boxrow>button:last-child{padding:0 8px;min-width:48px}
+
 </style>
 </head>
 <body>
@@ -762,7 +905,8 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     inputs: ['돼지막창', '소막창'], ph: { meat: '(돈막창)하이라이프', job: '생막창', product: '회색 숙성돼지막창 - 2kg', group: '숙성돼지막창' },
     accent: { main: '#FF6A10', soft: '#FFF1E7', line: '#FFD2B5' },
   }, window.KFW_BRAND || {});
-  document.documentElement.setAttribute('data-brand', BRAND.id);   // 회사별 색 (style.css의 [data-brand])
+  document.documentElement.setAttribute('data-brand', BRAND.id);
+  const CCP = BRAND.mode === 'ccp';   // 하비랑: 제조공정 · CCP 모니터링 일지 구성   // 회사별 색 (style.css의 [data-brand])
   const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
 
   // ---------- 날짜 ----------
@@ -811,6 +955,12 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     logout: '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>',
     chevL: '<polyline points="15 18 9 12 15 6"/>', chevR: '<polyline points="9 18 15 12 9 6"/>', chevD: '<polyline points="6 9 12 15 18 9"/>',
   };
+  Object.assign(I, {
+    clip: '<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>',
+    flame: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4.1 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+    gauge: '<path d="M12 14l4-4"/><path d="M3.3 19a10 10 0 1 1 17.4 0"/>',
+    upload: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/>',
+  });
   const icon = (n, s = '') => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ${s}>${I[n]}</svg>`;
 
   // ---------- 고정 양식 · 기본값 ----------
@@ -909,41 +1059,381 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     });
     ['washWarn', 'packWarn'].forEach(k => { o.calc[k] = +o.calc[k] > 0 ? +o.calc[k] : 5; });
     delete o.formDate; delete o.procs; delete o.jobs;
-    return o;
+    return CCP ? ccpConfig(o) : o;
   };
 
   // ---------- 상태 ----------
+  // =====================================================================================
+  // 하비랑: CCP 모드 — 제조공정도 · 현장 위치별 CCP 모니터링 일지
+  //   생산계획(주간 계획표 엑셀) → 날짜별 생산 건 → 위치별 입력(세척실 · 배합실 · 수분활성도 · 포장실)
+  //   → 하비랑 일지 양식(엑셀) 그대로 채워 미리보기 · 인쇄 · 엑셀
+  // =====================================================================================
+  // 공정 4가지(일지 양식과 1:1). 이름 · CCP 번호는 '수정 → 공정 · 가져오기'에서 바꿈
+  const PROC_BASE = [
+    { id: 'wash', label: '소독 · 헹굼', short: '세척', site: '세척실', ccp: 'CCP-2B', icon: 'wash', kw: '세척실' },
+    { id: 'heat', label: '가열', short: '가열', site: '배합실(가열)', ccp: 'CCP-1B', icon: 'flame', kw: '배합실' },
+    { id: 'aw', label: '수분활성도 측정', short: '수분활성도', site: '수분활성도', ccp: 'CCP-3B', icon: 'gauge', kw: '수분활성도' },
+    { id: 'pack', label: '포장 · 금속검출', short: '포장', site: '포장실', ccp: 'CCP-4P', icon: 'pack', kw: '포장실' },
+  ];
+  const CPROCS = () => PROC_BASE.map(p => Object.assign({}, p, (state.config.procNames || {})[p.id] || {}));
+  const PC = id => CPROCS().find(p => p.id === id);
+  const CCP_TABS = [
+    { id: 'home', label: '현황', icon: 'home', title: '오늘 생산' },
+    { id: 'plan', label: '생산계획', icon: 'cal', title: '생산계획' },
+    { id: 'site', label: '현장 입력', icon: 'clip', title: '현장 입력 · CCP 모니터링' },
+    { id: 'docs', label: '일지', icon: 'doc', title: 'CCP 모니터링 일지' },
+    { id: 'recs', label: '기록', icon: 'list', title: '전체 기록' },
+    { id: 'manage', label: '수정', icon: 'sliders', title: '제품 · 기준 · 목록 수정' },
+  ];
+  const mondayOf = d => addDays(d, -((dObj(d).getUTCDay() + 6) % 7));
+  // ---------- 바꿀 수 있는 기준 · 목록 (기본값: 제조공정도 기준) — 모두 설정 데이터로 저장 ----------
+  const MD_DEFAULT = [{ id: 'A', name: 'A그룹', fe: 6.0, sus: 6.0 }, { id: 'B', name: 'B그룹', fe: 4.0, sus: 6.0 }, { id: 'C', name: 'C그룹', fe: 2.5, sus: 5.0 }, { id: 'D', name: 'D그룹', fe: 3.0, sus: 3.5 }, { id: 'P', name: 'D그룹(복합조미식품)', fe: 3.5, sus: 4.0 }];
+  const mdOf = id => (state.config.mdGroups || []).find(g => g.id === id) || null;
+  const mdName = id => { const g = mdOf(id); return g ? g.name : '미정'; };
+  // 한계기준: 최소 · 최대(비우면 없음) · 사용 여부. 꺼 둔 기준은 필요할 때 켬
+  const LIMIT_DEFAULT = [
+    { id: 'heatProd', proc: 'heat', name: '가열 종료 제품온도', unit: '℃', min: 85, max: null, on: true },
+    { id: 'hold', proc: 'heat', name: '가열 유지 시간 (도달 → 가열 종료)', unit: '분', min: 30, max: null, on: true },
+    { id: 'coolProd', proc: 'heat', name: '냉각 종료 제품온도', unit: '℃', min: 80, max: 85, on: false },
+    { id: 'ppm', proc: 'wash', name: '세척액 농도', unit: 'ppm', min: 100, max: null, on: true },
+    { id: 'soak', proc: 'wash', name: '침지 시간', unit: '분', min: 5, max: null, on: true },
+    { id: 'cl', proc: 'wash', name: '잔류염소 농도', unit: 'ppm', min: null, max: null, on: false },
+    { id: 'aw', proc: 'aw', name: '수분활성도', unit: 'Aw', min: null, max: 0.6, on: true },
+    { id: 'temp', proc: 'pack', name: '포장 온도', unit: '℃', min: null, max: null, on: false },
+    { id: 'salt', proc: 'pack', name: '염도 (희석 전)', unit: '%', min: null, max: null, on: false },
+    { id: 'brix', proc: 'pack', name: '당도 (희석 전)', unit: 'Brix', min: null, max: null, on: false },
+    { id: 'ph', proc: 'pack', name: '산도 (희석 전)', unit: 'pH', min: null, max: null, on: false },
+    { id: 'yield', proc: 'pack', name: '수율', unit: '%', min: null, max: null, on: false },
+    { id: 'detect', proc: 'pack', name: '금속 검출량', unit: 'ea', min: null, max: 0, on: true },
+  ];
+  const OPT_DEFAULT = { storage: ['냉장', '냉동', '실온'], filler: ['1구충진기', '자동소포장기', '수작업'], check: ['정상', '불량'], types: ['소스', '복합조미식품'], outers: ['하비랑박스', '하비랑박스小', 'P박스'], inners: [] };
+  const OPT_NAMES = { storage: '보관방법', filler: '충진기 구분', check: '라벨검수 · 관능평가 결과', types: '제품 구분', outers: '외포장재', inners: '내포장재', clients: '거래처', materials: '세척 원료', workers: '작업자' };
+  const OPT = k => { const v = (state.config.opts || {})[k]; return Array.isArray(v) ? v : OPT_DEFAULT[k] || []; };
+  const RULE_DEFAULT = { heat: ['heat', 'pack'], raw: ['wash', 'pack'], powder: ['aw', 'pack'], powderWords: '분말, 시즈닝, 가루', powderType: '복합조미식품', defType: '소스' };
+  const RULE = () => Object.assign({}, RULE_DEFAULT, state.config.importRules || {});
+  const isPowderName = (n, R) => (R.powderWords || '').split(/[,\s]+/).filter(Boolean).some(w => (n || '').includes(w));
+  const defaultProcs = (type, heat) => { const R = RULE(); return (type === R.powderType ? R.powder : heat ? R.heat : R.raw).slice(); };
+  const prodC = name => state.config.products.find(p => p.name === name) || null;
+  const runById = id => state.runs.find(r => r.id === id);
+  const runsOn = date => state.runs.filter(r => r.date === date).sort((a, b) => (a.seq || 99) - (b.seq || 99) || String(a.createdAt || '').localeCompare(String(b.createdAt || '')));
+  const recOf = (r, p) => ((r && r.recs) || {})[p] || null;
+  const hm2m = t => { const m = /^(\d{1,2}):(\d{2})$/.exec(t || ''); return m ? +m[1] * 60 + +m[2] : null; };
+  const minsBetween = (a, b) => { const x = hm2m(a), y = hm2m(b); return x == null || y == null ? null : (y - x + 1440) % 1440; };
+  // 설정 정리 · 예전 형식 옮기기 (모든 기준 · 목록은 설정에 저장)
+  function ccpConfig(o) {
+    ['clients', 'materials', 'workers'].forEach(k => { if (!Array.isArray(o[k])) o[k] = []; });
+    const old = o.limits && !Array.isArray(o.limits) ? o.limits : null;
+    let L = Array.isArray(o.limits) ? o.limits : [];
+    LIMIT_DEFAULT.forEach(d => { if (!L.some(x => x.id === d.id)) L.push(clone(d)); });
+    if (old) { const set = (id, k, v) => { const x = L.find(l => l.id === id); if (x && v != null) x[k] = v; }; set('heatProd', 'min', old.heatTemp); set('hold', 'min', old.heatMin); set('ppm', 'min', old.washPpm); set('soak', 'min', old.soakMin); set('aw', 'max', old.awMax); }
+    o.limits = L;
+    if (!Array.isArray(o.mdGroups) || !o.mdGroups.length) o.mdGroups = clone(MD_DEFAULT);
+    o.opts = Object.assign({}, clone(OPT_DEFAULT), o.opts || {});
+    o.importRules = Object.assign({}, RULE_DEFAULT, o.importRules || {});
+    o.procNames = o.procNames || {};
+    const R = o.importRules;
+    o.products.forEach(p => {
+      if (!p.type) p.type = p.job === '분말·시즈닝' || isPowderName(p.name, R) ? R.powderType : R.defType;
+      if (p.heat == null) p.heat = p.type !== R.powderType;
+      if (!Array.isArray(p.procs)) p.procs = (p.type === R.powderType ? R.powder : p.heat ? R.heat : R.raw).slice();
+    });
+    return o;
+  }
+  // 한계기준: 전체 기준 → 제품(레시피)별 기준이 있으면 그것
+  const limOf = (id, prodName) => { const g = (state.config.limits || []).find(l => l.id === id); if (!g) return null; const o = ((prodC(prodName) || {}).lim || {})[id]; return o ? Object.assign({}, g, o, { own: true }) : g; };
+  const limText = l => !l ? '-' : l.min != null && l.max != null ? `${l.min} ~ ${l.max}${l.unit}` : l.min != null ? `${l.min}${l.unit} 이상` : l.max != null ? `${l.max}${l.unit} 이하` : '기준값 없음';
+  const outOf = (l, v) => !!(l && l.on && v != null && v !== '' && isFinite(v) && ((l.min != null && +v < l.min) || (l.max != null && +v > l.max)));
+  // 공정 상태: none 해당 없음 · todo 입력 전 · wait 앞 공정 기다림 · done 입력됨 · dev 입력됨(한계기준 이탈)
+  const prereq = p => p === 'pack' ? ['wash', 'heat'] : p === 'heat' ? ['wash'] : [];
+  const missingBefore = (r, p) => prereq(p).filter(q => (r.procs || []).includes(q) && !recOf(r, q));
+  function procState(r, p) {
+    if (!(r.procs || []).includes(p)) return 'none';
+    if (recOf(r, p)) return devOf(r, p).length ? 'dev' : 'done';
+    return missingBefore(r, p).length ? 'wait' : 'todo';
+  }
+  const runDone = r => (r.procs || []).every(p => recOf(r, p));
+  // 한계기준 이탈 (켜 둔 기준만)
+  function devOf(r, p) {
+    const x = recOf(r, p), out = [];
+    if (!x) return out;
+    const chk = (id, v, label) => { const l = limOf(id, r.product); if (outOf(l, v)) out.push(`${label || l.name} ${v}${l.unit} (기준 ${limText(l)})`); };
+    if (p === 'heat') { chk('heatProd', x.heatProd); chk('hold', minsBetween(x.reach85, x.heatE)); chk('coolProd', x.coolProd); }
+    if (p === 'wash') (x.rows || []).forEach(w => { const m = w.mat || '원료'; chk('ppm', w.ppm, `${m} 세척액 농도`); chk('soak', minsBetween(w.s, w.e), `${m} 침지 시간`); chk('cl', w.cl, `${m} 잔류염소 농도`); });
+    if (p === 'aw') chk('aw', x.aw);
+    if (p === 'pack') {
+      chk('temp', x.tempS, '포장 시작 온도'); chk('temp', x.tempE, '포장 종료 온도'); chk('salt', x.salt); chk('brix', x.brix); chk('ph', x.ph); chk('yield', x.yield); chk('detect', x.detect);
+      ((x.md || {}).rows || []).forEach((row, i) => { if (['fe', 'sus', 'pfe', 'psus'].some(k => (row[k] || []).includes('×')) || row.prod === '×') out.push(`금속검출 ${MD_ROWS[i]} 점검 이상(×)`); });
+    }
+    return out;
+  }
+  const MD_ROWS = ['작업전', '통과시작', '중간 1', '중간 2', '중간 3', '통과종료', '작업후'];
+  const dateText = d => d ? `${d.slice(0, 4)}년   ${+d.slice(5, 7)} 월   ${+d.slice(8, 10)} 일` : null;
+
+  // ---------- 주간 생산계획표 불러오기 (엑셀) ----------
+  // 블록: 업체명 → 제품명(■가열 · □비가열, 옆 칸 규격) → 생산량(옆 칸 포장 수) → 비고 → 상세비고(옆 칸 번호)
+  // 한 시트에 이번 주(왼쪽 · 확정)와 다음 주(오른쪽 · 미리보기)가 있음 → 같은 날짜는 왼쪽이 우선
+  function xv(cell) {
+    if (!cell) return null;
+    if (cell.isMerged && cell.master && cell.master.address !== cell.address) return null;
+    let v = cell.value;
+    if (v == null) return null;
+    if (v instanceof Date) return v;
+    if (typeof v === 'object') {
+      if (v.richText) return v.richText.map(t => t.text).join('');
+      if ('result' in v) v = v.result; else if (v.text != null) return v.text; else return null;
+      if (v && typeof v === 'object' && v.error) return null;
+    }
+    return v;
+  }
+  const xdate = v => { if (v instanceof Date) return v.toISOString().slice(0, 10); if (typeof v === 'number' && v > 30000 && v < 80000) return new Date(Math.round((v - 25569) * 864e5)).toISOString().slice(0, 10); return null; };
+  const specText = v => v == null || v === '' ? '' : typeof v === 'number' ? `${v}kg` : String(v).trim().replace(/^\((.*)\)$/, '$1');
+  const specKg = s => { const m = /([\d.]+)\s*(kg|g)\b/i.exec(s || ''); return m ? (m[2].toLowerCase() === 'kg' ? +m[1] : +m[1] / 1000) : null; };
+  function parseNote(t) {
+    const lines = String(t || '').split(/\n/).map(s => s.replace(/^\s*\*\s*/, '').trim()).filter(Boolean), o = { lines };
+    lines.forEach(l => {
+      let m;
+      if (/박스/.test(l)) o.box = l;
+      if ((m = /([\d.]+\s*(?:g|kg)\s*\*\s*\d+\s*ea)/i.exec(l))) o.pack = m[1].replace(/\s+/g, '');
+      if ((m = /(냉동|냉장|실온)\s*0?(\d+)\s*개월/.exec(l))) { o.storage = m[1]; o.months = +m[2]; }
+      if ((m = /(\d{2})\.(\d{2})\.(\d{2})\s*까지/.exec(l))) o.exp = `20${m[1]}-${m[2]}-${m[3]}`;
+    });
+    return o;
+  }
+  async function parsePlanFile(buf) {
+    const wb = new ExcelJS.Workbook(); await wb.xlsx.load(buf);
+    const byDate = {}, sheets = [];
+    wb.worksheets.forEach((ws, si) => {
+      let dateRow = 0, cols = [];
+      for (let r = 1; r <= Math.min(ws.rowCount, 15) && !dateRow; r++) {
+        const cs = [];
+        for (let c = 3; c <= ws.columnCount; c++) if (xdate(xv(ws.getCell(r, c)))) cs.push(c);
+        if (cs.length >= 3) { dateRow = r; cols = cs; }
+      }
+      if (!dateRow) return;
+      const blocks = [];
+      for (let r = dateRow + 1; r <= ws.rowCount; r++) if (String(xv(ws.getCell(r, 2)) || '').replace(/\s/g, '') === '업체명') blocks.push(r);
+      let group = 0, prev = 0, n = 0;
+      cols.forEach(c => {
+        if (prev && c - prev > 2) group++;
+        prev = c;
+        const date = xdate(xv(ws.getCell(dateRow, c))), items = [];
+        blocks.forEach(r => {
+          const raw = String(xv(ws.getCell(r + 1, c)) || '').trim();
+          const name = raw.replace(/^[■□▣◼◻\s]+/, '').trim();
+          if (!name) return;
+          const spec = specText(xv(ws.getCell(r + 1, c + 1)));
+          const kgv = num(xv(ws.getCell(r + 2, c)));
+          let cnt = num(xv(ws.getCell(r + 2, c + 1)));
+          const note = parseNote(xv(ws.getCell(r + 4, c)));
+          if (cnt == null && kgv && specKg(spec)) cnt = Math.round(kgv / specKg(spec));
+          if (cnt != null) cnt = Math.round(cnt);
+          items.push({ client: String(xv(ws.getCell(r, c)) || '').trim(), name, heat: /^[■▣◼]/.test(raw), spec, kg: kgv, count: cnt,
+            note: String(xv(ws.getCell(r + 3, c)) || '').trim(), detail: note.lines.join(' · '), box: note.box || '', pack: note.pack || '',
+            storage: note.storage || '', months: note.months || null, exp: note.exp || null, machine: String(xv(ws.getCell(r + 4, c + 1)) ?? '').trim() });
+          n++;
+        });
+        const prio = group === 0 ? 2 : 1;   // 왼쪽(그 주 확정) 우선
+        if (!byDate[date] || prio > byDate[date].prio || (prio === byDate[date].prio && si >= byDate[date].si)) byDate[date] = { date, items, prio, si, sheet: ws.name };
+      });
+      sheets.push({ name: ws.name, items: n });
+    });
+    return { sheets, days: Object.values(byDate).sort((a, b) => a.date.localeCompare(b.date)) };
+  }
+
+  // ---------- 일지 양식 (하비랑 엑셀 양식 그대로) ----------
+  const FORMS_CCP = {
+    pack: { sheet: '일일생산물품표 및 CCP모니터링양식_포장실 ', per: 1, title: '포장실 · CCP-4P 금속검출' },
+    heat: { sheet: '일일생산물품표 및 CCP모니터링양식_배합실(가열)', per: 2, step: 16, title: '배합실 · CCP-1B 가열' },
+    wash: { sheet: '일일생산물품표 및 CCP모니터링양식_세척실', per: 2, step: 22, title: '세척실 · CCP-2B 소독/헹굼' },
+    aw: { sheet: '일일생산물품표 및 CCP모니터링양식_수분활성도', per: 5, step: 9, title: '수분활성도 · CCP-3B' },
+  };
+  // 일지 양식: 회사가 '수정 → 일지 양식'에서 올린 엑셀이 있으면 그것, 없으면 기본 양식
+  const TPL_LS = BRAND.id + '-tpl-v1';
+  let TPL = null, TPL_INFO = null;
+  const b64buf = b64 => { const b = atob(b64 || ''); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u.buffer; };
+  const buf64 = buf => { const u = new Uint8Array(buf); let s = ''; for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); };
+  async function tplRecord() {
+    try {
+      if (store.mode === 'cloud') return await new Promise(res => { let done = false; const un = store.db.doc('config/template').onSnapshot(sn => { if (done) return; done = true; res(sn.exists ? sn.data() : null); try { un && un(); } catch (e) { } }, () => res(null)); setTimeout(() => { if (!done) { done = true; res(null); } }, 4000); });
+      return JSON.parse(localStorage.getItem(TPL_LS) || 'null');
+    } catch (e) { return null; }
+  }
+  async function tplLoad() {
+    if (TPL) return TPL;
+    const rec = await tplRecord();
+    TPL_INFO = rec && rec.b64 ? { custom: true, name: rec.name, at: rec.at } : { custom: false };
+    TPL = b64buf(rec && rec.b64 ? rec.b64 : window.KFW_TEMPLATE);
+    return TPL;
+  }
+  const findSheet = (wb, proc) => wb.getWorksheet(FORMS_CCP[proc].sheet) || wb.worksheets.find(w => w.name.includes(PROC_BASE.find(p => p.id === proc).kw) && !/\(\d\)/.test(w.name)) || null;
+  const chk = (val, opts, sep) => opts.map(o => `${val === o ? '■' : '□'} ${o}`).join(sep);
+  const put1 = (ws, addr, v) => { if (v != null && v !== '') ws.getCell(addr).value = v; };
+  // 긴 글(이상 발생 내역 · 조치 등)은 그 칸만 줄바꿈하고 글자를 조금 줄임 — 엑셀 · 인쇄 모두
+  const putW = (ws, addr, v) => { if (v == null || v === '') return; const c = ws.getCell(addr); c.value = v; c.alignment = Object.assign({}, c.alignment || {}, { wrapText: true, vertical: 'middle' }); if (String(v).length > 22) c.font = Object.assign({}, c.font || {}, { size: Math.min((c.font || {}).size || 11, String(v).length > 44 ? 7.5 : 8.5) }); };
+  const unit = (v, u) => v == null || v === '' ? null : `${fmt(v, Number.isInteger(+v) ? 0 : 2)} ${u}`;
+  // 생산 건 → 양식 칸
+  function fillPack(ws, r) {
+    const x = recOf(r, 'pack') || {}, md = x.md || {}, g = mdOf((prodC(r.product) || {}).mdGroup);
+    put1(ws, 'C5', r.client); put1(ws, 'O5', dateText(r.date)); put1(ws, 'C6', r.product);
+    if (r.exp) put1(ws, 'O6', `${r.exp.slice(0, 4)} 년   ${+r.exp.slice(5, 7)} 월   ${+r.exp.slice(8, 10)} 일`);
+    put1(ws, 'A9', unit(r.totalKg, 'kg')); put1(ws, 'C9', x.spec || r.spec || null); put1(ws, 'G9', x.outer); put1(ws, 'K9', x.inner);
+    if (x.storage || r.storage) put1(ws, 'N9', chk(x.storage || r.storage, OPT('storage'), '\n'));
+    if (x.label) put1(ws, 'Q9', chk(x.label, OPT('check'), '  ')); if (x.sensory) put1(ws, 'T9', chk(x.sensory, OPT('check'), ' '));
+    put1(ws, 'C11', x.packS); put1(ws, 'C12', x.packE); put1(ws, 'G11', unit(x.tempS, '℃')); put1(ws, 'G12', unit(x.tempE, '℃'));
+    if (x.filler) put1(ws, 'K11', chk(x.filler, OPT('filler'), '\n'));
+    put1(ws, 'N11', x.worker);
+    put1(ws, 'A14', unit(x.netKg, 'kg')); put1(ws, 'C14', unit(x.outCount, 'ea')); put1(ws, 'G14', unit(x.outKg, 'kg')); put1(ws, 'K14', unit(x.lossKg, 'kg')); put1(ws, 'N14', unit(x.restKg, 'kg'));
+    put1(ws, 'Q14', x.yield != null ? `${fmt(x.yield, 1)} %` : null);
+    put1(ws, 'C16', unit(x.salt, '%')); put1(ws, 'G16', unit(x.brix, '%')); put1(ws, 'K16', x.ph); put1(ws, 'N16', x.visc); put1(ws, 'Q16', x.aw2); put1(ws, 'T16', x.filter);
+    const fe = md.fe != null ? md.fe : g && g.fe, sus = md.sus != null ? md.sus : g && g.sus;
+    if (fe != null) { put1(ws, 'F19', fe); put1(ws, 'K19', `FeØ ${fe}`); }
+    if (sus != null) { put1(ws, 'H19', `SUS Ø ${sus}`); put1(ws, 'M19', `SUSØ ${sus}`); }
+    (md.rows || []).forEach((row, i) => {
+      const rr = 21 + i; put1(ws, `B${rr}`, row.t);
+      ['E', 'F', 'G'].forEach((c, k) => put1(ws, `${c}${rr}`, (row.fe || [])[k])); ['H', 'I', 'J'].forEach((c, k) => put1(ws, `${c}${rr}`, (row.sus || [])[k]));
+      if (i > 0 && i < 6) { ['K', 'L'].forEach((c, k) => put1(ws, `${c}${rr}`, (row.pfe || [])[k])); ['M', 'N'].forEach((c, k) => put1(ws, `${c}${rr}`, (row.psus || [])[k])); put1(ws, `O${rr}`, row.prod); }
+    });
+    put1(ws, 'P21', unit(x.pass, 'ea')); put1(ws, 'T21', unit(x.detect, 'ea'));
+    (x.issues || []).slice(0, 3).forEach((s, i) => { putW(ws, `A${29 + i}`, s.d); putW(ws, `K${29 + i}`, s.a); put1(ws, `S${29 + i}`, s.p); });
+    putW(ws, 'A33', [x.etc, r.note && `계획 비고: ${r.note}`].filter(Boolean).join('\n') || null);
+  }
+  function fillHeat(ws, r, b, seq) {
+    const x = recOf(r, 'heat') || {}, R = n => n + b;
+    put1(ws, `A${R(7)}`, seq); put1(ws, `D${R(6)}`, r.client); put1(ws, `J${R(6)}`, unit(r.totalKg, 'kg')); put1(ws, `D${R(7)}`, r.product); put1(ws, `J${R(7)}`, unit(x.mixedKg, 'kg'));
+    [['B', 'prepS', 'prepE'], ['D', 'mixS', 'mixE'], ['F', 'heatS', 'heatE'], ['J', 'coolS', 'coolE']].forEach(([c, s, e]) => { put1(ws, `${c}${R(9)}`, x[s]); put1(ws, `${c}${R(10)}`, x[e]); });
+    put1(ws, `H${R(9)}`, x.reach85);
+    put1(ws, `B${R(12)}`, unit(x.heatDisp, '℃')); put1(ws, `B${R(13)}`, unit(x.heatProd, '℃')); put1(ws, `D${R(12)}`, unit(x.coolDisp, '℃')); put1(ws, `D${R(13)}`, unit(x.coolProd, '℃'));
+    put1(ws, `G${R(12)}`, x.mixerNo); put1(ws, `G${R(13)}`, x.mixerSpeed); put1(ws, `I${R(12)}`, x.worker);
+    (x.issues || []).slice(0, 2).forEach((s, i) => { putW(ws, `A${R(15) + i}`, s.d); putW(ws, `F${R(15) + i}`, s.a); put1(ws, `K${R(15) + i}`, s.p); });
+  }
+  function fillWash(ws, r, b) {
+    const x = recOf(r, 'wash') || {}, R = n => n + b;
+    put1(ws, `C${R(5)}`, dateText(r.date)); put1(ws, `I${R(5)}`, x.worker); put1(ws, `C${R(6)}`, [r.product, r.client && `(${r.client})`].filter(Boolean).join(' '));
+    (x.rows || []).slice(0, 10).forEach((w, i) => { const rr = R(8) + i; put1(ws, `A${rr}`, w.mat); put1(ws, `C${rr}`, w.kg); put1(ws, `D${rr}`, w.ppm); put1(ws, `E${rr}`, w.s); put1(ws, `G${rr}`, w.e); put1(ws, `I${rr}`, w.cl); });
+    (x.issues || []).slice(0, 2).forEach((s, i) => { putW(ws, `A${R(19) + i}`, s.d); putW(ws, `E${R(19) + i}`, s.a); put1(ws, `J${R(19) + i}`, s.p); });
+  }
+  function fillAw(ws, r, b) {
+    const x = recOf(r, 'aw') || {}, R = n => n + b;
+    put1(ws, `B${R(5)}`, dateText(r.date)); put1(ws, `E${R(5)}`, x.worker); put1(ws, `B${R(6)}`, r.client); put1(ws, `B${R(7)}`, r.product); put1(ws, `E${R(6)}`, x.aw);
+    (x.issues || []).slice(0, 1).forEach(s => { putW(ws, `A${R(9)}`, s.d); putW(ws, `C${R(9)}`, s.a); put1(ws, `E${R(9)}`, s.p); });
+  }
+  // 날짜 · 위치의 일지: 양식 시트를 쪽마다 복제해서 채움
+  async function buildCcpBook(date, proc) {
+    const F = FORMS_CCP[proc], runs = runsOn(date).filter(r => (r.procs || []).includes(proc));
+    const wb = new ExcelJS.Workbook(); await wb.xlsx.load(await tplLoad());
+    const src = findSheet(wb, proc); if (!src) throw new Error(`일지 양식에 ${PC(proc).site} 시트가 없습니다`);
+    const pages = Math.max(1, Math.ceil(runs.length / F.per)), sheets = [];
+    for (let pg = 0; pg < pages; pg++) {
+      let ws = src;
+      if (pg > 0) { ws = wb.addWorksheet(`${F.title.split(' ')[0]} ${pg + 1}`); ws.model = Object.assign({}, src.model, { name: ws.name, id: ws.id, mergeCells: src.model.merges }); }
+      const part = runs.slice(pg * F.per, pg * F.per + F.per);
+      if (proc === 'pack') { if (part[0]) fillPack(ws, part[0]); else put1(ws, 'O5', dateText(date)); }
+      if (proc === 'heat') { put1(ws, 'C5', dateText(date)); part.forEach((r, i) => fillHeat(ws, r, i * F.step, pg * F.per + i + 1)); }
+      if (proc === 'wash') { part.forEach((r, i) => fillWash(ws, r, i * F.step)); if (!part.length) put1(ws, 'C5', dateText(date)); }
+      if (proc === 'aw') { part.forEach((r, i) => fillAw(ws, r, i * F.step)); if (!part.length) put1(ws, 'B5', dateText(date)); }
+      sheets.push(ws);
+    }
+    sheets[0].name = `${F.title.split(' ')[0]} ${dMD(date).replace('/', '.')}`;
+    wb.worksheets.filter(w => !sheets.includes(w)).forEach(w => wb.removeWorksheet(w.id));
+    return { wb, sheets, runs, pages };
+  }
+  // 엑셀 시트 → 화면 표 (열 너비 · 행 높이 · 병합 · 테두리 · 바탕 · 글꼴 · 로고) — 인쇄도 양식과 같은 모양
+  const THEME = ['FFFFFF', '000000', 'E7E6E6', '44546A', '4472C4', 'ED7D31', 'A5A5A5', 'FFC000', '5B9BD5', '70AD47'];
+  function xcolor(c) {
+    if (!c) return null;
+    let hex = c.argb ? c.argb.slice(-6) : c.theme != null ? THEME[c.theme] : null;
+    if (!hex) return null;
+    if (c.tint) { const t = c.tint; hex = [0, 2, 4].map(i => { let v = parseInt(hex.slice(i, i + 2), 16); v = t < 0 ? v * (1 + t) : v + (255 - v) * t; return Math.round(v).toString(16).padStart(2, '0'); }).join(''); }
+    return '#' + hex;
+  }
+  const BW = { thin: 1, hair: 1, dotted: 1, dashed: 1, medium: 2, thick: 3, double: 3, mediumDashed: 2 };
+  const bcss = b => b && b.style ? `${BW[b.style] || 1}px ${b.style === 'double' ? 'double' : /dash/.test(b.style) ? 'dashed' : b.style === 'dotted' ? 'dotted' : 'solid'} ${xcolor(b.color) || '#000'}` : null;
+  function sheetHTML(ws, wb, target = 720) {
+    const merges = {}, covered = new Set(), dec = a => { const m = /^([A-Z]+)(\d+)$/.exec(a); return { c: m[1].split('').reduce((n, ch) => n * 26 + ch.charCodeAt(0) - 64, 0), r: +m[2] }; };
+    let maxR = 1, maxC = 1;
+    (ws.model.merges || []).forEach(rg => { const [a, b] = rg.split(':'), A = dec(a), B = dec(b); merges[`${A.r}:${A.c}`] = { r2: B.r, c2: B.c }; for (let r = A.r; r <= B.r; r++) for (let c = A.c; c <= B.c; c++) if (r !== A.r || c !== A.c) covered.add(`${r}:${c}`); maxR = Math.max(maxR, B.r); maxC = Math.max(maxC, B.c); });
+    ws.eachRow({ includeEmpty: false }, (row, r) => row.eachCell({ includeEmpty: false }, (cell, c) => { if (cell.value != null || (cell.style && cell.style.border)) { maxR = Math.max(maxR, r); maxC = Math.max(maxC, c); } }));
+    const pa = ws.pageSetup && ws.pageSetup.printArea; if (pa) { const [a, b] = pa.split('!').pop().replace(/\$/g, '').split(':'); if (b) { maxR = dec(b).r; maxC = dec(b).c; } }
+    const cw = [], rh = [];
+    for (let c = 1; c <= maxC; c++) { const w = ws.getColumn(c).width; cw.push(Math.round((w != null ? w : 8.43) * 7 + 5)); }
+    const total = cw.reduce((s, v) => s + v, 0), k = target / total;
+    for (let r = 1; r <= maxR; r++) { const h = ws.getRow(r).height; rh.push((h != null ? h : (ws.properties.defaultRowHeight || 15)) * 4 / 3 * k); }
+    let html = `<table class="xl" style="width:${target}px">${'<col style="width:' + cw.map(w => (w * k).toFixed(2)).join('px"><col style="width:') + 'px">'}`;
+    for (let r = 1; r <= maxR; r++) {
+      html += `<tr style="height:${rh[r - 1].toFixed(2)}px">`;
+      for (let c = 1; c <= maxC; c++) {
+        if (covered.has(`${r}:${c}`)) continue;
+        const m = merges[`${r}:${c}`], cell = ws.getCell(r, c), s = cell.style || {}, end = m ? ws.getCell(m.r2, m.c2) : cell, se = end.style || {};
+        const right = m ? ws.getCell(r, m.c2).style || {} : s, bottom = m ? ws.getCell(m.r2, c).style || {} : s;
+        const st = [];
+        const bt = bcss((s.border || {}).top), bl = bcss((s.border || {}).left), br = bcss((right.border || {}).right) || bcss((se.border || {}).right), bb = bcss((bottom.border || {}).bottom) || bcss((se.border || {}).bottom);
+        const dg = (s.border || {}).diagonal; if (dg && (dg.down || dg.up) && dg.style) st.push(`background-image:linear-gradient(to ${dg.down ? 'top right' : 'bottom right'},transparent calc(50% - .6px),${xcolor(dg.color) || '#000'} 50%,transparent calc(50% + .6px))`);
+        if (bt) st.push(`border-top:${bt}`); if (bl) st.push(`border-left:${bl}`); if (br) st.push(`border-right:${br}`); if (bb) st.push(`border-bottom:${bb}`);
+        const fill = s.fill && s.fill.type === 'pattern' && s.fill.pattern === 'solid' ? xcolor(s.fill.fgColor) : null; if (fill) st.push(`background:${fill}`);
+        const f = s.font || {}; st.push(`font-size:${((f.size || 11) * 4 / 3 * k).toFixed(1)}px`); if (f.bold) st.push('font-weight:700'); const fc = xcolor(f.color); if (fc && fc !== '#000000') st.push(`color:${fc}`);
+        const al = s.alignment || {}; const v = xv(cell);
+        st.push(`text-align:${al.horizontal === 'centerContinuous' ? 'center' : al.horizontal || (typeof v === 'number' ? 'right' : 'left')}`);
+        st.push(`vertical-align:${al.vertical === 'middle' ? 'middle' : al.vertical === 'top' ? 'top' : 'bottom'}`);
+        if (!al.wrapText) st.push('white-space:nowrap');
+        let text = v == null ? '' : v instanceof Date ? v.toISOString().slice(0, 10) : String(v);
+        if (/^\d+\.\d{5,}$/.test(text)) text = fmt(+text, 2);
+        html += `<td${m ? ` rowspan="${m.r2 - r + 1}" colspan="${m.c2 - c + 1}"` : ''} style="${st.join(';')}">${esc(text).replace(/\n/g, '<br>')}</td>`;
+      }
+      html += '</tr>';
+    }
+    html += '</table>';
+    // 로고
+    let imgs = '';
+    ws.getImages().forEach(im => {
+      const media = wb.getImage(+im.imageId); if (!media) return;
+      const tl = im.range.tl, brr = im.range.br;
+      const x = (cw.slice(0, Math.floor(tl.nativeCol || tl.col || 0)).reduce((s, v) => s + v, 0) + (tl.nativeColOff || 0) / 9525) * k;
+      const y = rh.slice(0, Math.floor(tl.nativeRow || tl.row || 0)).reduce((s, v) => s + v, 0) + (tl.nativeRowOff || 0) / 9525 * k;
+      let w = 60, h = 60;
+      if (brr) { w = (cw.slice(0, Math.floor(brr.nativeCol)).reduce((s, v) => s + v, 0) + (brr.nativeColOff || 0) / 9525) * k - x; h = rh.slice(0, Math.floor(brr.nativeRow)).reduce((s, v) => s + v, 0) + (brr.nativeRowOff || 0) / 9525 * k - y; }
+      else if (im.range.ext) { w = im.range.ext.width * k; h = im.range.ext.height * k; }
+      const b64 = media.base64 || (media.buffer ? btoa(Array.from(new Uint8Array(media.buffer), ch => String.fromCharCode(ch)).join('')) : '');
+      imgs += `<img src="data:image/${media.extension || 'png'};base64,${b64}" style="position:absolute;left:${x.toFixed(1)}px;top:${y.toFixed(1)}px;width:${w.toFixed(1)}px;height:${h.toFixed(1)}px;object-fit:contain">`;
+    });
+    return `<div class="xlp" style="width:${target}px">${html}${imgs}</div>`;
+  }
+
   const state = {
-    tab: 'home', lots: [], packs: [], config: mergeConfig(null),
+    tab: 'home', lots: [], packs: [], runs: [], config: mergeConfig(null),
     ui: Object.assign({ theme: 'light' }, loadLS(LS_UI) || {}),
     manage: { tab: 'product' },
     form: null,                 // 지금 화면의 입력 양식
     carry: { out: null, packDate: null },
     doc: { date: null, lots: null, tab: 'work' },
     rec: { tab: 'lots', month: '' },
+    cp: { date: today(), week: mondayOf(today()), site: 'pack', docDate: null, docTab: 'pack', recMonth: '' },
   };
+  if (CCP && state.ui.site) state.cp.site = state.ui.site;
 
   // ---------- 저장소 ----------
-  const store = { mode: 'local', db: null, user: null, myId: null, writable: true, lots: new Map(), packs: new Map() };
+  const store = { mode: 'local', db: null, user: null, myId: null, writable: true, lots: new Map(), packs: new Map(), runs: new Map() };
+  const COLS = CCP ? ['runs'] : ['lots', 'packs'];
   const newId = p => `${p}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
   function sync() {
     const byOrder = (a, b) => (a.outDate || a.date || '').localeCompare(b.outDate || b.date || '') || String(a.createdAt || '').localeCompare(String(b.createdAt || ''));
     state.lots = [...store.lots.values()].sort(byOrder);
     state.packs = [...store.packs.values()].sort(byOrder);
+    state.runs = [...store.runs.values()].sort((a, b) => a.date.localeCompare(b.date) || (a.seq || 99) - (b.seq || 99));
   }
   window.addEventListener('storage', e => {
     if (e.key !== LS_DATA || store.mode !== 'local' || !started) return;
-    loadLocal(); renderNav(); if (['out', 'wash', 'pack'].includes(state.tab)) refreshTable(); paint();
+    loadLocal(); renderNav(); if (CCP) ccpRefresh(); else if (['out', 'wash', 'pack'].includes(state.tab)) refreshTable(); paint();
   });
   function loadLocal() {
     const o = loadLS(LS_DATA) || {};
     store.lots = new Map(Object.entries(o.lots || {}));
     store.packs = new Map(Object.entries(o.packs || {}));
+    store.runs = new Map(Object.entries(o.runs || {}));
     state.config = mergeConfig(o.config);
     sync();
   }
   function saveLocal() {
-    if (!saveLS(LS_DATA, { lots: Object.fromEntries(store.lots), packs: Object.fromEntries(store.packs), config: state.config })) toast('이 기기의 저장 공간이 부족합니다.', true);
+    if (!saveLS(LS_DATA, { lots: Object.fromEntries(store.lots), packs: Object.fromEntries(store.packs), runs: Object.fromEntries(store.runs), config: state.config })) toast('이 기기의 저장 공간이 부족합니다.', true);
   }
   async function initCloud() {
     const cl = window.claude;
@@ -951,13 +1441,13 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const db = await cl.use('db').catch(() => null);
     if (!db) return;
     const user = await cl.use('user').catch(() => null);
-    Object.assign(store, { db, user, mode: 'cloud', lots: new Map(), packs: new Map() });
+    Object.assign(store, { db, user, mode: 'cloud', lots: new Map(), packs: new Map(), runs: new Map() });
     if (user) {
       store.myId = await user.id().catch(() => null);
       const w = await user.can('data.write').catch(() => null);
       store.writable = w !== false;
     }
-    for (const col of ['lots', 'packs']) {
+    for (const col of COLS) {
       db.collection(col).onSnapshot(snap => {
         const m = new Map();
         for (const d of snap.docs) m.set(d.id, { ...d.data(), id: d.id });
@@ -1016,7 +1506,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   let chT = null;
   function changed() {   // 다른 기기에서 바뀌어도 입력 중인 양식은 그대로 두고 다시 그림
     clearTimeout(chT);
-    chT = setTimeout(() => { sync(); renderNav(); renderSync(); if (['out', 'wash', 'pack'].includes(state.tab)) refreshTable(); paint(); }, 100);
+    chT = setTimeout(() => { sync(); renderNav(); renderSync(); if (CCP) ccpRefresh(); else if (['out', 'wash', 'pack'].includes(state.tab)) refreshTable(); paint(); }, 100);
   }
 
   // ---------- 계산 ----------
@@ -1065,7 +1555,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   const bomText = b => b ? `${b.main} ${b.mainPct}%${b.sauce ? ` · ${b.sauce} ${b.saucePct}%` : ''}` : '';
 
   // ---------- 화면 틀 ----------
-  const TABS = [
+  const TABS = CCP ? CCP_TABS : [
     { id: 'home', label: '현황', icon: 'home', title: '오늘 작업' },
     { id: 'out', label: '출고', icon: 'out', title: '원료육 출고', step: 1 },
     { id: 'wash', label: '세척', icon: 'wash', title: '세척 중량 입력', step: 2 },
@@ -1113,7 +1603,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     el.title = store.mode === 'cloud' ? '이 페이지를 여는 모든 기기·사람이 같은 기록을 봅니다' : '이 기기(브라우저)에만 저장됩니다';
   }
   function renderNav() {
-    const cnt = { wash: state.lots.filter(l => statusOf(l) === 'out').length, pack: state.lots.filter(l => statusOf(l) === 'washed').length };
+    const cnt = CCP ? { site: runsOn(today()).reduce((n, r) => n + (r.procs || []).filter(p => !recOf(r, p)).length, 0) } : { wash: state.lots.filter(l => statusOf(l) === 'out').length, pack: state.lots.filter(l => statusOf(l) === 'washed').length };
     $('#nav').innerHTML = TABS.map(t => `<button data-tab="${t.id}" class="${state.tab === t.id ? 'on' : ''}" aria-current="${state.tab === t.id ? 'page' : 'false'}">${icon(t.icon)}${t.label}${cnt[t.id] ? `<span class="cnt">${cnt[t.id]}</span>` : ''}</button>`).join('');
     $$('#nav [data-tab]').forEach(b => b.onclick = () => go(b.dataset.tab));
   }
@@ -1126,7 +1616,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     const F = state.form;
     if (F && F._dirty && !(init && init.force)) { ask('입력 중인 내용이 저장되지 않았습니다. 저장하지 않고 이동할까요?', '이동', () => go(tab, { ...(init || {}), force: true })); return; }
     state.tab = tab;
-    state.form = ({ out: () => initOutT(init || {}), wash: () => initWashT(init || {}), pack: () => initPackT(init || {}) })[tab]?.() || null;
+    state.form = CCP ? ccpGo(tab, init) : ({ out: () => initOutT(init || {}), wash: () => initWashT(init || {}), pack: () => initPackT(init || {}) })[tab]?.() || null;
     if (tab === 'docs' && init && init.date) state.doc = { date: init.date, lots: null, tab: 'work' };
     renderNav(); paint();
     $('#main').scrollTop = 0;
@@ -1134,8 +1624,8 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   function paint() {   // 지금 화면을 상태(state.form)에서 다시 그림
     const t = TABS.find(x => x.id === state.tab), main = $('#main');
     const st = main.scrollTop;
-    main.innerHTML = `<div class="wrap ${state.tab === 'docs' || state.tab === 'recs' ? 'wide' : ['out', 'wash', 'pack'].includes(state.tab) ? 'full' : ''}"><div class="page-head"><h1>${t.step ? `<span class="step">${t.step}</span>` : ''}<span id="ph-t">${t.title}</span></h1><div class="right" id="ph-right"></div></div><div id="page"></div></div>`;
-    ({ home: pageHome, out: pageOut, wash: pageWash, pack: pagePack, docs: pageDocs, recs: pageRecs, manage: pageManage })[state.tab]();
+    main.innerHTML = `<div class="wrap ${state.tab === 'docs' || state.tab === 'recs' || (CCP && ['plan', 'site'].includes(state.tab)) ? 'wide' : ['out', 'wash', 'pack'].includes(state.tab) ? 'full' : ''}"><div class="page-head"><h1>${t.step ? `<span class="step">${t.step}</span>` : ''}<span id="ph-t">${t.title}</span></h1><div class="right" id="ph-right"></div></div><div id="page"></div></div>`;
+    (CCP ? { home: ccpHome, plan: ccpPlan, site: ccpSite, docs: ccpDocs, recs: ccpRecs, manage: ccpManage } : { home: pageHome, out: pageOut, wash: pageWash, pack: pagePack, docs: pageDocs, recs: pageRecs, manage: pageManage })[state.tab]();
     main.scrollTop = st;
     renderBell();
   }
@@ -1150,7 +1640,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   const pkNum = (k, label, unit, o = {}) => { const v = F_()[k], show = v != null && v !== '' ? v : o.auto; return fieldWrap(label, o, `<button type="button" class="box${o.big ? ' big' : ''}${miss(k)}${v == null && o.auto != null ? ' auto' : ''}" data-num="${k}" data-unit="${unit}" data-mode="${o.mode || 'dec'}" data-label="${esc(label)}" aria-label="${esc(label)}: ${show != null ? esc(show) + (unit || '') : '입력 안 함'}">
     <span class="v ${show == null ? 'ph' : ''}">${show != null ? (o.mode === 'digits' ? esc(show) : fmt(show, Number.isInteger(+show) ? 0 : 2)) + (unit ? `<small>${unit}</small>` : '') : (o.ph || '입력')}</span>${icon('pad')}</button>`); };
   const pkTime = (k, label, o = {}) => { const v = F_()[k]; return fieldWrap(label, o, `<div class="boxrow"><button type="button" class="box" data-time="${k}" data-label="${esc(label)}" aria-label="${esc(label)}: ${v || '선택 안 함'}"><span class="v ${v ? '' : 'ph'}">${v || '--:--'}</span>${icon('clock')}</button><button type="button" class="now" data-now="${k}">지금</button></div>`); };
-  const pkText = (k, label, o = {}) => { const v = F_()[k]; return fieldWrap(label, o, `<button type="button" class="box" data-text="${k}" data-label="${esc(label)}"><span class="v ${v ? '' : 'ph'}" style="font-size:16px;font-weight:${v ? 700 : 400}">${v ? esc(v) : (o.ph || '없음')}</span>${icon('edit')}</button>`); };
+  const pkText = (k, label, o = {}) => { const v = F_()[k]; return fieldWrap(label, o, `<button type="button" class="box${miss(k)}" data-text="${k}" data-label="${esc(label)}"><span class="v ${v ? '' : 'ph'}" style="font-size:16px;font-weight:${v ? 700 : 400}">${v ? esc(v) : (o.ph || '없음')}</span>${icon('edit')}</button>`); };
   const chips = (k, items, o = {}) => `<div class="chips">${items.map(v => `<button type="button" class="chip ${F_()[k] === v ? 'on' : ''}${miss(k)}" data-chip="${k}" data-v="${esc(v)}" aria-pressed="${F_()[k] === v}">${esc(v)}</button>`).join('')}${o.add ? `<button type="button" class="chip add" data-add="${o.add}">${icon('plus')}${o.addLabel || '추가'}</button>` : ''}</div>`;
 
   function onPageClick(e) {
@@ -1645,6 +2135,9 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     setPopKeys(null); draw();
   }
   function addItem(kind, onOk) {
+    if (kind === 'ccpProduct') return openProductCcp(null, p => onOk(p.name));
+    if (kind === 'client') return openText('거래처 추가', '', async v => { if (v && await addToConfig('clients', v)) onOk(v); }, '예: 참푸드팜');
+    if (kind === 'material') return openText('세척 원료 추가', '', async v => { if (v && await addToConfig('materials', v)) onOk(v); }, '예: 대파');
     if (kind === 'origin') return openText('원산지 추가', '', async v => { if (v && await addToConfig('origins', v)) onOk(v); }, '예: 칠레산');
     if (kind === 'sauce') return openText('양념소스 추가', '', async v => { if (v && await addToConfig('sauces', v)) onOk(v); }, '예: 매운 양념소스');
     if (kind === 'job') return openText('공정명 추가', '', async v => { if (v && await addProcess(v)) onOk(v); }, `예: ${BRAND.ph.job}`);
@@ -2016,6 +2509,670 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       state.form = initPackT({ date: F.date }); paint();
     });
   }
+
+  // ---------- CCP 모드 화면 ----------
+  const CP = () => state.cp;
+  const heatMark = r => r.heatFlag === true || (r.heatFlag == null && (prodC(r.product) || {}).heat) ? '<span class="hm on" title="가열제품">■</span>' : '<span class="hm" title="비가열제품">□</span>';
+  const ST_LABEL = { done: '입력됨', dev: '이탈', todo: '입력 전', wait: '앞 공정 대기' };
+  const procChip = (r, p, btn) => { const s = procState(r, p); if (s === 'none') return ''; const t = `${PC(p).short} · ${ST_LABEL[s]}`;
+    return btn ? `<button class="pchip ${s}" data-act="cGoSite" data-id="${esc(r.id)}" data-p="${p}" title="${esc(t)}">${s === 'done' ? icon('check') : s === 'dev' ? icon('alert') : ''}${PC(p).short}</button>` : `<span class="pchip ${s}" title="${esc(t)}">${s === 'done' ? icon('check') : s === 'dev' ? icon('alert') : ''}${PC(p).short}</span>`; };
+  const runLine = (r, o = {}) => `<div class="runl${runDone(r) ? ' ok' : ''}" ${o.click ? `data-act="${o.click}" data-id="${esc(r.id)}" role="button" tabindex="0"` : ''}>
+      <span class="sq">${r.seq || '-'}</span>
+      <div class="tx"><b>${heatMark(r)} ${esc(r.product)}</b><small>${esc(r.client || '')}${r.spec ? ` · ${esc(r.spec)}` : ''}${r.planKg != null ? ` · ${kg(r.planKg)}kg` : ''}${r.planCount != null ? ` · ${fmt(r.planCount)}ea` : ''}${r.note ? ` · ${esc(r.note)}` : ''}</small></div>
+      <div class="pcs">${CPROCS().map(p => procChip(r, p.id, o.btn)).join('')}</div></div>`;
+  const daySum = rs => CPROCS().map(p => { const n = rs.filter(r => (r.procs || []).includes(p.id)).length; return n ? `${p.short} ${n}` : ''; }).filter(Boolean).join(' · ');
+
+  // ===== 현황 =====
+  function ccpHome() {
+    const d = CP().date, rs = runsOn(d), review = state.config.products.filter(p => p.review);
+    const past = state.runs.filter(r => r.date < today() && r.date >= addDays(today(), -14) && !runDone(r));
+    $('#ph-right').innerHTML = `<button class="btn" data-act="cDate">${icon('cal')}${dKor(d)}</button>`;
+    $('#page').innerHTML = `
+      ${review.length ? `<div class="banner warn">${icon('alert')}<div><b>공정 확인이 필요한 제품 ${review.length}개</b><small>계획표에서 새로 들어온 제품입니다. 세척 · 가열 · 수분활성도 · 포장 중 해당 공정을 확인해 주세요.</small></div><button class="btn sm" data-act="cGoManage">확인하기</button></div>` : ''}
+      ${past.length ? `<div class="banner bad">${icon('alert')}<div><b>기록이 빠진 지난 생산 ${past.length}건</b><small>${past.slice(0, 3).map(r => `${dMD(r.date)} ${esc(r.product)}`).join(', ')}${past.length > 3 ? ' 외' : ''}</small></div><button class="btn sm" data-act="cGoDate" data-d="${past[0].date}">보기</button></div>` : ''}
+      ${planGrid(CP().homeWeek || mondayOf(d))}
+      <div class="sites">${CPROCS().map(p => { const xs = rs.filter(r => (r.procs || []).includes(p.id)), dn = xs.filter(r => recOf(r, p.id)).length, dv = xs.filter(r => procState(r, p.id) === 'dev').length;
+        return `<button class="site-card${xs.length && dn === xs.length ? ' ok' : ''}" data-act="cGoSiteLoc" data-p="${p.id}">${icon(p.icon)}<span class="tx"><b>${p.site}</b><small>${p.ccp}</small></span><span class="n">${xs.length ? `<b>${dn}</b>/${xs.length}` : '<i>-</i>'}${dv ? `<em>이탈 ${dv}</em>` : ''}</span></button>`; }).join('')}</div>
+      <section class="card"><div class="card-h"><h2>${dKor(d)} 생산 ${rs.length}건</h2><span class="sp"></span><small>${daySum(rs)}</small></div>
+        ${rs.length ? `<div class="runs">${rs.map(r => runLine(r, { btn: true })).join('')}</div><p class="fh">공정 단추를 누르면 그 위치의 입력 화면으로 갑니다. <span class="pchip done">${icon('check')}입력됨</span> <span class="pchip todo">입력 전</span> <span class="pchip wait">앞 공정 대기</span> <span class="pchip dev">${icon('alert')}이탈</span></p>`
+          : `<div class="empty">${icon('cal')}<b>이날 생산 계획이 없습니다</b><span>생산계획에서 주간 계획표(엑셀)를 올리거나 직접 추가하세요.</span><button class="btn primary" data-act="cGoPlan">${icon('upload')}생산계획</button></div>`}</section>`;
+  }
+  Object.assign(ACTS, {
+    cDate: b => openCalendar({ anchor: b, label: '날짜', value: CP().date, kind: 'work', onOk: v => { if (v) { CP().date = v; paint(); } } }),
+    cGoDate: b => { CP().date = b.dataset.d; paint(); },
+    cGoManage: () => go('manage', { mtab: 'product' }),
+    cGoPlan: () => go('plan'),
+    cGoSiteLoc: b => go('site', { site: b.dataset.p }),
+    cGoSite: b => go('site', { site: b.dataset.p, run: b.dataset.id }),
+  });
+  const saveUi = () => { state.ui.site = CP().site; saveLS(LS_UI, state.ui); };
+
+  // ===== 생산계획 (주 단위) =====
+  function ccpPlan() {
+    const w = CP().week, days = [0, 1, 2, 3, 4, 5, 6].map(i => addDays(w, i)).filter((d, i) => i < 5 || runsOn(d).length);
+    $('#ph-right').innerHTML = `<label class="btn primary file-btn">${icon('upload')}계획표 올리기 (엑셀)<input type="file" id="plan-file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></label>`;
+    $('#plan-file').onchange = e => { const f = e.target.files[0]; e.target.value = ''; if (f) importPlan(f); };
+    const wk = `${+w.slice(5, 7)}월 ${Math.ceil(+w.slice(8, 10) / 7)}째 주`;
+    $('#page').innerHTML = `<div class="wk-nav"><button class="icon-btn" data-act="cWeek" data-n="-7" aria-label="지난주">${icon('chevL')}</button><b>${wk}</b><span>${dMD(w)} ~ ${dMD(addDays(w, 6))}</span><button class="icon-btn" data-act="cWeek" data-n="7" aria-label="다음주">${icon('chevR')}</button>${w !== mondayOf(today()) ? '<button class="btn sm" data-act="cWeek" data-n="0">이번 주</button>' : ''}</div>
+      <p class="lead">계획표의 ■가열 · □비가열 표시와 등록된 제품 공정으로 날짜마다 위치별 할 일을 정리합니다. 생산 건을 누르면 고칠 수 있습니다.</p>
+      <div class="week">${days.map(d => { const rs = runsOn(d);
+        return `<section class="card day${d === today() ? ' today' : ''}"><div class="card-h"><h2>${+d.slice(5, 7)}/${+d.slice(8, 10)} <small>${dow(d)}</small></h2><span class="sp"></span><small>${daySum(rs) || '계획 없음'}</small></div>
+          <div class="runs">${rs.map(r => runLine(r, { click: 'cEditRun' })).join('')}</div>
+          <button class="add" data-act="cAddRun" data-d="${d}">${icon('plus')}생산 추가</button></section>`; }).join('')}</div>`;
+  }
+  Object.assign(ACTS, {
+    cWeek: b => { const n = +b.dataset.n; CP().week = n ? addDays(CP().week, n) : mondayOf(today()); paint(); },
+    cAddRun: b => openRun(null, b.dataset.d),
+    cEditRun: b => openRun(runById(b.dataset.id)),
+  });
+  // 계획표 올리기 → 미리보기 → 가져오기
+  async function importPlan(file) {
+    toast('계획표를 읽는 중입니다…');
+    let res;
+    try { res = await parsePlanFile(await file.arrayBuffer()); } catch (e) { console.warn(e); toast('계획표를 읽지 못했습니다. 엑셀(.xlsx) 파일인지 확인해 주세요.', true); return; }
+    const days = res.days.filter(d => d.items.length);
+    if (!days.length) { toast('계획표에서 생산 항목을 찾지 못했습니다. (업체명 · 제품명 · 생산량 줄이 있는 주간 시트)', true); return; }
+    const sel = new Set(days.filter(d => d.date >= mondayOf(today())).map(d => d.date));
+    if (!sel.size) days.forEach(d => sel.add(d.date));
+    const draw = () => {
+      const chosen = days.filter(d => sel.has(d.date)), items = chosen.flatMap(d => d.items);
+      const fresh = uniq(items.map(i => i.name)).filter(n => !prodC(n));
+      openModal(`<h3>계획표 가져오기</h3><p class="desc">${esc(file.name)} · ${res.sheets.map(s => esc(s.name)).join(', ')}. 같은 날짜가 여러 시트에 있으면 그 주 시트(왼쪽 확정본)를 씁니다. 가져올 날짜를 고르세요.</p>
+        <div class="imp">${days.map(d => { const keep = runsOn(d.date).filter(r => r.recs && Object.keys(r.recs).length).length;
+          return `<label class="imp-d ${sel.has(d.date) ? 'on' : ''}"><input type="checkbox" data-d="${d.date}" ${sel.has(d.date) ? 'checked' : ''}><b>${dKor(d.date)}</b><small>${d.items.length}건 · ${esc(d.sheet)}${d.prio === 1 ? ' (다음 주 미리보기)' : ''}${runsOn(d.date).length ? ` · 지금 ${runsOn(d.date).length}건${keep ? `, 기록 있는 ${keep}건은 그대로` : ''}` : ''}</small>
+            <span class="imp-i">${d.items.map(i => `${i.heat ? '■' : '□'} ${esc(i.name)}`).join(' · ')}</span></label>`; }).join('')}</div>
+        ${fresh.length ? `<div class="banner warn" style="margin-top:12px">${icon('alert')}<div><b>새 제품 ${fresh.length}개 — 자동 등록</b><small>${fresh.map(esc).join(', ')}<br>■가열은 가열 · 포장, □비가열은 세척 · 포장, 이름에 '분말'이 있으면 수분활성도 · 포장으로 등록합니다. 가져온 뒤 '수정 → 제품'에서 공정을 확인해 주세요.</small></div></div>` : ''}
+        <div class="foot"><button class="btn" id="i-no">취소</button><button class="btn primary" id="i-ok" ${chosen.length ? '' : 'disabled'}>${icon('check')}${chosen.length}일 · ${items.length}건 가져오기</button></div>`);
+      const M = $('#modal-body');
+      M.querySelectorAll('[data-d]').forEach(c => c.onchange = () => { c.checked ? sel.add(c.dataset.d) : sel.delete(c.dataset.d); draw(); });
+      $('#i-no').onclick = closeModal;
+      $('#i-ok').onclick = async () => { $('#i-ok').disabled = true; await applyPlan(days.filter(d => sel.has(d.date)), file.name); };
+    };
+    draw();
+  }
+  async function applyPlan(days, src) {
+    const C = clone(state.config); let addP = 0, add = 0, kept = 0, del0 = 0;
+    days.flatMap(d => d.items).forEach(i => {
+      if (C.products.some(p => p.name === i.name)) return;
+      const type = /분말|시즈닝|가루/.test(i.name) ? '복합조미식품' : '소스';
+      C.products.push({ name: i.name, type, heat: i.heat, procs: defaultProcs(type, i.heat), client: i.client, spec: i.spec, storage: i.storage, shelfMonths: i.months, box: i.box, mdGroup: '', review: true, group: '계획표' });
+      addP++;
+    });
+    uniq(days.flatMap(d => d.items.map(i => i.client))).forEach(c => { if (c && !C.clients.includes(c)) C.clients.push(c); });
+    if (!(await saveConfig(C))) return;
+    for (const d of days) {
+      const cur = runsOn(d.date), withRec = cur.filter(r => r.recs && Object.keys(r.recs).length);
+      for (const r of cur) if (!withRec.includes(r) && r.src === 'plan') { if (await del('runs', r.id)) del0++; }
+      let seq = 0;
+      for (const i of d.items) {
+        seq++;
+        if (withRec.some(r => r.product === i.name && (r.client || '') === (i.client || ''))) { kept++; continue; }
+        const p = prodC(i.name) || {};
+        const exp = i.exp || (i.months ? addDays(addMonths(d.date, i.months), -1) : p.shelfMonths ? addDays(addMonths(d.date, p.shelfMonths), -1) : null);
+        const r = { id: newId('R'), date: d.date, seq, client: i.client, product: i.name, spec: i.spec, planKg: i.kg, planCount: i.count, totalKg: i.kg, heatFlag: i.heat,
+          note: i.note, detail: i.detail, box: i.box, packSpec: i.pack, storage: i.storage || p.storage || '', exp, machine: i.machine, procs: (p.procs || defaultProcs(p.type || '소스', i.heat)).slice(),
+          recs: {}, src: 'plan', srcFile: src, createdAt: new Date().toISOString(), by: store.myId };
+        if (await put('runs', r)) add++;
+      }
+    }
+    closeModal();
+    CP().week = mondayOf(days[0].date);
+    toast(`${days.length}일 · ${add}건을 가져왔습니다.${kept ? ` 기록 있는 ${kept}건은 그대로 두었습니다.` : ''}${addP ? ` 새 제품 ${addP}개 등록 — 공정을 확인해 주세요.` : ''}`);
+    paint();
+  }
+  // 생산 건 추가 · 수정
+  function openRun(run, date) {
+    const r = run ? clone(run) : { id: newId('R'), date, seq: runsOn(date).length + 1, client: '', product: '', spec: '', planKg: null, planCount: null, totalKg: null, procs: [], recs: {}, src: 'manual', storage: '', exp: null, note: '' };
+    const hasRec = run && run.recs && Object.keys(run.recs).length;
+    const draw = () => {
+      const p = prodC(r.product);
+      openSheet(`<div class="cal-title" style="font-size:17px">${run ? '생산 건 수정' : '생산 추가'} <small>${dKor(r.date)}</small></div>
+        <div class="grid2">
+          <div class="fld"><span class="fl">제품명<em>*</em></span><button class="box" data-k="product"><span class="v ${r.product ? '' : 'ph'}" style="font-size:16px">${r.product ? esc(r.product) : '제품 고르기'}</span>${icon('chevD')}</button></div>
+          <div class="fld"><span class="fl">거래처명</span><button class="box" data-k="client"><span class="v ${r.client ? '' : 'ph'}" style="font-size:16px">${r.client ? esc(r.client) : '거래처 고르기'}</span>${icon('chevD')}</button></div>
+          <div class="fld"><span class="fl">생산일자</span><button class="box" data-k="date"><span class="v">${dFull(r.date)}<small>${dow(r.date)}</small></span>${icon('cal')}</button></div>
+          <div class="fld"><span class="fl">작업순서</span><button class="box" data-k="seq"><span class="v">${r.seq || '-'}<small>번째</small></span>${icon('pad')}</button></div>
+          <div class="fld"><span class="fl">포장규격</span><button class="box" data-k="spec"><span class="v ${r.spec ? '' : 'ph'}" style="font-size:16px">${esc(r.spec || '예: 5kg · 60g')}</span>${icon('edit')}</button></div>
+          <div class="fld"><span class="fl">생산량</span><button class="box" data-k="planKg"><span class="v ${r.planKg != null ? '' : 'ph'}">${r.planKg != null ? kg(r.planKg) + '<small>kg</small>' : '입력'}</span>${icon('pad')}</button></div>
+          <div class="fld"><span class="fl">총 배합중량 <small>모든 일지에 같은 값</small></span><button class="box" data-k="totalKg"><span class="v ${r.totalKg != null ? '' : 'ph'}">${r.totalKg != null ? kg(r.totalKg) + '<small>kg</small>' : (r.planKg != null ? kg(r.planKg) + '<small>kg (생산량)</small>' : '입력')}</span>${icon('pad')}</button></div>
+          <div class="fld"><span class="fl">소비기한</span><button class="box" data-k="exp"><span class="v ${r.exp ? '' : 'ph'}">${r.exp ? dFull(r.exp) : 'YYYY.MM.DD'}</span>${icon('cal')}</button></div>
+        </div>
+        <div class="tp-sec">공정 <small>제품 등록 공정이 기본 · 이 생산 건만 바꿀 수 있음</small></div>
+        <div class="chips">${CPROCS().map(x => `<button class="chip ${r.procs.includes(x.id) ? 'on' : ''}" data-pp="${x.id}">${x.short} <small>${x.site}</small></button>`).join('')}</div>
+        <div class="tp-sec">보관방법</div><div class="chips">${OPT('storage').map(v => `<button class="chip ${r.storage === v ? 'on' : ''}" data-st="${esc(v)}">${esc(v)}</button>`).join('')}</div>
+        <div class="tp-sec">비고</div><button class="box" data-k="note" style="width:100%"><span class="v ${r.note ? '' : 'ph'}" style="font-size:15px">${esc(r.note || '예: 한글표시사항 부착')}</span>${icon('edit')}</button>
+        ${r.detail ? `<p class="fh">계획표: ${esc(r.detail)}${r.machine ? ` · 번호 ${esc(r.machine)}` : ''}</p>` : ''}
+        ${hasRec ? `<p class="fh" style="color:var(--bad)">이미 입력된 공정 기록이 있습니다: ${Object.keys(run.recs).map(k => PC(k).site).join(', ')}</p>` : ''}
+        <div class="kp-f">${run ? `<button class="btn danger" data-del>${icon('trash')}삭제</button>` : ''}<span class="sp"></span><button class="btn" data-x2>취소</button><button class="btn primary" data-ok>${icon('check')}저장</button></div>`);
+      const S = $('#sheet-body'), K = k => S.querySelector(`[data-k="${k}"]`);
+      K('product').onclick = () => openPick({ anchor: K('product'), label: '제품명', items: state.config.products.map(x => ({ v: x.name, l: x.name, s: `${x.type}${x.type === '소스' ? (x.heat ? ' · 가열' : ' · 비가열') : ''} · ${x.procs.map(q => PC(q).short).join('·')}` })), value: r.product, add: 'ccpProduct', onOk: v => {
+        if (!v) return; r.product = v; const q = prodC(v) || {}; r.procs = (q.procs || []).slice(); r.heatFlag = q.heat; if (!r.client && q.client) r.client = q.client; if (!r.spec && q.spec) r.spec = q.spec; if (!r.storage && q.storage) r.storage = q.storage;
+        if (!r.exp && q.shelfMonths) r.exp = addDays(addMonths(r.date, q.shelfMonths), -1); draw(); } });
+      K('client').onclick = () => openPick({ anchor: K('client'), label: '거래처명', items: state.config.clients, value: r.client, add: 'client', onOk: v => { r.client = v || ''; draw(); } });
+      K('date').onclick = () => openCalendar({ anchor: K('date'), label: '생산일자', value: r.date, kind: 'work', onOk: v => { if (v) { r.date = v; draw(); } } });
+      K('seq').onclick = () => openKeypad({ anchor: K('seq'), label: '작업순서', unit: '번째', mode: 'int', value: r.seq, onOk: v => { r.seq = v; draw(); } });
+      K('spec').onclick = () => openText('포장규격', r.spec || '', v => { r.spec = v; draw(); }, '예: 5kg');
+      K('planKg').onclick = () => openKeypad({ anchor: K('planKg'), label: '생산량 (kg)', unit: 'kg', value: r.planKg, onOk: v => { r.planKg = v; draw(); } });
+      K('totalKg').onclick = () => openKeypad({ anchor: K('totalKg'), label: '총 배합중량 (kg)', unit: 'kg', value: r.totalKg != null ? r.totalKg : r.planKg, onOk: v => { r.totalKg = v; draw(); } });
+      K('exp').onclick = () => openCalendar({ anchor: K('exp'), label: '소비기한', value: r.exp, kind: 'exp', optional: true, sugg: p && p.shelfMonths ? [[`생산일 +${p.shelfMonths}개월`, addDays(addMonths(r.date, p.shelfMonths), -1)]] : [], onOk: v => { r.exp = v; draw(); } });
+      K('note').onclick = () => openText('비고', r.note || '', v => { r.note = v; draw(); });
+      S.querySelectorAll('[data-pp]').forEach(b => b.onclick = () => { const id = b.dataset.pp; r.procs = r.procs.includes(id) ? r.procs.filter(x => x !== id) : CPROCS().map(x => x.id).filter(x => x === id || r.procs.includes(x)); draw(); });
+      S.querySelectorAll('[data-st]').forEach(b => b.onclick = () => { r.storage = r.storage === b.dataset.st ? '' : b.dataset.st; draw(); });
+      S.querySelector('[data-x2]').onclick = closePop;
+      const dl = S.querySelector('[data-del]');
+      if (dl) dl.onclick = () => ask(`${dKor(run.date)} ${run.product} 생산 건을 지울까요?${hasRec ? ' 입력된 공정 기록도 함께 지워집니다.' : ''}`, '삭제', async () => { if (await del('runs', run.id)) { closePop(); toast('지웠습니다.'); paint(); } }, true);
+      S.querySelector('[data-ok]').onclick = async () => {
+        if (!r.product) { toast('제품명을 골라 주세요.', true); return; }
+        if (!r.procs.length) { toast('공정을 하나 이상 골라 주세요.', true); return; }
+        if (r.totalKg == null) r.totalKg = r.planKg;
+        if (!r.createdAt) r.createdAt = new Date().toISOString();
+        if (await put('runs', r)) { closePop(); toast(run ? '생산 건을 고쳤습니다.' : '생산 건을 추가했습니다.'); paint(); }
+      };
+    };
+    setPopKeys(null); draw();
+  }
+
+  // ===== 현장 입력 (위치별) =====
+  const ISS_N = { wash: 2, heat: 2, aw: 1, pack: 3 };
+  function ccpSite() {
+    const p = CP().site, F = state.form;
+    $('#ph-right').innerHTML = `<button class="btn" data-act="cDate">${icon('cal')}${dKor(CP().date)}</button>`;
+    const seg = `<div class="seg site-seg">${CPROCS().map(x => `<button data-act="cSite" data-p="${x.id}" class="${p === x.id ? 'on' : ''}">${icon(x.icon)}${x.site}<small>${x.ccp}</small></button>`).join('')}</div>`;
+    if (!F || F._type !== 'ccp') {
+      const rs = runsOn(CP().date).filter(r => (r.procs || []).includes(p));
+      $('#page').innerHTML = `${seg}<p class="lead">${PC(p).site}에서 ${dKor(CP().date)}에 할 제품입니다. 이 기기는 다음에도 '${PC(p).site}'로 열립니다.</p>
+        ${rs.length ? `<div class="runs big">${rs.map(r => { const s = procState(r, p);
+          return `<button class="runb ${s}" data-act="cOpen" data-id="${esc(r.id)}"><span class="sq">${r.seq || '-'}</span><span class="tx"><b>${heatMark(r)} ${esc(r.product)}</b><small>${esc(r.client || '')}${r.totalKg != null ? ` · 배합 ${kg(r.totalKg)}kg` : ''}${r.spec ? ` · ${esc(r.spec)}` : ''}</small></span><span class="pchip ${s}">${s === 'done' ? icon('check') : s === 'dev' ? icon('alert') : ''}${ST_LABEL[s]}</span>${icon('chevR')}</button>`; }).join('')}</div>`
+          : `<div class="empty">${icon(PC(p).icon)}<b>${PC(p).site}에서 할 생산이 없습니다</b><span>다른 날짜를 고르거나 생산계획을 확인하세요.</span></div>`}`;
+      return;
+    }
+    const r = runById(F.runId); if (!r) { state.form = null; return ccpSite(); }
+    const miss = missingBefore(r, p), devs = formDevs(F, p);
+    $('#page').innerHTML = `${seg}
+      <section class="card run-head"><button class="icon-btn" data-act="cBack" aria-label="목록으로">${icon('back')}</button>
+        <div class="tx"><b>${heatMark(r)} ${esc(r.product)}</b><small>${esc(r.client || '')} · ${dKor(r.date)} · 작업순서 ${r.seq || '-'}${r.spec ? ` · ${esc(r.spec)}` : ''}${r.exp ? ` · 소비기한 ${dFull(r.exp)}` : ''}</small></div>
+        <div class="pcs">${CPROCS().map(x => procChip(r, x.id)).join('')}</div></section>
+      ${miss.length ? `<div class="banner bad">${icon('alert')}<div><b>앞 공정 기록이 먼저 있어야 합니다</b><small>${miss.map(q => PC(q).site).join(' · ')} 기록이 저장되지 않았습니다. 그 위치에서 먼저 입력해 주세요.</small></div>${miss.map(q => `<button class="btn sm" data-act="cGoSite" data-id="${esc(r.id)}" data-p="${q}">${PC(q).site}</button>`).join('')}</div>` : ''}
+      <section class="card"><div class="fields c3">${pkNum('totalKg', '총 배합중량 (총 투입량)', 'kg', { req: 1, hint: '이 제품의 모든 일지에 같은 값으로 들어갑니다' })}${pkText('worker', p === 'wash' || p === 'aw' ? '작성자' : '작업자', { req: 1 })}${workerChips()}</div></section>
+      ${({ wash: formWash, heat: formHeat, aw: formAw, pack: formPack })[p](F, r)}
+      ${devs.length ? `<div class="banner bad">${icon('alert')}<div><b>한계기준 이탈</b><small>${devs.map(esc).join('<br>')}<br>이상 발생 내역과 조치사항을 적어야 저장할 수 있습니다. 즉시 작업을 멈추고 생산관리자 또는 품질관리자에게 보고하세요.</small></div></div>` : ''}
+      <section class="card"><div class="card-h"><h2>이상 발생 내역 · 조치</h2></div>
+        <div class="iss">${Array.from({ length: ISS_N[p] }, (_, i) => `<div class="iss-r">${pkText(`iss${i}_d`, `이상 발생 내역 ${ISS_N[p] > 1 ? i + 1 : ''}`, { cls: 'w2' })}${pkText(`iss${i}_a`, '조치사항 및 결과', { cls: 'w2' })}${pkText(`iss${i}_p`, '조치 담당자')}</div>`).join('')}</div></section>
+      <div class="bar"><div class="res ${F._dirty ? '' : 'none'}"><span class="lbl">${PC(p).site} · ${PC(p).ccp}</span><span class="hint">${recOf(r, p) ? `저장됨 · ${esc((recOf(r, p).savedAt || '').slice(11, 16))}` : '아직 저장 안 됨'}</span></div>
+        <button class="btn" data-act="cBack">${icon('back')}목록</button><button class="btn primary big" data-act="cSave" ${miss.length ? 'disabled' : ''}>${icon('check')}저장</button></div>`;
+  }
+  const workerChips = () => { const ws = state.config.workers || []; return ws.length ? `<div class="fld"><span class="fl">작업자 고르기</span><div class="chips">${ws.map(w => `<button type="button" class="chip ${F_().worker === w ? 'on' : ''}" data-chip="worker" data-v="${esc(w)}">${esc(w)}</button>`).join('')}</div></div>` : ''; };
+  // 입력 양식 ← 저장된 기록
+  function initCcpForm(r, p) {
+    const x = clone(recOf(r, p) || {}), last = state.runs.filter(q => recOf(q, p) && q.id !== r.id).sort((a, b) => String(recOf(a, p).savedAt).localeCompare(String(recOf(b, p).savedAt))).pop();
+    const F = { _type: 'ccp', runId: r.id, proc: p, prod: r.product, totalKg: r.totalKg != null ? r.totalKg : r.planKg, worker: x.worker || (last ? recOf(last, p).worker : '') || '' };
+    (x.issues || []).forEach((s, i) => { F[`iss${i}_d`] = s.d || ''; F[`iss${i}_a`] = s.a || ''; F[`iss${i}_p`] = s.p || ''; });
+    if (p === 'wash') {
+      F.rows = (x.rows && x.rows.length ? x.rows : [{}, {}, {}]).map(w => ({ mat: w.mat || null, kg: w.kg ?? null, ppm: w.ppm ?? null, s: w.s || null, e: w.e || null, cl: w.cl ?? null, _orig: x.rows ? clone(w) : null }));
+      F._cols = [C.pick('mat', '원료명', () => state.config.materials, { add: 'material', w: 150 }), C.num('kg', '세척량', 'kg', { w: 90 }), C.num('ppm', '세척액 농도', 'ppm', { w: 100, req: 1 }),
+        C.time('s', '침지 시작', { w: 86 }), C.time('e', '침지 종료', { w: 86 }), C.num('cl', '잔류염소 농도', 'ppm', { w: 100 }),
+        C.ro('dur', '침지', w => { const d = minsBetween(w.s, w.e); return d == null ? '-' : `<b class="${outOf(limOf('soak', F_().prod), d) ? 'bad' : 'yl'}">${d}분</b>`; }, { w: 60 })];
+      F._title = (w, i) => `원료 ${i + 1}`;
+    }
+    if (p === 'heat') Object.assign(F, pick(x, ['mixedKg', 'prepS', 'prepE', 'mixS', 'mixE', 'heatS', 'heatE', 'reach85', 'coolS', 'coolE', 'heatDisp', 'heatProd', 'coolDisp', 'coolProd', 'mixerNo', 'mixerSpeed']));
+    if (p === 'aw') F.aw = x.aw ?? null;
+    if (p === 'pack') {
+      const q = prodC(r.product) || {}, g = mdOf(q.mdGroup) || {};
+      Object.assign(F, { spec: r.spec || q.spec || '', outer: r.box || q.box || '', inner: '', storage: r.storage || q.storage || '', label: '', sensory: '', filler: '', fe: g.fe ?? null, sus: g.sus ?? null },
+        pick(x, ['spec', 'outer', 'inner', 'storage', 'label', 'sensory', 'packS', 'packE', 'tempS', 'tempE', 'filler', 'netKg', 'outCount', 'outKg', 'lossKg', 'restKg', 'yield', 'salt', 'brix', 'ph', 'visc', 'aw2', 'filter', 'pass', 'detect', 'etc']));
+      const md = x.md || {}; if (md.fe != null) F.fe = md.fe; if (md.sus != null) F.sus = md.sus;
+      (md.rows || []).forEach((row, i) => { F[`md${i}_t`] = row.t || ''; ['fe', 'sus'].forEach(k => (row[k] || []).forEach((v, j) => { F[`md${i}_${k}${j}`] = v; })); ['pfe', 'psus'].forEach(k => (row[k] || []).forEach((v, j) => { F[`md${i}_${k}${j}`] = v; })); F[`md${i}_prod`] = row.prod || ''; });
+    }
+    F._init = true; return F;
+  }
+  const pick = (o, ks) => { const out = {}; ks.forEach(k => { if (o[k] != null && o[k] !== '') out[k] = o[k]; }); return out; };
+  // 양식 → 기록
+  function ccpRec(F, p) {
+    const x = { worker: F.worker || '', issues: Array.from({ length: ISS_N[p] }, (_, i) => ({ d: F[`iss${i}_d`] || '', a: F[`iss${i}_a`] || '', p: F[`iss${i}_p`] || '' })).filter(s => s.d || s.a || s.p) };
+    if (p === 'wash') x.rows = F.rows.filter(w => w.mat || w.kg != null || w.s).map(w => ({ mat: w.mat || '', kg: w.kg, ppm: w.ppm, s: w.s || '', e: w.e || '', cl: w.cl }));
+    if (p === 'heat') Object.assign(x, pick(F, ['mixedKg', 'prepS', 'prepE', 'mixS', 'mixE', 'heatS', 'heatE', 'reach85', 'coolS', 'coolE', 'heatDisp', 'heatProd', 'coolDisp', 'coolProd', 'mixerNo', 'mixerSpeed']));
+    if (p === 'aw') x.aw = F.aw;
+    if (p === 'pack') {
+      Object.assign(x, pick(F, ['spec', 'outer', 'inner', 'storage', 'label', 'sensory', 'packS', 'packE', 'tempS', 'tempE', 'filler', 'netKg', 'outCount', 'outKg', 'lossKg', 'restKg', 'salt', 'brix', 'ph', 'visc', 'aw2', 'filter', 'pass', 'detect', 'etc']));
+      x.yield = F.yield != null ? F.yield : packYieldAuto(F);
+      x.md = { fe: F.fe, sus: F.sus, rows: MD_ROWS.map((_, i) => ({ t: F[`md${i}_t`] || '', fe: [0, 1, 2].map(j => F[`md${i}_fe${j}`] || ''), sus: [0, 1, 2].map(j => F[`md${i}_sus${j}`] || ''),
+        pfe: [0, 1].map(j => F[`md${i}_pfe${j}`] || ''), psus: [0, 1].map(j => F[`md${i}_psus${j}`] || ''), prod: F[`md${i}_prod`] || '' })) };
+    }
+    return x;
+  }
+  const packYieldAuto = F => F.outKg != null && F.totalKg ? Math.round(F.outKg / F.totalKg * 1000) / 10 : null;
+  const formDevs = (F, p) => devOf({ product: F.prod, recs: { [p]: ccpRec(F, p) } }, p);   // 제품별(레시피) 기준 포함
+  const minsTag = (a, b, lim) => { const d = minsBetween(a, b); return d == null ? '' : `<span class="mins ${lim && d < lim ? 'bad' : ''}">${d}분</span>`; };
+  function formWash(F) {
+    return `<section class="card"><div class="card-h"><h2>${esc(PC('wash').label)} <small>${esc(PC('wash').ccp)}</small></h2></div>${limBar('wash', F.prod)}
+      ${sheetTable(F._cols, F.rows, { acts: (w, i) => F.rows.length > 1 ? `<button class="icon-btn" data-act="cRowDel" data-i="${i}" aria-label="줄 지우기">${icon('x')}</button>` : '' })}
+      ${F.rows.length < 10 ? `<button class="add" data-act="cRowAdd">${icon('plus')}원료 한 줄 추가 <small>(최대 10줄)</small></button>` : ''}</section>`;
+  }
+  function formHeat(F) {
+    const hold = minsBetween(F.reach85, F.heatE), lh = limOf('heatProd', F.prod) || {};
+    const tp = (a, b, label) => `<div class="tpair"><span class="fl">${label}</span><div class="boxrow2">${pkTime(a, '시작')}${pkTime(b, '종료')}</div></div>`;
+    return `<section class="card"><div class="card-h"><h2>${esc(PC('heat').label)} <small>${esc(PC('heat').ccp)}</small></h2></div>${limBar('heat', F.prod)}
+      <div class="fields c3">${pkNum('mixedKg', '배합 후 확인 중량', 'kg')}${pkNum('mixerNo', '교반기 번호', '', { mode: 'digits' })}${pkText('mixerSpeed', '교반기 속도')}</div>
+      <div class="tgrid">${tp('prepS', 'prepE', '재료 준비')}${tp('mixS', 'mixE', '배합 시간')}${tp('heatS', 'heatE', '가열 시간')}
+        <div class="tpair"><span class="fl">${lh.min != null ? lh.min + '℃ 이상 ' : '기준 온도 '}도달시간 <em>*</em></span>${pkTime('reach85', '도달')}<span class="fh">유지 ${hold == null ? '-' : `<b class="${outOf(limOf('hold', F.prod), hold) ? 'bad' : 'yl'}">${hold}분</b>`} (도달 → 가열 종료)</span></div>
+        ${tp('coolS', 'coolE', '냉각 시간')}</div>
+      <div class="fields c4">${pkNum('heatDisp', '가열 종료 · 표시온도', '℃')}${pkNum('heatProd', '가열 종료 · 제품온도', '℃', { req: 1 })}${pkNum('coolDisp', '냉각 종료 · 표시온도', '℃')}${pkNum('coolProd', '냉각 종료 · 제품온도', '℃')}</div></section>`;
+  }
+  function formAw(F) {
+    return `<section class="card"><div class="card-h"><h2>${esc(PC('aw').label)} <small>${esc(PC('aw').ccp)}</small></h2></div>${limBar('aw', F.prod)}
+      <div class="fields c3">${pkNum('aw', '수분활성도 검사결과 (Aw)', 'Aw', { req: 1, big: 1 })}</div></section>`;
+  }
+  function formPack(F, r) {
+    const yA = packYieldAuto(F), md = i => `<tr><th>${MD_ROWS[i]}</th><td>${mdTime(i)}</td>${[0, 1, 2].map(j => mdCell(i, `fe${j}`)).join('')}${[0, 1, 2].map(j => mdCell(i, `sus${j}`)).join('')}
+      ${i === 0 || i === 6 ? '<td colspan="5" class="na">해당사항 없음</td>' : [0, 1].map(j => mdCell(i, `pfe${j}`)).join('') + [0, 1].map(j => mdCell(i, `psus${j}`)).join('') + mdCell(i, 'prod')}</tr>`;
+    return `<section class="card"><div class="card-h"><h2>${esc(PC('pack').label)} <small>${esc(PC('pack').site)} · 일일생산물품표</small></h2></div>${limBar('pack', F.prod)}
+      <div class="fields c4">${pkText('spec', '포장규격')}<div class="fld">${pkText('outer', '외포장재')}${OPT('outers').length ? chips('outer', OPT('outers')) : ''}</div><div class="fld">${pkText('inner', '내포장재')}${OPT('inners').length ? chips('inner', OPT('inners')) : ''}</div><div class="fld"><span class="fl">보관방법</span>${chips('storage', OPT('storage'))}</div></div>
+      <div class="fields c4"><div class="fld"><span class="fl">라벨검수</span>${chips('label', OPT('check'))}</div><div class="fld"><span class="fl">관능평가</span>${chips('sensory', OPT('check'))}</div><div class="fld w2"><span class="fl">충진기 구분</span>${chips('filler', OPT('filler'))}</div></div>
+      <div class="tgrid"><div class="tpair"><span class="fl">포장 시간</span><div class="boxrow2">${pkTime('packS', '시작')}${pkTime('packE', '종료')}</div></div>
+        <div class="tpair"><span class="fl">포장 온도</span><div class="boxrow2">${pkNum('tempS', '시작', '℃')}${pkNum('tempE', '종료', '℃')}</div></div></div>
+      <div class="fields c6">${pkNum('netKg', '포장 실 중량', 'kg')}${pkNum('outCount', '산출수량', 'ea', { req: 1 })}${pkNum('outKg', '산출중량', 'kg')}${pkNum('lossKg', '손실량', 'kg')}${pkNum('restKg', '잔량', 'kg')}${pkNum('yield', '수율', '%', { auto: yA, hint: '산출중량 ÷ 총 배합중량' })}</div>
+      <div class="card-h" style="margin-top:6px"><h2 style="font-size:15px">희석 전 품질 <small>해당 항목만</small></h2></div>
+      <div class="fields c6">${pkNum('salt', '염도', '%')}${pkNum('brix', '당도', 'Brix')}${pkNum('ph', '산도', 'pH')}${pkText('visc', '점도 (육안검사)')}${pkText('aw2', '수분활성도 (복합조미)')}${pkText('filter', '여과공정 (80mesh)')}</div></section>
+      <section class="card"><div class="card-h"><h2>금속검출 <small>${esc(PC('pack').ccp)} · ${esc(mdName((prodC(r.product) || {}).mdGroup))} · 칸을 누를 때마다 ○ 정상 → × 이상 → 빈칸</small></h2></div>
+        <div class="fields c4">${pkNum('fe', '시편 Fe Ø', '㎜')}${pkNum('sus', '시편 SUS Ø', '㎜')}${pkNum('pass', '총 통과량', 'ea', { hint: F.outCount != null ? `산출수량 ${fmt(F.outCount)}ea` : '직접 입력' })}${pkNum('detect', '총 검출량', 'ea')}</div>
+        <div class="md-wrap"><table class="md"><thead><tr><th rowspan="2">구분</th><th rowspan="2">모니터링 시간</th><th colspan="3">시편 Fe</th><th colspan="3">시편 SUS</th><th colspan="2">공정품+시편 Fe</th><th colspan="2">공정품+시편 SUS</th><th rowspan="2">공정품<br>검사</th></tr>
+          <tr><th>좌</th><th>중</th><th>우</th><th>좌</th><th>중</th><th>우</th><th>상</th><th>하</th><th>상</th><th>하</th></tr></thead>
+          <tbody>${MD_ROWS.map((_, i) => md(i)).join('')}</tbody></table></div>
+        <button class="btn sm" data-act="cMdFill" style="margin-top:8px">${icon('check')}빈칸을 모두 ○ (정상)으로</button>
+        <div style="margin-top:12px">${pkText('etc', '기타')}</div></section>`;
+  }
+  const mdTime = i => { const v = F_()[`md${i}_t`]; return `<button class="cell tx" data-time="md${i}_t" data-label="${MD_ROWS[i]} 시간">${v ? esc(v) : '<span class="cvs">시간</span>'}</button><button class="lnk sm" data-now="md${i}_t">지금</button>`; };
+  const mdCell = (i, k) => { const v = F_()[`md${i}_${k}`] || ''; return `<td><button class="mdc ${v === '○' ? 'ok' : v === '×' ? 'bad' : ''}" data-act="cMd" data-k="md${i}_${k}" aria-label="${MD_ROWS[i]} ${k}">${v || '·'}</button></td>`; };
+  HOOKS.ccp = (k, v, F) => { if (k === 'outKg' && F.netKg == null) { /* 산출중량만 넣어도 수율 자동 */ } };
+  Object.assign(ACTS, {
+    cSite: b => { const go2 = () => { CP().site = b.dataset.p; saveUi(); state.form = null; paint(); }; if (state.form && state.form._dirty) ask('입력 중인 내용이 저장되지 않았습니다. 저장하지 않고 위치를 바꿀까요?', '바꾸기', go2); else go2(); },
+    cOpen: b => { const r = runById(b.dataset.id); state.form = initCcpForm(r, CP().site); paint(); $('#main').scrollTop = 0; },
+    cBack: () => { const go2 = () => { state.form = null; paint(); }; if (state.form && state.form._dirty) ask('입력 중인 내용이 저장되지 않았습니다. 저장하지 않고 목록으로 갈까요?', '목록으로', go2); else go2(); },
+    cRowAdd: () => { state.form.rows.push({ mat: null, kg: null, ppm: null, s: null, e: null, cl: null }); state.form._dirty = true; paint(); },
+    cRowDel: b => { state.form.rows.splice(+b.dataset.i, 1); state.form._dirty = true; paint(); },
+    cMd: b => { const k = b.dataset.k, v = F_()[k] || ''; setF(k, v === '' ? '○' : v === '○' ? '×' : ''); },
+    cMdFill: () => { const F = state.form; MD_ROWS.forEach((_, i) => { ['fe0', 'fe1', 'fe2', 'sus0', 'sus1', 'sus2'].concat(i > 0 && i < 6 ? ['pfe0', 'pfe1', 'psus0', 'psus1', 'prod'] : []).forEach(k => { if (!F[`md${i}_${k}`] && F[`md${i}_t`]) F[`md${i}_${k}`] = '○'; }); }); F._dirty = true; paint(); toast('시간을 적은 줄의 빈칸을 ○로 채웠습니다.'); },
+    cSave: () => saveCcp(),
+  });
+  // 저장: 앞 공정 · 필수 항목 · 이탈 시 조치 내용 확인
+  function saveCcp() {
+    const F = state.form, r = runById(F.runId), p = F.proc;
+    const miss = missingBefore(r, p); if (miss.length) { toast(`${miss.map(q => PC(q).site).join(' · ')} 기록을 먼저 저장해 주세요.`, true); return; }
+    const need = ['totalKg', 'worker'];
+    if (p === 'heat') need.push('heatS', 'heatE', 'reach85', 'heatProd');
+    if (p === 'aw') need.push('aw');
+    if (p === 'pack') need.push('outCount', 'md0_t', 'md6_t');
+    const m = need.filter(k => F[k] == null || F[k] === '');
+    if (p === 'wash' && !F.rows.some(w => w.mat && w.kg != null && w.ppm != null && w.s && w.e)) { F.rows.forEach(w => { w._miss = ['mat', 'kg', 'ppm', 's', 'e'].filter(k => w[k] == null || w[k] === ''); }); m.push('rows'); }
+    if (m.length) { F._miss = m; paint(); toast(p === 'wash' && m.includes('rows') ? '원료명 · 세척량 · 세척액 농도 · 침지 시작 · 종료를 한 줄 이상 넣어 주세요.' : '빨간 칸을 채워 주세요.' + (m.includes('md0_t') || m.includes('md6_t') ? ' (금속검출 작업전 · 작업후 점검 시간 포함)' : ''), true); return; }
+    const x = ccpRec(F, p), devs = devOf({ product: r.product, recs: { [p]: x } }, p);
+    if (devs.length && !(x.issues[0] && x.issues[0].d && x.issues[0].a)) { F._miss = ['iss0_d', 'iss0_a']; paint(); toast('한계기준을 벗어났습니다. 이상 발생 내역과 조치사항을 적어 주세요.', true); return; }
+    const rows = [['제품', `${esc(r.product)} (${esc(r.client || '-')})`], ['총 배합중량', `${kg(F.totalKg)}kg`], [p === 'wash' || p === 'aw' ? '작성자' : '작업자', esc(F.worker)]];
+    if (p === 'wash') rows.push(['세척 원료', esc(x.rows.map(w => `${w.mat} ${kg(w.kg)}kg`).join(', '))]);
+    if (p === 'heat') rows.push(['가열', `${x.heatS} ~ ${x.heatE} · 기준 온도 도달 ${x.reach85} · 제품 ${x.heatProd}℃`]);
+    if (p === 'aw') rows.push(['수분활성도', `${x.aw} Aw`]);
+    if (p === 'pack') rows.push(['산출', `${fmt(x.outCount)}ea${x.outKg != null ? ` · ${kg(x.outKg)}kg` : ''}${x.yield != null ? ` · 수율 ${fmt(x.yield, 1)}%` : ''}`], ['금속검출', `작업전 ${F.md0_t} · 작업후 ${F.md6_t}${x.detect ? ` · 검출 ${x.detect}ea` : ''}`]);
+    if (devs.length) rows.push(['한계기준 이탈', `<b style="color:var(--bad)">${devs.map(esc).join('<br>')}</b>`]);
+    confirmSave(`${PC(p).site} 저장 · ${PC(p).ccp}`, rows, async () => {
+      x.savedAt = new Date().toISOString(); x.by = store.myId;
+      if (!(await patch('runs', r.id, { recs: Object.assign({}, r.recs || {}, { [p]: x }), totalKg: F.totalKg }))) return;
+      if (F.worker && !(state.config.workers || []).includes(F.worker)) { const C2 = clone(state.config); C2.workers = [...(C2.workers || []), F.worker]; await saveConfig(C2); }
+      if (p === 'wash') { const mats = x.rows.map(w => w.mat).filter(v => v && !state.config.materials.includes(v)); if (mats.length) { const C2 = clone(state.config); C2.materials = uniq([...C2.materials, ...mats]); await saveConfig(C2); } }
+      state.form = null; toast(`${PC(p).site} 기록을 저장했습니다.${devs.length ? ' (한계기준 이탈 · 조치 기록됨)' : ''}`); paint();
+    });
+  }
+
+  // ===== 일지 (양식 그대로) =====
+  let ccpDocSeq = 0;
+  function ccpDocs() {
+    const D = CP(), d = D.docDate || CP().date, p = D.docTab || 'pack', rs = runsOn(d).filter(r => (r.procs || []).includes(p));
+    const done = rs.filter(r => recOf(r, p)).length;
+    $('#ph-right').innerHTML = `<button class="btn" data-act="cDocPrint" ${rs.length ? '' : 'disabled'}>${icon('print')}인쇄</button><button class="btn primary" data-act="cDocXlsx">${icon('down')}엑셀 (양식 그대로)</button>`;
+    $('#page').innerHTML = `<div class="dtools"><div class="fld"><span class="fl">생산일자</span><button class="box" data-act="cDocDate"><span class="v">${dFull(d)}<small>${dow(d)}</small></span>${icon('cal')}</button></div>
+        <div class="fld"><span class="fl">빠른 선택</span><div class="chips">${[0, -1, -2].map(n => { const x = addDays(today(), n); return `<button class="chip ${x === d ? 'on' : ''}" data-act="cDocDay" data-d="${x}">${n === 0 ? '오늘' : n === -1 ? '어제' : dMD(x)}</button>`; }).join('')}</div></div></div>
+      <div class="doc-tabs seg">${CPROCS().map(x => { const n = runsOn(d).filter(r => (r.procs || []).includes(x.id)).length; return `<button data-act="cDocTab" data-v="${x.id}" class="${p === x.id ? 'on' : ''}">${x.site}<small>${x.ccp} · ${n}건</small></button>`; }).join('')}</div>
+      <p class="lead">${rs.length ? `${rs.length}건 중 ${done}건 입력됨${done < rs.length ? ` · <b style="color:var(--bad)">빠진 ${rs.length - done}건은 제품명만 채운 빈 양식으로 나옵니다</b>` : ''}. 사무실에서 확인 후 인쇄해 결재 · 편철하세요.` : '이날 이 위치에서 한 생산이 없습니다. 빈 양식을 받을 수 있습니다.'}</p>
+      <div class="paper-wrap xl-wrap" id="xl-prev"><div class="empty" style="padding:40px">${icon('doc')}<b>일지를 만드는 중입니다…</b></div></div>`;
+    const my = ++ccpDocSeq;
+    buildCcpBook(d, p).then(b => { if (my !== ccpDocSeq) return; const el = $('#xl-prev'); if (!el) return; el.innerHTML = b.sheets.map(ws => `<div class="xl-page">${sheetHTML(ws, b.wb)}</div>`).join(''); fitXl(); })
+      .catch(e => { console.warn(e); const el = $('#xl-prev'); if (el) el.innerHTML = `<div class="empty">${icon('alert')}<b>일지 양식을 불러오지 못했습니다</b></div>`; });
+  }
+  function fitXl() { const el = $('#xl-prev'); if (!el) return; const w = el.clientWidth - 24; el.querySelectorAll('.xl-page').forEach(pg => { const s = Math.min(1.2, w / 720); pg.style.zoom = s; }); }
+  window.addEventListener('resize', () => { if (CCP && state.tab === 'docs') fitXl(); });
+  Object.assign(ACTS, {
+    cDocTab: b => { CP().docTab = b.dataset.v; paint(); },
+    cDocDay: b => { CP().docDate = b.dataset.d; paint(); },
+    cDocDate: b => openCalendar({ anchor: b, label: '생산일자', value: CP().docDate || CP().date, kind: 'work', onOk: v => { if (v) { CP().docDate = v; paint(); } } }),
+    cDocPrint: async () => {
+      const d = CP().docDate || CP().date, p = CP().docTab || 'pack', b = await buildCcpBook(d, p);
+      $('#print-root').innerHTML = b.sheets.map(ws => `<div class="xl-print">${sheetHTML(ws, b.wb, 720)}</div>`).join('');
+      window.addEventListener('afterprint', () => { $('#print-root').innerHTML = ''; }, { once: true });
+      setTimeout(() => { try { window.print(); } catch (e) { toast('이 화면에서는 인쇄를 열 수 없습니다. 엑셀로 받아 인쇄해 주세요.', true); } }, 50);
+    },
+    cDocXlsx: async () => {
+      const d = CP().docDate || CP().date, p = CP().docTab || 'pack', b = await buildCcpBook(d, p);
+      const buf = await b.wb.xlsx.writeBuffer();
+      await saveFile(`${PC(p).site.replace(/[()]/g, '')}_${PC(p).ccp}_모니터링일지_${d}.xlsx`, new Uint8Array(buf), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    },
+  });
+
+  // ===== 기록 =====
+  function ccpRecs() {
+    const months = uniq(state.runs.map(r => r.date.slice(0, 7))).sort().reverse(), m = CP().recMonth && months.includes(CP().recMonth) ? CP().recMonth : (months[0] || today().slice(0, 7));
+    const rs = state.runs.filter(r => r.date.startsWith(m)).sort((a, b) => b.date.localeCompare(a.date) || (a.seq || 0) - (b.seq || 0));
+    $('#ph-right').innerHTML = `<button class="btn primary" data-act="cRecXlsx" ${rs.length ? '' : 'disabled'}>${icon('down')}엑셀로 받기</button>`;
+    $('#page').innerHTML = `<div class="chips" style="margin-bottom:12px">${(months.length ? months : [m]).map(x => `<button class="chip ${x === m ? 'on' : ''}" data-act="cRecM" data-m="${x}">${+x.slice(5)}월</button>`).join('')}</div>
+      <section class="card">${rs.length ? `<div class="st-wrap"><table class="list"><thead><tr><th>생산일자</th><th>순서</th><th>거래처</th><th>제품</th><th>총 배합중량</th><th>공정</th><th>산출수량</th></tr></thead><tbody>
+        ${rs.map(r => `<tr><td>${dMD(r.date)} ${dow(r.date)}</td><td>${r.seq || ''}</td><td>${esc(r.client || '')}</td><td>${heatMark(r)} ${esc(r.product)}</td><td>${r.totalKg != null ? kg(r.totalKg) + 'kg' : '-'}</td>
+          <td><div class="pcs">${CPROCS().map(p => procChip(r, p.id)).join('')}</div></td><td>${recOf(r, 'pack') && recOf(r, 'pack').outCount != null ? fmt(recOf(r, 'pack').outCount) + 'ea' : '-'}</td></tr>`).join('')}</tbody></table></div>`
+        : `<div class="empty">${icon('list')}<b>기록이 없습니다</b></div>`}</section>`;
+  }
+  Object.assign(ACTS, {
+    cRecM: b => { CP().recMonth = b.dataset.m; paint(); },
+    cRecXlsx: async () => {
+      const m = CP().recMonth || (uniq(state.runs.map(r => r.date.slice(0, 7))).sort().reverse()[0]), rs = state.runs.filter(r => r.date.startsWith(m));
+      const wb = new ExcelJS.Workbook(), ws = wb.addWorksheet(`${+m.slice(5)}월 생산`);
+      const H = ['생산일자', '작업순서', '거래처', '제품', '가열', '포장규격', '생산량(kg)', '총 배합중량(kg)', '소비기한', '공정', '세척', '가열 85℃ 도달', '가열 종료', '가열 제품온도(℃)', '수분활성도(Aw)', '포장 시작', '포장 종료', '산출수량(ea)', '산출중량(kg)', '수율(%)', '금속검출 통과(ea)', '검출(ea)', '이탈', '비고'];
+      ws.addRow(H).font = { bold: true };
+      rs.forEach(r => { const h = recOf(r, 'heat') || {}, a = recOf(r, 'aw') || {}, k = recOf(r, 'pack') || {}, w = recOf(r, 'wash') || {};
+        ws.addRow([r.date, r.seq, r.client, r.product, r.heatFlag ? '가열' : '비가열', r.spec, r.planKg, r.totalKg, r.exp, (r.procs || []).map(p => PC(p).short).join('·'),
+          (w.rows || []).map(x => `${x.mat} ${x.kg}kg`).join(', '), h.reach85, h.heatE, h.heatProd, a.aw, k.packS, k.packE, k.outCount, k.outKg, k.yield, k.pass, k.detect,
+          CPROCS().flatMap(p => devOf(r, p.id)).join(' / '), r.note]); });
+      ws.columns.forEach((c, i) => { c.width = [11, 6, 16, 22, 7, 9, 10, 12, 11, 16, 24][i] || 12; });
+      await saveFile(`${BRAND.short}_생산기록_${m}.xlsx`, new Uint8Array(await wb.xlsx.writeBuffer()), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    },
+  });
+
+  // ===== 수정: 제품 · CCP 기준 · 금속검출 · 선택 목록 · 공정 · 일지 양식 — 모든 값은 각 칸의 수정 버튼으로 직접 입력 · 저장 =====
+  const CTABS = [['product', '제품'], ['limits', 'CCP 기준'], ['md', '금속검출'], ['lists', '선택 목록'], ['procs', '공정 · 가져오기'], ['tpl', '일지 양식']];
+  const listOf = k => ['clients', 'materials', 'workers'].includes(k) ? (state.config[k] || []) : OPT(k);
+  async function saveList(k, arr) { const C2 = clone(state.config); if (['clients', 'materials', 'workers'].includes(k)) C2[k] = arr; else C2.opts = Object.assign({}, C2.opts, { [k]: arr }); return saveConfig(C2); }
+  function ccpManage() {
+    const M = state.manage, C0 = state.config;
+    if (!CTABS.some(t => t[0] === M.tab)) M.tab = 'product';
+    const row = (main, sub, acts) => `<div class="mrow"><div class="tx"><b>${main}</b>${sub ? `<small>${sub}</small>` : ''}</div><div class="ma">${acts}</div></div>`;
+    const ed = (act, data) => `<button class="btn sm" data-act="${act}" ${data}>${icon('edit')}수정</button>`;
+    let body = '', add = '';
+    if (M.tab === 'product') {
+      add = `<button class="btn primary" data-act="cmAdd">${icon('plus')}제품 등록</button>`;
+      const R = RULE(), groups = [['review', '공정 확인 필요', p => p.review], ['heat', '가열제품 (■)', p => !p.review && p.type !== R.powderType && p.heat], ['raw', '비가열제품 (□)', p => !p.review && p.type !== R.powderType && !p.heat], ['pow', R.powderType, p => !p.review && p.type === R.powderType]];
+      body = groups.map(([g, t, f]) => { const list = C0.products.map((p, i) => [p, i]).filter(([p]) => f(p)); return list.length ? `<div class="mgrp ${g === 'review' ? 'warn' : ''}">${esc(t)} <small>${list.length}개</small></div>${list.map(([p, i]) => row(`${p.heat && p.type !== R.powderType ? '■' : '□'} ${esc(p.name)}`,
+        `${esc(p.type)} · 공정 ${p.procs.map(q => PC(q).short).join(' → ') || '없음'}${p.client ? ` · ${esc(p.client)}` : ''}${p.spec ? ` · ${esc(p.spec)}` : ''}${p.storage ? ` · ${esc(p.storage)}` : ''}${p.shelfMonths ? ` ${p.shelfMonths}개월` : ''} · 금속검출 ${esc(mdName(p.mdGroup))}${p.lim && Object.keys(p.lim).length ? ` · 제품별 기준 ${Object.keys(p.lim).length}개` : ''}`,
+        `<button class="btn sm" data-act="cmEdit" data-k="product" data-i="${i}">${icon('edit')}수정</button><button class="btn sm danger" data-act="cmDel" data-k="product" data-i="${i}">${icon('trash')}삭제</button>` + (p.review ? `<button class="btn sm primary" data-act="cmOk" data-i="${i}">${icon('check')}확인</button>` : ''))).join('')}` : ''; }).join('');
+    } else if (M.tab === 'limits') {
+      add = `<button class="btn" data-act="cmLimReset">${icon('reset')}기본값으로</button>`;
+      body = `<p class="fh" style="margin:0 0 8px">법 · 레시피가 바뀌면 각 기준의 '수정'으로 바꿉니다. 최소만 넣으면 '이상', 최대만 넣으면 '이하', 둘 다 넣으면 범위입니다. 꺼 둔 기준은 필요할 때 켜세요. 제품마다 다른 기준은 '제품 → 수정 → 제품별 기준'에서 정합니다.</p>` +
+        CPROCS().map(pr => `<div class="mgrp">${esc(pr.site)} · ${esc(pr.ccp)}</div>${C0.limits.filter(l => l.proc === pr.id).map(l => { const own = C0.products.filter(x => x.lim && x.lim[l.id]).length;
+          return row(`${esc(l.name)}${l.on ? '' : ' <span class="tag">사용 안 함</span>'}`, `${limText(l)}${own ? ` · 제품별 기준 ${own}개` : ''}`, ed('cmLim', `data-id="${l.id}"`)); }).join('')}`).join('');
+    } else if (M.tab === 'md') {
+      add = `<button class="btn primary" data-act="cmMdAdd">${icon('plus')}그룹 추가</button>`;
+      body = C0.mdGroups.map((g, i) => row(esc(g.name), `시편 Fe Ø ${g.fe}㎜ · SUS Ø ${g.sus}㎜ · 쓰는 제품 ${C0.products.filter(p => p.mdGroup === g.id).length}개`, ed('cmMd', `data-i="${i}"`) + `<button class="btn sm danger" data-act="cmMdDel" data-i="${i}">${icon('trash')}삭제</button>`)).join('');
+    } else if (M.tab === 'lists') {
+      body = `<p class="fh" style="margin:0 0 8px">입력 화면의 선택 단추 목록입니다. 이름을 누르면 바꾸고, ×로 지웁니다. 이미 저장된 기록은 그대로입니다.</p>` +
+        Object.keys(OPT_NAMES).map(k => { const arr = listOf(k); return `<div class="mgrp">${OPT_NAMES[k]} <small>${arr.length}개</small></div><div class="chips lst">${arr.map((v, i) => `<span class="chip lc"><button data-act="cmLsEd" data-k="${k}" data-i="${i}">${esc(v)}</button><button class="x" data-act="cmLsDel" data-k="${k}" data-i="${i}" aria-label="${esc(v)} 지우기">${icon('x')}</button></span>`).join('')}<button class="chip add" data-act="cmLsAdd" data-k="${k}">${icon('plus')}추가</button></div>`; }).join('');
+    } else if (M.tab === 'procs') {
+      const R = RULE(), pn = ids => ids.map(q => PC(q).short).join(' → ') || '없음';
+      body = `<p class="fh" style="margin:0 0 8px">공정 4가지는 일지 양식 4장과 짝입니다. 위치 이름 · CCP 번호가 바뀌면 여기서 고칩니다.</p>` +
+        CPROCS().map(pr => row(`${esc(pr.site)} · ${esc(pr.ccp)}`, `공정 이름 ${esc(pr.label)} · 짧은 이름 ${esc(pr.short)}`, ed('cmProc', `data-p="${pr.id}"`))).join('') +
+        `<div class="mgrp">계획표 가져오기 규칙 <small>새 제품을 자동 등록할 때</small></div>` +
+        row('■ 가열제품', `공정 ${pn(R.heat)}`, ed('cmRule', 'data-k="heat"')) + row('□ 비가열제품', `공정 ${pn(R.raw)}`, ed('cmRule', 'data-k="raw"')) +
+        row(`이름에 '${esc(R.powderWords)}'`, `구분 ${esc(R.powderType)} · 공정 ${pn(R.powder)}`, ed('cmRule', 'data-k="powder"')) + row('그 밖의 제품 구분', esc(R.defType), ed('cmRule', 'data-k="defType"'));
+    } else if (M.tab === 'tpl') {
+      body = `<div id="tpl-info"><div class="empty" style="padding:20px">${icon('doc')}<b>양식 정보를 불러오는 중…</b></div></div>`;
+      tplLoad().then(() => { const el = $('#tpl-info'); if (!el) return; const I0 = TPL_INFO || {};
+        el.innerHTML = row(I0.custom ? `회사가 올린 양식 · ${esc(I0.name || '')}` : '기본 양식 (보내주신 일일생산물품표 및 CCP모니터링일지양식)', I0.custom ? `${dKor((I0.at || '').slice(0, 10))} 올림` : '시트 4장: 포장실 · 배합실(가열) · 세척실 · 수분활성도', '') +
+          `<p class="fh">법이 바뀌어 양식을 고쳐야 하면: ① '현재 양식 받기' → ② 엑셀에서 글자 · 서식 고치기 → ③ '새 양식 올리기'. 값이 들어가는 칸의 위치(행 · 열)는 그대로 두어야 합니다. 칸 배치가 바뀌는 큰 개정은 개발자 확인이 필요합니다.</p>
+          <div class="chips"><button class="btn" data-act="cmTplGet">${icon('down')}현재 양식 받기</button><label class="btn primary file-btn">${icon('upload')}새 양식 올리기<input type="file" id="tpl-file" accept=".xlsx"></label>${I0.custom ? `<button class="btn danger" data-act="cmTplReset">${icon('reset')}기본 양식으로 되돌리기</button>` : ''}</div>`;
+        const f = $('#tpl-file'); if (f) f.onchange = e => { const x = e.target.files[0]; e.target.value = ''; if (x) tplUpload(x); }; });
+    }
+    $('#ph-right').innerHTML = add;
+    $('#page').innerHTML = `<section class="card"><p class="lead">${esc(BRAND.listNote)} 모든 기준 · 목록은 각 칸의 '수정'으로 직접 입력해 저장하며, 이미 저장된 기록은 바뀌지 않습니다.</p>
+      <div class="seg mtabs" style="margin-bottom:14px">${CTABS.map(([k, l]) => `<button data-act="cmTab" data-v="${k}" class="${M.tab === k ? 'on' : ''}">${l}</button>`).join('')}</div>
+      <div class="mlist">${body || `<div class="empty">${icon('list')}<b>항목이 없습니다</b></div>`}</div></section>`;
+  }
+  Object.assign(ACTS, {
+    cmTab: b => { state.manage.tab = b.dataset.v; paint(); },
+    cmAdd: () => openProductCcp(null),
+    cmEdit: b => openProductCcp(state.config.products[+b.dataset.i].name),
+    cmDel: b => { const i = +b.dataset.i, name = state.config.products[i].name;
+      ask(`'${name}' 을(를) 제품 목록에서 지울까요? 이미 저장된 기록에는 그대로 남습니다.`, '삭제', async () => { const C2 = clone(state.config); C2.products.splice(i, 1); if (await saveConfig(C2)) { toast('지웠습니다.'); paint(); } }, true); },
+    cmOk: async b => { const C2 = clone(state.config), p = C2.products[+b.dataset.i]; delete p.review; if (await saveConfig(C2)) { toast(`'${p.name}' 공정을 확인했습니다: ${p.procs.map(q => PC(q).short).join(' → ')}`); paint(); } },
+    cmLim: b => editLimitAll(b.dataset.id, () => { closePop(); paint(); }),
+    cmLimReset: () => ask('CCP 기준을 모두 처음 값(제조공정도 기준)으로 되돌릴까요? 제품별 기준은 그대로 둡니다.', '되돌리기', async () => { const C2 = clone(state.config); C2.limits = clone(LIMIT_DEFAULT); if (await saveConfig(C2)) { toast('기본값으로 되돌렸습니다.'); paint(); } }),
+    cmMd: b => editMd(+b.dataset.i), cmMdAdd: () => editMd(-1),
+    cmMdDel: b => { const i = +b.dataset.i, g = state.config.mdGroups[i], n = state.config.products.filter(p => p.mdGroup === g.id).length;
+      ask(`'${g.name}' 을(를) 지울까요?${n ? ` 이 그룹을 쓰는 제품 ${n}개는 '미정'이 됩니다.` : ''}`, '삭제', async () => { const C2 = clone(state.config); C2.mdGroups.splice(i, 1); C2.products.forEach(p => { if (p.mdGroup === g.id) p.mdGroup = ''; }); if (await saveConfig(C2)) { toast('지웠습니다.'); paint(); } }, true); },
+    cmLsAdd: b => { const k = b.dataset.k; openText(`${OPT_NAMES[k]} 추가`, '', async v => { v = (v || '').trim(); if (!v) return; const arr = listOf(k); if (arr.includes(v)) { toast('이미 있습니다.'); return; } if (await saveList(k, [...arr, v])) { toast('추가했습니다.'); paint(); } }); },
+    cmLsEd: b => { const k = b.dataset.k, i = +b.dataset.i, old = listOf(k)[i]; openText(`${OPT_NAMES[k]} 이름 바꾸기`, old, async v => { v = (v || '').trim(); if (!v || v === old) return; const arr = listOf(k).slice(); arr[i] = v; if (await saveList(k, arr)) { toast('바꿨습니다.'); paint(); } }); },
+    cmLsDel: b => { const k = b.dataset.k, i = +b.dataset.i, v = listOf(k)[i]; ask(`${OPT_NAMES[k]} '${v}' 을(를) 목록에서 지울까요? 이미 저장된 기록에는 그대로 남습니다.`, '삭제', async () => { const arr = listOf(k).slice(); arr.splice(i, 1); if (await saveList(k, arr)) { toast('지웠습니다.'); paint(); } }, true); },
+    cmProc: b => editProcName(b.dataset.p), cmRule: b => editRule(b.dataset.k),
+    cmTplGet: async () => { await tplLoad(); await saveFile(`${BRAND.short}_일지양식${TPL_INFO && TPL_INFO.custom ? '_회사' : '_기본'}.xlsx`, new Uint8Array(TPL), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); },
+    cmTplReset: () => ask('회사가 올린 양식을 지우고 기본 양식으로 되돌릴까요?', '되돌리기', async () => { if (await tplSave(null)) { toast('기본 양식으로 되돌렸습니다.'); paint(); } }),
+  });
+  function openProductCcp(name, after) {
+    const cur = name ? prodC(name) : null;
+    const p = cur ? clone(cur) : { name: '', type: '소스', heat: true, procs: ['heat', 'pack'], client: '', spec: '', storage: '', shelfMonths: null, box: '', mdGroup: '', filter: false };
+    const draw = () => {
+      openSheet(`<div class="cal-title" style="font-size:17px">${name ? '제품 수정' : '제품 등록'}</div>
+        <div class="tp-sec">제품명</div><input class="input" id="pn" value="${esc(p.name)}" placeholder="예: 막창소스" autocomplete="off">
+        <div class="tp-sec">구분</div><div class="chips">${OPT('types').map(t => `<button class="chip ${p.type === t ? 'on' : ''}" data-ty="${esc(t)}">${esc(t)}</button>`).join('')}</div>
+        ${p.type !== RULE().powderType ? `<div class="tp-sec">가열 여부 <small>계획표의 ■ · □</small></div><div class="chips"><button class="chip ${p.heat ? 'on' : ''}" data-ht="1">■ 가열제품 (가열살균)</button><button class="chip ${!p.heat ? 'on' : ''}" data-ht="0">□ 비가열제품 (비살균)</button></div>` : ''}
+        <div class="tp-sec">공정 <small>생산할 때 이 공정을 모두 입력해야 완료됩니다 · 세척 · 가열 기록이 있어야 포장 저장</small></div>
+        <div class="chips">${CPROCS().map(x => `<button class="chip ${p.procs.includes(x.id) ? 'on' : ''}" data-pp="${x.id}">${x.short} <small>${x.site} · ${x.ccp}</small></button>`).join('')}</div>
+        <div class="tp-sec">금속검출 그룹 <small>CCP-4P 시편 크기</small></div><div class="chips">${state.config.mdGroups.map(g => `<button class="chip ${p.mdGroup === g.id ? 'on' : ''}" data-md="${esc(g.id)}">${esc(g.name)} <small>Fe ${g.fe} · SUS ${g.sus}</small></button>`).join('')}<button class="chip ${!p.mdGroup ? 'on' : ''}" data-md="">미정</button></div>
+        <div class="grid2" style="margin-top:6px">
+          <div class="fld"><span class="fl">기본 거래처</span><button class="box" data-k="client"><span class="v ${p.client ? '' : 'ph'}" style="font-size:15px">${esc(p.client || '없음')}</span>${icon('chevD')}</button></div>
+          <div class="fld"><span class="fl">포장규격</span><button class="box" data-k="spec"><span class="v ${p.spec ? '' : 'ph'}" style="font-size:15px">${esc(p.spec || '예: 5kg')}</span>${icon('edit')}</button></div>
+          <div class="fld"><span class="fl">외포장재 (박스)</span><button class="box" data-k="box"><span class="v ${p.box ? '' : 'ph'}" style="font-size:15px">${esc(p.box || '예: 하비랑박스')}</span>${icon('edit')}</button></div>
+          <div class="fld"><span class="fl">소비기한</span><button class="box" data-k="shelf"><span class="v ${p.shelfMonths ? '' : 'ph'}">${p.shelfMonths ? `${p.shelfMonths}<small>개월</small>` : '개월'}</span>${icon('pad')}</button></div>
+        </div>
+        <div class="tp-sec">보관방법</div><div class="chips">${OPT('storage').map(v => `<button class="chip ${p.storage === v ? 'on' : ''}" data-st="${esc(v)}">${esc(v)}</button>`).join('')}</div>
+        <div class="tp-sec">제품별 기준 (레시피) <small>법 · 레시피가 바뀌면 여기서 · 전체 기준보다 먼저 적용</small></div>
+        ${name ? `<button class="btn sm" data-lim>${icon('edit')}이 제품 기준 보기 · 수정${Object.keys((prodC(name) || {}).lim || {}).length ? ` (따로 정한 기준 ${Object.keys(prodC(name).lim).length}개)` : ''}</button>` : '<p class="fh">제품을 먼저 저장하면 제품별 기준을 정할 수 있습니다.</p>'}
+        <div class="tp-sec">여과공정 (80mesh)</div><div class="chips"><button class="chip ${p.filter ? 'on' : ''}" data-fl="1">해당</button><button class="chip ${!p.filter ? 'on' : ''}" data-fl="0">해당 없음</button></div>
+        <div class="kp-f"><button class="btn" data-x2>취소</button><button class="btn primary" data-ok>${icon('check')}저장</button></div>`);
+      const S = $('#sheet-body'), pn = S.querySelector('#pn'), keep = () => { p.name = pn.value.trim(); };
+      const on = (sel, fn) => S.querySelectorAll(sel).forEach(x => x.onclick = () => { keep(); fn(x); draw(); });
+      on('[data-ty]', x => { p.type = x.dataset.ty; p.procs = defaultProcs(p.type, p.heat); });
+      on('[data-ht]', x => { p.heat = x.dataset.ht === '1'; p.procs = defaultProcs(p.type, p.heat).concat(p.procs.includes('wash') && p.heat ? ['wash'] : []).filter((v, i, a) => a.indexOf(v) === i); p.procs = CPROCS().map(q => q.id).filter(q => p.procs.includes(q)); });
+      on('[data-pp]', x => { const id = x.dataset.pp; p.procs = p.procs.includes(id) ? p.procs.filter(q => q !== id) : CPROCS().map(q => q.id).filter(q => q === id || p.procs.includes(q)); });
+      on('[data-md]', x => { p.mdGroup = x.dataset.md; });
+      on('[data-st]', x => { p.storage = p.storage === x.dataset.st ? '' : x.dataset.st; });
+      on('[data-fl]', x => { p.filter = x.dataset.fl === '1'; });
+      const K = k => S.querySelector(`[data-k="${k}"]`);
+      K('client').onclick = () => { keep(); openPick({ anchor: K('client'), label: '기본 거래처', items: state.config.clients, value: p.client, add: 'client', onOk: v => { p.client = v || ''; draw(); } }); };
+      K('spec').onclick = () => { keep(); openText('포장규격', p.spec || '', v => { p.spec = v; draw(); }, '예: 5kg'); };
+      K('box').onclick = () => { keep(); openText('외포장재 (박스)', p.box || '', v => { p.box = v; draw(); }, '예: 하비랑박스'); };
+      K('shelf').onclick = () => { keep(); openKeypad({ anchor: K('shelf'), label: '소비기한 (제조일로부터 개월)', unit: '개월', mode: 'int', value: p.shelfMonths, onOk: v => { p.shelfMonths = v; draw(); } }); };
+      const lb = S.querySelector('[data-lim]'); if (lb) lb.onclick = () => { keep(); openLimitSheet(null, name, draw); };
+      S.querySelector('[data-x2]').onclick = closePop;
+      S.querySelector('[data-ok]').onclick = () => {
+        keep(); if (!p.name) { toast('제품명을 입력해 주세요.', true); return; }
+        p.lim = (prodC(name) || {}).lim || p.lim;   // 제품별 기준은 따로 저장된 값 유지
+        if (!p.procs.length) { toast('공정을 하나 이상 골라 주세요.', true); return; }
+        confirmSave(name ? '제품 수정' : '제품 등록', [['제품명', esc(p.name)], ['구분', `${p.type}${p.type === '소스' ? (p.heat ? ' · ■ 가열' : ' · □ 비가열') : ''}`], ['공정', p.procs.map(q => `${PC(q).short}(${PC(q).site})`).join(' → ')], ['금속검출', mdName(p.mdGroup)], ['보관 · 소비기한', `${p.storage || '-'} · ${p.shelfMonths ? p.shelfMonths + '개월' : '-'}`]], async () => {
+          const C2 = clone(state.config), i = C2.products.findIndex(x => x.name === (name || p.name)); delete p.review;
+          if (i >= 0) C2.products[i] = p; else C2.products.push(p);
+          if (await saveConfig(C2)) { closePop(); toast(name ? '제품을 고쳤습니다. 이미 만든 생산 건의 공정은 그대로입니다.' : '제품을 등록했습니다.'); if (after) after(p); else paint(); }
+        });
+      };
+      if (!name) setTimeout(() => pn.focus(), 80);
+    };
+    setPopKeys(null); draw();
+  }
+  // CCP 모드 알림 (종 아이콘)
+  function ccpAlerts() {
+    const out = [], t = today();
+    state.runs.filter(r => r.date < t && r.date >= addDays(t, -30) && !runDone(r)).forEach(r => { const lack = (r.procs || []).filter(p => !recOf(r, p));
+      out.push({ id: `cm:${r.id}:${lack.join('')}`, lv: 'bad', title: `${dMD(r.date)} ${r.product} · 기록 빠짐`, sub: lack.map(p => PC(p).site).join(' · '), go: ['docs', { docDate: r.date, docTab: lack[0] }], date: r.date }); });
+    state.runs.forEach(r => CPROCS().forEach(p => { const d = devOf(r, p.id); if (d.length) out.push({ id: `cd:${r.id}:${p.id}`, lv: 'bad', title: `${dMD(r.date)} ${r.product} · ${p.site} 한계기준 이탈`, sub: d.join(' · '), go: ['site', { site: p.id, run: r.id }], date: r.date }); }));
+    const rv = state.config.products.filter(p => p.review);
+    if (rv.length) out.push({ id: `cr:${rv.map(p => p.name).join('|')}`, lv: 'wait', title: `공정 확인이 필요한 제품 ${rv.length}개`, sub: rv.slice(0, 4).map(p => p.name).join(', '), go: ['manage', { mtab: 'product' }], date: t });
+    return out.sort((x, y) => String(y.date).localeCompare(String(x.date)));
+  }
+  // 화면 이동 초기값 (go에서 부름)
+  function ccpGo(tab, init) {
+    init = init || {};
+    if (init.site) { CP().site = init.site; saveUi(); }
+    if (init.docDate) CP().docDate = init.docDate;
+    if (init.docTab) CP().docTab = init.docTab;
+    if (init.mtab) state.manage.tab = init.mtab;
+    if (tab === 'site' && init.run) { const r = runById(init.run); if (r) { CP().date = r.date; return initCcpForm(r, CP().site); } }
+    return null;
+  }
+  // 다른 기기에서 바뀌면: 입력 중이 아닌 양식은 새 기록으로
+  function ccpRefresh() { const F = state.form; if (F && F._type === 'ccp' && !F._dirty) { const r = runById(F.runId); state.form = r ? initCcpForm(r, F.proc) : null; } }
+  async function ccpWipe() { for (const r of [...state.runs]) await del('runs', r.id); }
+  // ---------- 기준 수정 (입력 화면 · 제품 · 수정 메뉴에서 같은 창) ----------
+  const limBar = (proc, prod) => { const ls = (state.config.limits || []).filter(l => l.proc === proc && l.on).map(l => limOf(l.id, prod));
+    return `<div class="limbar">${ls.map(l => `<span class="lim${l.own ? ' own' : ''}">${esc(l.name)} <b>${esc(limText(l))}</b>${l.own ? ' · 이 제품' : ''}</span>`).join('') || '<span class="lim">켜 둔 기준 없음</span>'}<button type="button" class="lnk" data-act="cLim" data-p="${proc}">${icon('edit')}기준 수정</button></div>`; };
+  ACTS.cLim = b => openLimitSheet(b.dataset.p, F_().prod, () => { closePop(); paint(); });
+  function openLimitSheet(proc, prodName, back) {
+    const draw = () => {
+      const ls = (state.config.limits || []).filter(l => !proc || l.proc === proc), own = id => ((prodC(prodName) || {}).lim || {})[id];
+      openSheet(`<div class="cal-title" style="font-size:17px">한계기준${proc ? ` · ${esc(PC(proc).site)}` : ''}${prodName ? ` <small>${esc(prodName)}</small>` : ''}</div>
+        <p class="fh">'전체 기준'은 모든 제품, '이 제품만'은 레시피별 기준입니다. 제품 기준이 있으면 그것이 먼저 적용됩니다.</p>
+        <div class="lim-list">${ls.map(l => `<div class="lim-r${l.on ? '' : ' off'}"><div class="tx"><b>${esc(l.name)}${l.on ? '' : ' <span class="tag">사용 안 함</span>'}</b><small>${proc ? '' : esc(PC(l.proc).site) + ' · '}전체 ${esc(limText(l))}${prodName && own(l.id) ? ` · <b class="hl">이 제품 ${esc(limText(limOf(l.id, prodName)))}</b>` : ''}</small></div>
+          <div class="ma"><button class="btn sm" data-le="${l.id}">${icon('edit')}전체 기준</button>${prodName ? `<button class="btn sm" data-lp="${l.id}">${icon('edit')}이 제품만</button>${own(l.id) ? `<button class="btn sm" data-lx="${l.id}">전체 기준 따름</button>` : ''}` : ''}</div></div>`).join('')}</div>
+        <div class="kp-f"><span class="sp"></span><button class="btn primary" data-x2>${icon('check')}닫기</button></div>`);
+      const S = $('#sheet-body');
+      S.querySelectorAll('[data-le]').forEach(x => x.onclick = () => editLimitAll(x.dataset.le, draw));
+      S.querySelectorAll('[data-lp]').forEach(x => x.onclick = () => editLimitProd(x.dataset.lp, prodName, draw));
+      S.querySelectorAll('[data-lx]').forEach(x => x.onclick = async () => { const C2 = clone(state.config), q = C2.products.find(y => y.name === prodName); if (q && q.lim) { delete q.lim[x.dataset.lx]; if (!Object.keys(q.lim).length) delete q.lim; } if (await saveConfig(C2)) { toast('전체 기준을 따릅니다.'); draw(); } });
+      S.querySelector('[data-x2]').onclick = () => (back ? back() : closePop());
+    };
+    setPopKeys(null); draw();
+  }
+  // 값 고르기 창 공통: 이름 · 단위(글자), 최소 · 최대(숫자, 비우면 없음)
+  const vbox = (k, label, v, ph, ic) => `<div class="fld"><span class="fl">${label}</span><button class="box" data-v="${k}"><span class="v ${v != null && v !== '' ? '' : 'ph'}" style="font-size:16px">${v != null && v !== '' ? esc(v) : ph}</span>${icon(ic)}</button></div>`;
+  function editLimitAll(id, back) {
+    const l = clone(state.config.limits.find(x => x.id === id));
+    const draw = () => {
+      openSheet(`<div class="cal-title" style="font-size:17px">${esc(l.name)} <small>${esc(PC(l.proc).site)} · 전체 기준</small></div>
+        <div class="grid2">${vbox('name', '기준 이름', l.name, '이름', 'edit')}${vbox('unit', '단위', l.unit, '예: ℃', 'edit')}${vbox('min', '최소 (이 값 이상)', l.min, '없음', 'pad')}${vbox('max', '최대 (이 값 이하)', l.max, '없음', 'pad')}</div>
+        <div class="tp-sec">사용</div><div class="chips"><button class="chip ${l.on ? 'on' : ''}" data-on="1">사용 — 벗어나면 이탈 표시 · 조치 필수</button><button class="chip ${l.on ? '' : 'on'}" data-on="0">사용 안 함</button></div>
+        <p class="fh">지금 기준: <b>${esc(limText(l))}</b></p>
+        <div class="kp-f"><button class="btn" data-def>${icon('reset')}처음 값</button><span class="sp"></span><button class="btn" data-x2>취소</button><button class="btn primary" data-ok>${icon('check')}저장</button></div>`);
+      const S = $('#sheet-body'), V = k => S.querySelector(`[data-v="${k}"]`);
+      V('name').onclick = () => openText('기준 이름', l.name, v => { if (v) l.name = v; draw(); });
+      V('unit').onclick = () => openText('단위', l.unit || '', v => { l.unit = v || ''; draw(); }, '예: ℃');
+      ['min', 'max'].forEach(k => V(k).onclick = () => openKeypad({ anchor: V(k), label: `${l.name} ${k === 'min' ? '최소' : '최대'} (비우면 없음)`, unit: l.unit, value: l[k], onOk: v => { l[k] = v; draw(); } }));
+      S.querySelectorAll('[data-on]').forEach(x => x.onclick = () => { l.on = x.dataset.on === '1'; draw(); });
+      S.querySelector('[data-def]').onclick = () => { const d = LIMIT_DEFAULT.find(x => x.id === id); if (d) Object.assign(l, clone(d)); draw(); };
+      S.querySelector('[data-x2]').onclick = () => back();
+      S.querySelector('[data-ok]').onclick = () => {
+        if (l.min != null && l.max != null && l.min > l.max) { toast('최소가 최대보다 큽니다.', true); return; }
+        confirmSave('기준 저장 · 전체 제품', [['기준', esc(l.name)], ['값', esc(limText(l))], ['사용', l.on ? '사용' : '사용 안 함']], async () => { const C2 = clone(state.config), i = C2.limits.findIndex(x => x.id === id); C2.limits[i] = l; if (await saveConfig(C2)) { toast('기준을 저장했습니다. 이미 저장된 기록의 이탈 표시도 새 기준으로 다시 봅니다.'); back(); } });
+      };
+    };
+    setPopKeys(null); draw();
+  }
+  function editLimitProd(id, prodName, back) {
+    const g = state.config.limits.find(x => x.id === id), cur = ((prodC(prodName) || {}).lim || {})[id], l = { min: cur ? cur.min : g.min, max: cur ? cur.max : g.max };
+    const draw = () => {
+      openSheet(`<div class="cal-title" style="font-size:17px">${esc(g.name)} <small>${esc(prodName)} · 이 제품만</small></div>
+        <p class="fh">전체 기준: ${esc(limText(g))}${g.on ? '' : ' (사용 안 함 — 이 제품 기준도 전체 기준을 켜야 적용)'}</p>
+        <div class="grid2">${vbox('min', '최소 (이 값 이상)', l.min, '없음', 'pad')}${vbox('max', '최대 (이 값 이하)', l.max, '없음', 'pad')}</div>
+        <p class="fh">이 제품 기준: <b>${esc(limText(Object.assign({}, g, l)))}</b></p>
+        <div class="kp-f"><span class="sp"></span><button class="btn" data-x2>취소</button><button class="btn primary" data-ok>${icon('check')}저장</button></div>`);
+      const S = $('#sheet-body'), V = k => S.querySelector(`[data-v="${k}"]`);
+      ['min', 'max'].forEach(k => V(k).onclick = () => openKeypad({ anchor: V(k), label: `${prodName} · ${g.name} ${k === 'min' ? '최소' : '최대'}`, unit: g.unit, value: l[k], onOk: v => { l[k] = v; draw(); } }));
+      S.querySelector('[data-x2]').onclick = () => back();
+      S.querySelector('[data-ok]').onclick = async () => {
+        if (l.min != null && l.max != null && l.min > l.max) { toast('최소가 최대보다 큽니다.', true); return; }
+        const C2 = clone(state.config), q = C2.products.find(y => y.name === prodName); if (!q) return;
+        q.lim = Object.assign({}, q.lim || {}, { [id]: { min: l.min, max: l.max } });
+        if (await saveConfig(C2)) { toast(`${prodName} 기준을 저장했습니다.`); back(); }
+      };
+    };
+    setPopKeys(null); draw();
+  }
+  function editMd(i) {
+    const g = i >= 0 ? clone(state.config.mdGroups[i]) : { id: 'G' + Date.now().toString(36), name: '', fe: null, sus: null };
+    const draw = () => {
+      openSheet(`<div class="cal-title" style="font-size:17px">${i >= 0 ? '금속검출 그룹 수정' : '금속검출 그룹 추가'}</div>
+        <div class="grid2">${vbox('name', '그룹 이름', g.name, '예: A그룹', 'edit')}<span></span>${vbox('fe', '시편 Fe Ø (㎜)', g.fe, '입력', 'pad')}${vbox('sus', '시편 SUS Ø (㎜)', g.sus, '입력', 'pad')}</div>
+        <p class="fh">이 크기는 포장실 일지의 시편 칸에 들어갑니다. 이 크기 이상 불검출이 기준입니다.</p>
+        <div class="kp-f"><span class="sp"></span><button class="btn" data-x2>취소</button><button class="btn primary" data-ok>${icon('check')}저장</button></div>`);
+      const S = $('#sheet-body'), V = k => S.querySelector(`[data-v="${k}"]`);
+      V('name').onclick = () => openText('그룹 이름', g.name, v => { g.name = v || ''; draw(); }, '예: A그룹');
+      ['fe', 'sus'].forEach(k => V(k).onclick = () => openKeypad({ anchor: V(k), label: `시편 ${k === 'fe' ? 'Fe' : 'SUS'} Ø (㎜)`, unit: '㎜', value: g[k], onOk: v => { g[k] = v; draw(); } }));
+      S.querySelector('[data-x2]').onclick = closePop;
+      S.querySelector('[data-ok]').onclick = async () => {
+        if (!g.name || g.fe == null || g.sus == null) { toast('이름 · Fe · SUS를 모두 넣어 주세요.', true); return; }
+        const C2 = clone(state.config); if (i >= 0) C2.mdGroups[i] = g; else C2.mdGroups.push(g);
+        if (await saveConfig(C2)) { closePop(); toast('저장했습니다.'); paint(); }
+      };
+    };
+    setPopKeys(null); draw();
+  }
+  function editProcName(pid) {
+    const cur = PC(pid), o = { site: cur.site, ccp: cur.ccp, label: cur.label, short: cur.short };
+    const draw = () => {
+      openSheet(`<div class="cal-title" style="font-size:17px">공정 이름 <small>${esc(PROC_BASE.find(p => p.id === pid).site)} 양식</small></div>
+        <div class="grid2">${vbox('site', '위치 이름', o.site, '예: 세척실', 'edit')}${vbox('ccp', 'CCP 번호', o.ccp, '예: CCP-2B', 'edit')}${vbox('label', '공정 이름', o.label, '예: 소독 · 헹굼', 'edit')}${vbox('short', '짧은 이름 (단추)', o.short, '예: 세척', 'edit')}</div>
+        <div class="kp-f"><button class="btn" data-def>${icon('reset')}처음 이름</button><span class="sp"></span><button class="btn" data-x2>취소</button><button class="btn primary" data-ok>${icon('check')}저장</button></div>`);
+      const S = $('#sheet-body');
+      S.querySelectorAll('[data-v]').forEach(x => x.onclick = () => { const k = x.dataset.v; openText(x.closest('.fld').querySelector('.fl').textContent, o[k] || '', v => { if (v) o[k] = v; draw(); }); });
+      S.querySelector('[data-def]').onclick = () => { const d = PROC_BASE.find(p => p.id === pid); Object.assign(o, { site: d.site, ccp: d.ccp, label: d.label, short: d.short }); draw(); };
+      S.querySelector('[data-x2]').onclick = closePop;
+      S.querySelector('[data-ok]').onclick = async () => { const C2 = clone(state.config); C2.procNames = Object.assign({}, C2.procNames, { [pid]: o }); if (await saveConfig(C2)) { closePop(); toast('공정 이름을 저장했습니다.'); paint(); } };
+    };
+    setPopKeys(null); draw();
+  }
+  function editRule(k) {
+    const R = clone(RULE());
+    const procPick = key => `<div class="chips">${CPROCS().map(x => `<button class="chip ${R[key].includes(x.id) ? 'on' : ''}" data-pp="${x.id}">${esc(x.short)} <small>${esc(x.site)}</small></button>`).join('')}</div>`;
+    const draw = () => {
+      openSheet(`<div class="cal-title" style="font-size:17px">계획표 가져오기 규칙</div>
+        ${k === 'heat' ? `<div class="tp-sec">■ 가열제품의 기본 공정</div>${procPick('heat')}` : k === 'raw' ? `<div class="tp-sec">□ 비가열제품의 기본 공정</div>${procPick('raw')}` : k === 'powder' ? `<div class="grid2">${vbox('powderWords', '이름에 이 단어가 있으면 (쉼표로 구분)', R.powderWords, '예: 분말, 시즈닝', 'edit')}<div class="fld"><span class="fl">제품 구분</span><div class="chips">${OPT('types').map(t => `<button class="chip ${R.powderType === t ? 'on' : ''}" data-ty="${esc(t)}">${esc(t)}</button>`).join('')}</div></div></div><div class="tp-sec">기본 공정</div>${procPick('powder')}`
+          : `<div class="tp-sec">그 밖의 제품 구분</div><div class="chips">${OPT('types').map(t => `<button class="chip ${R.defType === t ? 'on' : ''}" data-dt="${esc(t)}">${esc(t)}</button>`).join('')}</div>`}
+        <p class="fh">이미 등록된 제품의 공정은 바뀌지 않습니다. (제품마다 '수정'에서 바꿈)</p>
+        <div class="kp-f"><span class="sp"></span><button class="btn" data-x2>취소</button><button class="btn primary" data-ok>${icon('check')}저장</button></div>`);
+      const S = $('#sheet-body'), key = k === 'defType' ? null : k;
+      S.querySelectorAll('[data-pp]').forEach(x => x.onclick = () => { const id = x.dataset.pp; R[key] = R[key].includes(id) ? R[key].filter(q => q !== id) : PROC_BASE.map(q => q.id).filter(q => q === id || R[key].includes(q)); draw(); });
+      S.querySelectorAll('[data-ty]').forEach(x => x.onclick = () => { R.powderType = x.dataset.ty; draw(); });
+      S.querySelectorAll('[data-dt]').forEach(x => x.onclick = () => { R.defType = x.dataset.dt; draw(); });
+      const w = S.querySelector('[data-v="powderWords"]'); if (w) w.onclick = () => openText('분말 제품 단어', R.powderWords, v => { R.powderWords = v || ''; draw(); }, '예: 분말, 시즈닝, 가루');
+      S.querySelector('[data-x2]').onclick = closePop;
+      S.querySelector('[data-ok]').onclick = async () => { if (key && !R[key].length) { toast('공정을 하나 이상 골라 주세요.', true); return; } const C2 = clone(state.config); C2.importRules = R; if (await saveConfig(C2)) { closePop(); toast('규칙을 저장했습니다.'); paint(); } };
+    };
+    setPopKeys(null); draw();
+  }
+  // ---------- 일지 양식 바꾸기 ----------
+  async function tplSave(rec) {
+    if (store.mode === 'cloud') { if (!(await cloudTry(() => rec ? store.db.doc('config/template').set(rec) : store.db.doc('config/template').delete()))) return false; }
+    else { try { if (rec) localStorage.setItem(TPL_LS, JSON.stringify(rec)); else localStorage.removeItem(TPL_LS); } catch (e) { toast('이 기기의 저장 공간이 부족합니다.', true); return false; } }
+    TPL = null; TPL_INFO = null; return true;
+  }
+  async function shrinkImg(buf) { const bmp = await createImageBitmap(new Blob([buf])); const k = Math.min(1, 420 / Math.max(bmp.width, bmp.height)); const c = document.createElement('canvas'); c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k); c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height); return await (await new Promise(r => c.toBlob(r, 'image/png'))).arrayBuffer(); }
+  async function tplUpload(file) {
+    toast('양식을 확인하는 중입니다…');
+    const wb = new ExcelJS.Workbook();
+    try { await wb.xlsx.load(await file.arrayBuffer()); } catch (e) { toast('엑셀(.xlsx) 파일을 읽지 못했습니다.', true); return; }
+    const miss = Object.keys(FORMS_CCP).filter(p => !findSheet(wb, p));
+    if (miss.length) { toast(`양식에 ${miss.map(p => PC(p).site).join(' · ')} 시트가 없습니다. 시트 이름에 '세척실 · 배합실 · 수분활성도 · 포장실'이 들어가야 합니다.`, true); return; }
+    for (const m of (wb.media || [])) if (m.buffer && m.buffer.byteLength > 120000 && /png|jpe?g/i.test(m.extension || '')) { try { m.buffer = await shrinkImg(m.buffer); m.extension = 'png'; } catch (e) { } }   // 큰 로고는 줄여서 보관
+    const b64 = buf64(await wb.xlsx.writeBuffer());
+    if (store.mode === 'cloud' && b64.length > 240000) { toast('양식 파일이 너무 큽니다. 그림을 줄여 다시 올려 주세요.', true); return; }
+    ask(`'${file.name}'을(를) 일지 양식으로 쓸까요? 값이 들어가는 칸의 위치(행 · 열)가 지금 양식과 같아야 합니다. 올린 뒤 일지 미리보기로 꼭 확인하세요.`, '양식 바꾸기', async () => { if (await tplSave({ b64, name: file.name, at: new Date().toISOString() })) { toast('일지 양식을 바꿨습니다.'); paint(); } });
+  }
+  // ---------- 현황: 주간 생산계획표 (회사 계획표와 같은 모양) ----------
+  function planGrid(w) {
+    const days = [0, 1, 2, 3, 4, 5, 6].map(i => addDays(w, i)).filter((d, i) => i < 5 || runsOn(d).length);
+    const rows = Math.max(1, ...days.map(d => runsOn(d).length));
+    const cell = r => r ? `<button class="pg-c${runDone(r) ? ' ok' : ''}" data-act="cEditRun" data-id="${esc(r.id)}"><small>${esc(r.client || '')}</small><b>${heatMark(r)} ${esc(r.product)}</b><span>${[r.spec, r.planKg != null ? kg(r.planKg) + 'kg' : '', r.planCount != null ? fmt(r.planCount) + 'ea' : ''].filter(Boolean).map(esc).join(' · ')}</span><span class="pcs">${CPROCS().map(p => procChip(r, p.id)).join('')}</span></button>` : '';
+    return `<section class="card plan-dash"><div class="card-h"><h2>주간 생산계획표</h2><small>${dMD(w)} ~ ${dMD(addDays(w, 6))} · ■가열 □비가열</small><span class="sp"></span>
+        <button class="icon-btn" data-act="cHomeWeek" data-n="-7" aria-label="지난주">${icon('chevL')}</button>${w !== mondayOf(today()) ? '<button class="btn sm" data-act="cHomeWeek" data-n="0">이번 주</button>' : ''}<button class="icon-btn" data-act="cHomeWeek" data-n="7" aria-label="다음주">${icon('chevR')}</button>
+        <button class="btn sm" data-act="cGoPlan">${icon('upload')}계획표 올리기 · 고치기</button></div>
+      <div class="pg-wrap"><table class="pgrid"><thead><tr><th>생산일자</th>${days.map(d => `<th class="${d === today() ? 'today' : ''}${d === CP().date ? ' sel' : ''}"><button data-act="cHomeDay" data-d="${d}">${dow(d)} <b>${+d.slice(5, 7)}/${+d.slice(8, 10)}</b></button></th>`).join('')}</tr></thead>
+        <tbody>${Array.from({ length: rows }, (_, i) => `<tr><th>${i + 1}</th>${days.map(d => `<td class="${d === today() ? 'today' : ''}">${cell(runsOn(d)[i])}</td>`).join('')}</tr>`).join('')}
+        <tr class="tot"><th>총생산량</th>${days.map(d => { const t = runsOn(d).reduce((s0, r) => s0 + (r.planKg || 0), 0); return `<td>${t ? kg(t) + 'kg' : '-'}</td>`; }).join('')}</tr></tbody></table></div></section>`;
+  }
+  Object.assign(ACTS, {
+    cHomeWeek: b => { const n = +b.dataset.n; CP().homeWeek = n ? addDays(CP().homeWeek || mondayOf(CP().date), n) : mondayOf(today()); paint(); },
+    cHomeDay: b => { CP().date = b.dataset.d; paint(); },
+  });
 
   // ================= 기록 =================
   function pageRecs() {
@@ -2530,6 +3687,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   // 세척·포장 대기 지연, 수율 이상(최근 평균과 차이), 원료 소비기한, 원료육 연결 누락
   const LS_SEEN = BRAND.id + '-seen-v1';
   function computeAlerts() {
+    if (CCP) return ccpAlerts();
     const t = today(), W = CALC().washWarn, P = CALC().packWarn, out = [];
     for (const l of state.lots) {
       const st = statusOf(l), soak = l.soakDate || addDays(l.outDate, 1);
@@ -2666,26 +3824,34 @@ https://github.com/nodeca/pako/blob/main/LICENSE
         <div class="set-row"><div class="tx"><b>로그아웃</b><small>다른 사람이 쓰기 전에 로그아웃하세요</small></div><button class="btn danger" id="s-logout">${icon('logout')}로그아웃</button></div>
         <div class="set-sec">화면 테마 <small style="font-weight:400;color:var(--muted)">이 기기에만 적용</small></div>
         <div class="seg">${[['light', '밝게'], ['dark', '어둡게'], ['auto', '기기 설정 따름']].map(([v, l]) => `<button type="button" data-th="${v}" class="${(state.ui.theme || 'light') === v ? 'on' : ''}">${l}</button>`).join('')}</div>
-        <div class="set-sec">계산 기준</div>
+        ${CCP ? `<div class="set-sec">CCP 기준 · 선택 목록</div>
+        <div class="set-row"><div class="tx"><b>한계기준 · 금속검출 그룹 · 선택 목록 · 공정 이름 · 일지 양식</b><small>메뉴 '수정'에서 각 칸의 수정 버튼으로 직접 입력해 저장합니다. 법 · 레시피가 바뀌어도 회사에서 바로 고칠 수 있습니다.</small></div><button class="btn" id="s-ccp">${icon('sliders')}수정 메뉴로</button></div>` : `<div class="set-sec">계산 기준</div>
         ${segRow('세척 수율', '세척 후 무게 ÷ 출고중량', 'washBasis', [['wash', '세척중량 기준'], ['use', '실사용중량 기준']])}
         ${segRow('포장 수율 — 위쪽 (나누는 값)', '회사 작업일지는 잔량·폐기까지 더합니다', 'packFormula', [['withRest', '포장중량 + 잔량 + 폐기'], ['packOnly', '포장중량만']])}
         ${segRow('포장 수율 — 아래쪽 (기준 무게)', '연결한 원료육의 어떤 무게로 나눌지', 'packBase', [['use', '실사용중량'], ['wash', '세척중량']])}
         <div class="set-sec">확인 알림 기준 <small style="font-weight:400;color:var(--muted)">같은 공정명·제품의 최근 평균과 이만큼 차이 나면 알림</small></div>
         ${numRow('세척 수율', '입력 화면 경고와 종 알림에 쓰입니다', 'washWarn')}
-        ${numRow('포장 수율', '종 알림에 쓰입니다', 'packWarn')}
+        ${numRow('포장 수율', '종 알림에 쓰입니다', 'packWarn')}`}
+        <div class="set-sec">데이터 백업 · 옮기기 <small style="font-weight:400;color:var(--muted)">NAS · 다른 주소로 옮기거나 보관할 때</small></div>
+        <div class="set-row"><div class="tx"><b>백업 파일 받기</b><small>모든 설정(제품 · 기준 · 목록${CCP ? ' · 일지 양식' : ''})과 기록을 파일 하나(.json)로 받습니다.</small></div><button class="btn" id="s-backup">${icon('down')}백업 받기</button></div>
+        <div class="set-row"><div class="tx"><b>백업 불러오기</b><small>받아 둔 백업 파일로 지금 설정과 기록을 바꿉니다. 새 기기 · 새 주소에서 그대로 이어서 쓸 수 있습니다.</small></div><label class="btn file-btn">${icon('upload')}불러오기<input type="file" id="s-restore" accept=".json,application/json"></label></div>
         <div class="set-sec" style="color:var(--bad)">기록 초기화</div>
-        <div class="set-row"><div class="tx"><b>전체 기록 지우기</b><small>원료육 출고 · 세척 · 포장 기록 ${state.lots.length + state.packs.length}건을 모두 지웁니다. 제품 · 원료육 목록과 설정은 남습니다. ${store.mode === 'cloud' ? '모든 기기에서 지워집니다.' : '이 기기(브라우저)에 저장된 기록만 지워집니다.'}</small></div>
-          <button class="btn danger" id="s-wipe" ${state.lots.length + state.packs.length ? '' : 'disabled'}>${icon('trash')}전체 기록 지우기</button></div>
+        <div class="set-row"><div class="tx"><b>전체 기록 지우기</b><small>${CCP ? `생산 기록 ${state.runs.length}건(생산계획 · 현장 입력)` : `원료육 출고 · 세척 · 포장 기록 ${state.lots.length + state.packs.length}건`}을 모두 지웁니다. ${CCP ? '제품' : '제품 · 원료육'} 목록과 설정은 남습니다. ${store.mode === 'cloud' ? '모든 기기에서 지워집니다.' : '이 기기(브라우저)에 저장된 기록만 지워집니다.'}</small></div>
+          <button class="btn danger" id="s-wipe" ${(CCP ? state.runs.length : state.lots.length + state.packs.length) ? '' : 'disabled'}>${icon('trash')}전체 기록 지우기</button></div>
         <div class="foot"><button class="btn" id="s-cancel">닫기</button><button class="btn primary" id="s-save">${icon('check')}저장</button></div>`);
       const M = $('#modal-body');
       M.querySelectorAll('[data-cs]').forEach(b => b.onclick = () => { C.calc[b.dataset.cs] = b.dataset.v; draw(); });
+      M.querySelectorAll('[data-cl]').forEach(b => b.onclick = () => { const k = b.dataset.cl; openKeypad({ anchor: b, label: b.closest('.set-row').querySelector('b').textContent, unit: b.dataset.u, value: C.limits[k], onOk: v => { if (v != null && v > 0) C.limits[k] = v; draw(); } }); });
       M.querySelectorAll('[data-cn]').forEach(b => b.onclick = () => { const k = b.dataset.cn; openKeypad({ anchor: b, label: `${k === 'washWarn' ? '세척' : '포장'} 수율 확인 알림 기준 (±%p)`, unit: '%p', value: C.calc[k], onOk: v => { if (v != null && v > 0) C.calc[k] = v; draw(); } }); });
       M.querySelectorAll('[data-th]').forEach(b => b.onclick = () => { state.ui.theme = b.dataset.th; saveLS(LS_UI, state.ui); applyTheme(); draw(); });
       M.querySelectorAll('[data-sid]').forEach(b => b.onclick = () => { const a = authLS(); a.saveId = b.dataset.sid === '1'; a.id = a.saveId ? AUTH.id : ''; saveAuth(a); draw(); });
       M.querySelector('#s-logout').onclick = () => { closeModal(); logout(); };
+      M.querySelector('#s-backup').onclick = () => backupData();
+      M.querySelector('#s-restore').onchange = e => { const f = e.target.files[0]; e.target.value = ''; if (f) restoreData(f); };
+      const sc = M.querySelector('#s-ccp'); if (sc) sc.onclick = () => { closeModal(); go('manage', { mtab: 'limits' }); };
       M.querySelector('#s-wipe').onclick = () => {
-        const n = state.lots.length + state.packs.length;
-        ask(`원료육 ${state.lots.length}건 · 포장 ${state.packs.length}건, 모두 ${n}건의 기록을 지울까요? 되돌릴 수 없습니다. 필요하면 먼저 '기록' 메뉴에서 엑셀로 받아 두세요.`, '다음', () => {
+        const n = CCP ? state.runs.length : state.lots.length + state.packs.length;
+        ask(`${CCP ? `생산 기록 ${n}건` : `원료육 ${state.lots.length}건 · 포장 ${state.packs.length}건, 모두 ${n}건`}의 기록을 지울까요? 되돌릴 수 없습니다. 필요하면 먼저 '기록' 메뉴에서 엑셀로 받아 두세요.`, '다음', () => {
           ask(`정말 ${n}건을 모두 지울까요? 마지막 확인입니다.`, '모두 지우기', async () => { closeModal(); await wipeAll(); }, true);
         }, true);
       };
@@ -2701,6 +3867,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       });
       $('#s-cancel').onclick = closeModal;
       $('#s-save').onclick = () => {
+        if (CCP) { closeModal(); return; }   // 테마 · 로그인은 바로 저장됨
         const L = { wash: '세척중량 기준', use: '실사용중량 기준', withRest: '포장중량 + 잔량 + 폐기', packOnly: '포장중량만' };
         confirmSave('설정 저장', [['세척 수율', L[C.calc.washBasis]], ['포장 수율 위쪽', L[C.calc.packFormula]], ['포장 수율 아래쪽', C.calc.packBase === 'use' ? '실사용중량' : '세척중량'],
           ['세척 수율 알림', `±${C.calc.washWarn}%p`], ['포장 수율 알림', `±${C.calc.packWarn}%p`]], async () => {
@@ -2749,7 +3916,27 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   window.addEventListener('beforeunload', e => { if (state.form && state.form._dirty) { e.preventDefault(); e.returnValue = ''; } });
 
   // ---------- 시작 ----------
+  // ---------- 데이터 백업 · 불러오기 (NAS 등으로 옮길 때) ----------
+  async function backupData() {
+    const o = { app: BRAND.id, kind: `${BRAND.short} 생산 작업 기록 백업`, ver: 1, at: new Date().toISOString(), config: state.config, lots: state.lots, packs: state.packs, runs: state.runs, template: CCP ? await tplRecord() : null };
+    await saveFile(`${BRAND.short}_생산작업기록_백업_${today()}.json`, JSON.stringify(o), 'application/json');
+  }
+  async function restoreData(file) {
+    let o; try { o = JSON.parse(await file.text()); } catch (e) { toast('백업 파일을 읽지 못했습니다.', true); return; }
+    if (!o || o.app !== BRAND.id || !o.config) { toast(`${BRAND.short} 백업 파일이 아닙니다.`, true); return; }
+    const n = (o.lots || []).length + (o.packs || []).length + (o.runs || []).length;
+    ask(`${(o.at || '').slice(0, 10)}에 받은 백업(기록 ${n}건 · 제품 ${(o.config.products || []).length}개)으로 지금 설정과 기록을 모두 바꿀까요? 지금 이 기기의 데이터는 사라집니다.`, '불러오기', async () => {
+      closeModal(); toast('불러오는 중입니다…');
+      if (!(await saveConfig(o.config))) return;
+      if (store.mode === 'cloud') {
+        for (const c of COLS) { for (const x of [...state[c]]) await del(c, x.id); for (const x of (o[c] || [])) await put(c, x); }
+      } else { COLS.forEach(c => { store[c] = new Map((o[c] || []).map(x => [x.id, x])); }); sync(); saveLocal(); }
+      if (CCP) await tplSave(o.template && o.template.b64 ? o.template : null);
+      state.form = null; toast(`백업을 불러왔습니다. 기록 ${n}건.`); go('home', { force: true });
+    }, true);
+  }
   async function wipeAll() {
+    if (CCP) { if (store.mode === 'cloud') await ccpWipe(); else { store.runs = new Map(); sync(); saveLocal(); changed(); } saveLS(LS_SEEN, []); state.form = null; toast('전체 기록을 지웠습니다.'); go('home', { force: true }); return; }
     if (store.mode === 'cloud') {
       for (const p of [...state.packs]) if (!(await del('packs', p.id))) return;
       for (const l of [...state.lots]) if (!(await del('lots', l.id))) return;
@@ -2923,7 +4110,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   function startApp() {
     shell(); renderSync();
     if (!started) { started = true; loadLocal(); initCloud(); }
-    if (['out', 'wash', 'pack'].includes(state.tab) && !(state.form && state.form._init)) state.form = ({ out: initOutT, wash: initWashT, pack: initPackT })[state.tab]({});
+    if (!CCP && ['out', 'wash', 'pack'].includes(state.tab) && !(state.form && state.form._init)) state.form = ({ out: initOutT, wash: initWashT, pack: initPackT })[state.tab]({});
     renderNav();
     try { paint(); } catch (e) { console.warn(e); state.tab = 'home'; state.form = null; renderNav(); paint(); }
   }
@@ -2932,7 +4119,7 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     applyTheme();
     if (sessionStorage.getItem(SS_SESSION) === 'ok') startApp(); else showLogin();
   }
-  window.KFW = { state, store, docData, addSample, go, paint, setF };   // 점검용
+  window.KFW = { state, store, docData, addSample, go, paint, setF, ...(CCP ? { parsePlanFile, buildCcpBook, devOf, procState, put } : {}) };   // 점검용
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
 
